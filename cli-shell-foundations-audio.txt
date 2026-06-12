@@ -1,0 +1,25 @@
+Welkom bij deze leersessie. Vandaag leren we over de CLI, oftewel de Command Line Interface, en de basisprincipes van de Shell.
+
+Wat is de CLI eigenlijk? De Command Line Interface is een tekstgebaseerde manier om met je computer te communiceren. In plaats van te klikken met een muis, typ je commando's die de computer direct uitvoert. Dit klinkt misschien ouderwets, maar voor een developer is het een onmisbaar gereedschap.
+
+Laten we beginnen met een belangrijk onderscheid: de Terminal en de Shell zijn niet hetzelfde. De Terminal, zoals Terminal.app op macOS, is alleen het venster. Het is een scherm dat tekst toont en jouw toetsaanslagen opneemt. De Shell is het programma dat daarbinnen draait en jouw commando's echt begrijpt en uitvoert. Op macOS is de standaard shell Zsh, geschreven als Z-S-H. Op Linux servers zie je vaak Bash.
+
+Wanneer je de terminal opent, zie je de prompt. Dat is de tekstregel die er uitziet als: greg apenstaartje macbook tilde percent. Die tilde staat voor jouw home-directory, en het percent-teken geeft aan dat Zsh klaar is voor input.
+
+Nu de meest gebruikte commando's. Als eerste: P-W-D, wat staat voor Print Working Directory. Dit vertelt je in welke map je je bevindt. Typ het in, druk op Enter, en je ziet het volledige pad naar je huidige locatie.
+
+Dan L-S, wat staat voor List. Dit toont de inhoud van je huidige map. Met de flag min-l-a zie je alle details: bestandsrechten, grootte, aanmaakdatum, én verborgen bestanden die beginnen met een punt.
+
+C-D staat voor Change Directory. Je gebruikt het om te navigeren: cd tilde schuine streep Documents brengt je naar je Documents-map. Cd gevolgd door twee puntjes gaat één niveau omhoog.
+
+Voor het aanmaken van mappen gebruik je mkdir, wat staat voor Make Directory. Met de flag min-p maak je ook alle tussenliggende mappen tegelijk aan. Dit gebruik je bijvoorbeeld voor een Maven-projectstructuur: mkdir min-p src schuine streep main schuine streep java.
+
+Met touch maak je een leeg bestand aan. touch App.java maakt het bestand aan als het nog niet bestaat.
+
+Voor kopiëren gebruik je C-P, voor verplaatsen of hernoemen M-V. En dan is er rm, wat staat voor Remove. Wees hier voorzichtig mee. rm verwijdert bestanden permanent, zonder prullenbak. rm min-r-f verwijdert een hele map met alles erin. Controleer altijd wat je verwijdert voordat je op Enter drukt.
+
+Waarom is dit als Java developer zo belangrijk? Alles wat je later leert gebruikt de CLI. Git werkt via de terminal met commando's zoals git commit en git push. Maven bouw je met mvn package. Docker bedien je met docker run. Spring Boot start je met java min-jar. Als je de CLI kent, begrijp je ook waarom deze tools werken zoals ze werken.
+
+Een veelgemaakte fout bij beginners is verwarring tussen absolute en relatieve paden. Een absoluut pad begint altijd met een schuine streep, zoals schuine streep Users schuine streep greg. Een relatief pad is relatief aan je huidige locatie. Controleer altijd met pwd waar je bent voordat je commando's uitvoert.
+
+Dat was CLI en Shell Foundations. De terminal is je gereedschapskist als developer — hoe vaker je hem gebruikt, hoe vanzelfsprekender hij wordt. Veel succes met oefenen, en tot de volgende sessie!
