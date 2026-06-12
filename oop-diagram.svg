@@ -1,6 +1,6 @@
 <svg viewBox="0 0 820 560" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
   <rect width="820" height="560" fill="white"/>
-  <!-- v5 -->
+  <!-- v6 -->
 
   <!-- Connectors -->
   <line x1="410" y1="230" x2="200" y2="175" stroke="#6366f1" stroke-width="2" opacity="0.5"/>
