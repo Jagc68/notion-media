@@ -1,0 +1,33 @@
+Welkom bij deze leersessie. Vandaag leren we over Object-Georiënteerd Programmeren, ook wel OOP genaamd.
+
+Object-Georiënteerd Programmeren is een manier van code schrijven waarbij je alles organiseert rond objecten. Een object is een klein pakketje dat zowel data bevat — dus wat iets is — als gedrag, dus wat iets doet. In Java is bijna alles een object.
+
+Waarom is dit zo belangrijk voor jou als Java developer? Zonder OOP schrijf je grote lappen code die moeilijk te begrijpen, hergebruiken en onderhouden zijn. Met OOP modelleer je de echte wereld. Een bankrekening weet zijn eigen saldo en kan zichzelf afschrijven. Dat maakt code leesbaar, herbruikbaar en makkelijker aan te passen. Spring Boot, het framework dat je later in je leerpad tegenkomt, is volledig gebouwd op OOP-principes.
+
+Er zijn vijf kernconcepten die je moet kennen.
+
+Het eerste concept is de klasse en het object. Een klasse is het blauwdruk, een object is het echte exemplaar. Auto is de klasse, mijnAuto — rood, bouwjaar 2020 — is het object.
+
+Het tweede concept is encapsulatie. Dit betekent dat je data afschermt met het woord private, en alleen toegang geeft via zogenaamde getters en setters. Zo bescherm je de integriteit van je data en voorkom je dat iemand zomaar een negatief saldo kan instellen.
+
+Het derde concept is overerving, in het Engels inheritance. Een klasse kan eigenschappen en methoden overnemen van een andere klasse, met het sleutelwoord extends. Een spaarrekening is een bankrekening, maar dan met rente. Dat is overerving in de praktijk.
+
+Het vierde concept is polymorfisme. Hetzelfde aanroepen, ander gedrag. Een Dier-klasse heeft een methode geluid, maar een Hond en een Kat implementeren die elk anders. Je code werkt met Dier zonder te weten welk specifiek dier het is.
+
+Het vijfde concept is abstractie. Verberg de complexiteit, toon alleen wat nodig is. Je hoeft niet te weten hoe de add-methode van een ArrayList intern werkt — je gebruikt gewoon de methode.
+
+Laten we kijken naar een praktisch voorbeeld. We maken een klasse BankRekening. De velden eigenaar en saldo zijn private — niemand buiten de klasse kan ze direct aanpassen. We hebben een constructor die de rekening aanmaakt met een naam en een beginsaldo. Via de methode stortGeld kun je geld toevoegen, maar alleen als het bedrag positief is. Via neemGeldOp kun je geld opnemen, maar alleen als er genoeg saldo is. De klasse controleert dit zelf — dat is encapsulatie in actie.
+
+Er zijn drie veelgemaakte fouten die je wil vermijden.
+
+De eerste fout: alles public maken. Beginners zetten alle velden op public zodat ze overal bij kunnen. Dat doorbreekt encapsulatie. Elk stukje code kan dan je saldo direct op min duizend zetten. Gebruik altijd private voor velden.
+
+De tweede fout: overerving overgebruiken. Beginners zien het extends-sleutelwoord en maken diepe ketens van klassen. In de praktijk gaat compositie — heeft een — boven overerving — is een — wanneer het kan.
+
+De derde fout: de constructor vergeten. Als je geen constructor schrijft, maakt Java een lege aan. Velden worden dan niet geïnitialiseerd en je krijgt null-waarden. Schrijf altijd een expliciete constructor.
+
+Je kent al de basis van Java: variabelen, methoden en loops. OOP is de volgende laag. In plaats van losse methoden en variabelen, groepeer je ze in klassen. Als je later Spring Boot leert, zijn alle services en controllers klassen met OOP-principes. Design Patterns zoals Singleton en Factory zijn ook pure OOP — je hebt OOP nodig om die te begrijpen.
+
+Wat volgt na OOP? Kijk dan naar interfaces en abstracte klassen, om te leren hoe je polymorfisme verder verfijnt. Daarna zijn de SOLID-principes interessant: vijf regels voor goede OOP-code. En uiteindelijk leiden die naar Design Patterns — herbruikbare oplossingen die volledig op OOP zijn gebouwd.
+
+Dat was Object-Georiënteerd Programmeren. Veel succes met oefenen, en tot de volgende sessie!
