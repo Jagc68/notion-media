@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Training A — Maandag 16 juni</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; padding: 16px; max-width: 480px; margin: 0 auto; }
+  .header { padding: 20px 0 16px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; background: #1e3a5f; color: #60a5fa; margin-bottom: 8px; letter-spacing: 0.05em; text-transform: uppercase; }
+  h1 { font-size: 22px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .meta { font-size: 13px; color: #64748b; }
+  .divider { height: 1px; background: #1e293b; margin: 16px 0; }
+  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #475569; margin-bottom: 10px; }
+  .warmup { background: #1e293b; border-radius: 12px; padding: 12px 16px; font-size: 14px; color: #94a3b8; line-height: 1.8; }
+  .exercise { display: flex; align-items: center; gap: 12px; background: #1e293b; border-radius: 12px; padding: 14px 16px; margin-bottom: 8px; }
+  .exercise.done { background: #0f2818; }
+  .checkbox { width: 28px; height: 28px; border: 2px solid #334155; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; }
+  .exercise.done .checkbox { background: #22c55e; border-color: #22c55e; }
+  .checkbox-icon { display: none; font-size: 16px; }
+  .exercise.done .checkbox-icon { display: block; }
+  .ex-info { flex: 1; }
+  .ex-name { font-size: 15px; font-weight: 600; color: #f1f5f9; }
+  .exercise.done .ex-name { color: #4ade80; }
+  .ex-detail { font-size: 12px; color: #64748b; margin-top: 2px; }
+  .ex-badges { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: #0f172a; color: #94a3b8; }
+  .badge.kb { color: #f59e0b; }
+  .progress-wrap { margin: 16px 0 4px; }
+  .progress-bg { height: 6px; background: #1e293b; border-radius: 3px; }
+  .progress-fill { height: 6px; background: #22c55e; border-radius: 3px; width: 0%; transition: width 0.3s; }
+  .progress-text { font-size: 12px; color: #475569; text-align: center; margin-top: 6px; }
+  .timer-section { background: #1e293b; border-radius: 16px; padding: 20px; margin: 16px 0; text-align: center; }
+  .timer-display { font-size: 56px; font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace; color: #f1f5f9; letter-spacing: -2px; margin-bottom: 16px; }
+  .timer-display.running { color: #22c55e; }
+  .timer-display.done-t { color: #f59e0b; }
+  .timer-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .t-btn { padding: 10px 0; border: 1.5px solid #334155; border-radius: 10px; background: #0f172a; color: #94a3b8; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .t-btn.active { border-color: #22c55e; color: #22c55e; }
+  .t-btn.stop { border-color: #ef4444; color: #ef4444; }
+  .tip { background: #1e293b; border-left: 3px solid #3b82f6; border-radius: 0 10px 10px 0; padding: 12px 14px; font-size: 13px; color: #94a3b8; margin: 16px 0; }
+  .cooldown { background: #1e293b; border-radius: 12px; padding: 12px 16px; font-size: 14px; color: #94a3b8; line-height: 1.8; }
+  .log-btn { width: 100%; margin-top: 20px; padding: 16px; background: #22c55e; color: #0f172a; font-size: 16px; font-weight: 700; border: none; border-radius: 14px; cursor: pointer; }
+  .log-btn:active { opacity: 0.8; }
+  .next { text-align: center; font-size: 13px; color: #475569; margin-top: 16px; padding-bottom: 32px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Maandag 16 juni</div>
+  <h1>Training A — Kracht</h1>
+  <p class="meta">⏱ 75 min &nbsp;·&nbsp; 🏠 Thuis &nbsp;·&nbsp; 8 / 12 / 16 kg</p>
+</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Warming-up — 10 min</p>
+<div class="warmup">
+  Armcirkels · heupscharnieren · bodyweight squat ×10 · halos 8kg ×5 per kant · deadbug ×8
+</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Hoofdtraining — 55 min</p>
+
+<div class="exercise" id="ex0" onclick="toggleEx(0)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">Kettlebell Swing</div>
+    <div class="ex-badges">
+      <span class="badge">4 sets</span>
+      <span class="badge">15 reps</span>
+      <span class="badge kb">16 kg</span>
+      <span class="badge">60s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex1" onclick="toggleEx(1)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">Goblet Squat</div>
+    <div class="ex-badges">
+      <span class="badge">3 sets</span>
+      <span class="badge">12 reps</span>
+      <span class="badge kb">16 kg</span>
+      <span class="badge">60s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex2" onclick="toggleEx(2)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">Single-arm Press</div>
+    <div class="ex-detail">per kant</div>
+    <div class="ex-badges">
+      <span class="badge">3 sets</span>
+      <span class="badge">8 reps</span>
+      <span class="badge kb">12 kg</span>
+      <span class="badge">60s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex3" onclick="toggleEx(3)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">Bent-over Row</div>
+    <div class="ex-detail">per kant</div>
+    <div class="ex-badges">
+      <span class="badge">3 sets</span>
+      <span class="badge">10 reps</span>
+      <span class="badge kb">16 kg</span>
+      <span class="badge">60s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex4" onclick="toggleEx(4)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">Deadlift (2-hands)</div>
+    <div class="ex-badges">
+      <span class="badge">3 sets</span>
+      <span class="badge">10 reps</span>
+      <span class="badge kb">16 kg</span>
+      <span class="badge">60s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex5" onclick="toggleEx(5)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">Turkish Get-Up</div>
+    <div class="ex-detail">per kant</div>
+    <div class="ex-badges">
+      <span class="badge">2 sets</span>
+      <span class="badge">3 reps</span>
+      <span class="badge kb">8 kg</span>
+      <span class="badge">90s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bg"><div class="progress-fill" id="progress"></div></div>
+  <p class="progress-text" id="progress-text">0 van 6 klaar</p>
+</div>
+
+<div class="tip">💡 16kg te zwaar voor swing? Begin met 12kg. Techniek gaat altijd voor gewicht.</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Rusttimer</p>
+<div class="timer-section">
+  <div class="timer-display" id="timer">1:00</div>
+  <div class="timer-btns">
+    <button class="t-btn" id="btn60" onclick="startTimer(60)">60s</button>
+    <button class="t-btn" id="btn90" onclick="startTimer(90)">90s</button>
+    <button class="t-btn stop" onclick="resetTimer()">Reset</button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Cool-down — 10 min</p>
+<div class="cooldown">
+  Heupflexor stretch · hamstring stretch · thoracale rotatie · diepe ademhaling ×10
+</div>
+
+<button class="log-btn" onclick="logDone()">✓ Training afgerond!</button>
+<p class="next">Volgende training: dinsdag — Hometrainer intervals</p>
+
+<script>
+let done = 0;
+const total = 6;
+function toggleEx(i) {
+  const el = document.getElementById('ex' + i);
+  const wasDone = el.classList.contains('done');
+  el.classList.toggle('done');
+  done = document.querySelectorAll('.exercise.done').length;
+  document.getElementById('progress').style.width = (done/total*100) + '%';
+  document.getElementById('progress-text').textContent = done + ' van ' + total + ' klaar';
+}
+
+let interval = null, remaining = 60, running = false;
+function startTimer(s) {
+  clearInterval(interval);
+  remaining = s;
+  running = true;
+  updateDisplay();
+  document.getElementById('timer').className = 'timer-display running';
+  document.getElementById('btn60').className = s===60 ? 't-btn active' : 't-btn';
+  document.getElementById('btn90').className = s===90 ? 't-btn active' : 't-btn';
+  interval = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(interval);
+      running = false;
+      document.getElementById('timer').textContent = 'GO!';
+      document.getElementById('timer').className = 'timer-display done-t';
+      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    } else {
+      updateDisplay();
+    }
+  }, 1000);
+}
+function resetTimer() {
+  clearInterval(interval);
+  running = false;
+  remaining = 60;
+  document.getElementById('timer').className = 'timer-display';
+  document.getElementById('btn60').className = 't-btn';
+  document.getElementById('btn90').className = 't-btn';
+  updateDisplay();
+}
+function updateDisplay() {
+  const m = Math.floor(remaining/60), s = remaining % 60;
+  document.getElementById('timer').textContent = m + ':' + String(s).padStart(2, '0');
+}
+function logDone() {
+  document.querySelector('.log-btn').textContent = '💪 Goed gedaan! Training gelogd.';
+  document.querySelector('.log-btn').style.background = '#3b82f6';
+}
+</script>
+</body>
+</html>
