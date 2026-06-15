@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Training Hub — Greg</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; padding: 16px; max-width: 480px; margin: 0 auto; }
+  .header { padding: 24px 0 20px; }
+  .greeting { font-size: 13px; color: #475569; margin-bottom: 6px; }
+  h1 { font-size: 26px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #64748b; }
+  .divider { height: 1px; background: #1e293b; margin: 20px 0; }
+  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #475569; margin-bottom: 12px; }
+
+  /* Week indicator */
+  .week-strip { display: flex; gap: 6px; margin-bottom: 20px; }
+  .day-pill { flex: 1; text-align: center; padding: 8px 0; border-radius: 10px; background: #1e293b; }
+  .day-pill .day { font-size: 10px; color: #475569; font-weight: 600; text-transform: uppercase; }
+  .day-pill .type { font-size: 16px; margin: 4px 0 2px; }
+  .day-pill.train { background: #1e293b; }
+  .day-pill.rest { background: #0f172a; border: 1px solid #1e293b; }
+  .day-pill.today { border: 2px solid #60a5fa; }
+  .day-pill .day-label { font-size: 9px; color: #334155; margin-top: 2px; }
+
+  /* Training cards */
+  .card { display: block; text-decoration: none; background: #1e293b; border-radius: 16px; padding: 18px; margin-bottom: 12px; border: 1.5px solid transparent; transition: border-color 0.15s; }
+  .card:active { border-color: #334155; }
+  .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .card-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .tag-a { background: #1e3a5f; color: #60a5fa; }
+  .tag-b { background: #2d1b00; color: #f59e0b; }
+  .tag-c { background: #0f2818; color: #22c55e; }
+  .card-arrow { font-size: 18px; color: #334155; }
+  .card-title { font-size: 18px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .card-sub { font-size: 13px; color: #64748b; margin-bottom: 12px; }
+  .card-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 6px; background: #0f172a; color: #64748b; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 0; }
+  .stat { background: #1e293b; border-radius: 12px; padding: 14px 12px; text-align: center; }
+  .stat-val { font-size: 20px; font-weight: 700; color: #f1f5f9; }
+  .stat-label { font-size: 11px; color: #475569; margin-top: 3px; }
+
+  .footer { text-align: center; font-size: 12px; color: #334155; padding: 24px 0 32px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <p class="greeting" id="greeting">Goedemorgen</p>
+  <h1>💪 Training Hub</h1>
+  <p class="subtitle">12 Weken KB Recomp · Greg Cijntje</p>
+</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Deze week</p>
+<div class="week-strip">
+  <div class="day-pill train" id="day-ma">
+    <div class="day">Ma</div>
+    <div class="type">💪</div>
+    <div class="day-label">Kracht</div>
+  </div>
+  <div class="day-pill train" id="day-di">
+    <div class="day">Di</div>
+    <div class="type">🔥</div>
+    <div class="day-label">Circuit</div>
+  </div>
+  <div class="day-pill rest" id="day-wo">
+    <div class="day">Wo</div>
+    <div class="type">🚶</div>
+    <div class="day-label">Herstel</div>
+  </div>
+  <div class="day-pill train" id="day-do">
+    <div class="day">Do</div>
+    <div class="type">💪</div>
+    <div class="day-label">Kracht</div>
+  </div>
+  <div class="day-pill train" id="day-vr">
+    <div class="day">Vr</div>
+    <div class="type">🔥</div>
+    <div class="day-label">Circuit</div>
+  </div>
+  <div class="day-pill train" id="day-za">
+    <div class="day">Za</div>
+    <div class="type">🚴</div>
+    <div class="day-label">Cardio</div>
+  </div>
+  <div class="day-pill rest" id="day-zo">
+    <div class="day">Zo</div>
+    <div class="type">😴</div>
+    <div class="day-label">Rust</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Trainingen</p>
+
+<a class="card" href="training-maandag.html">
+  <div class="card-top">
+    <span class="card-tag tag-a">Training A · Ma &amp; Do</span>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-title">Kettlebell Kracht</div>
+  <div class="card-sub">75 min · Compound oefeningen · Swing, squat, press, row, TGU</div>
+  <div class="card-pills">
+    <span class="pill">8 kg</span>
+    <span class="pill">12 kg</span>
+    <span class="pill">16 kg</span>
+    <span class="pill">6 oefeningen</span>
+    <span class="pill">Rusttimer</span>
+  </div>
+</a>
+
+<a class="card" href="training-dinsdag.html">
+  <div class="card-top">
+    <span class="card-tag tag-b">Training B · Di &amp; Vr</span>
+    <span class="card-arrow">›</span>
+  </div>
+  <div class="card-title">Circuit + Cardio</div>
+  <div class="card-sub">75 min · 3 rondes · 40s werk / 20s rust + hometrainer</div>
+  <div class="card-pills">
+    <span class="pill">12 kg</span>
+    <span class="pill">16 kg</span>
+    <span class="pill">Springtouw</span>
+    <span class="pill">3 rondes</span>
+    <span class="pill">Werktimer</span>
+  </div>
+</a>
+
+<div class="divider"></div>
+
+<p class="section-label">Voortgang</p>
+<div class="stats">
+  <div class="stat">
+    <div class="stat-val">102</div>
+    <div class="stat-label">Start kg</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">95</div>
+    <div class="stat-label">Doel kg</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val" id="week-nr">W1</div>
+    <div class="stat-label">van 12</div>
+  </div>
+</div>
+
+<p class="footer">Gestart: 15 juni 2026 · Einde: 7 september 2026</p>
+
+<script>
+  // Greeting
+  const h = new Date().getHours();
+  const greet = h < 12 ? 'Goedemorgen' : h < 18 ? 'Goedemiddag' : 'Goedenavond';
+  document.getElementById('greeting').textContent = greet + ', Greg 👋';
+
+  // Highlight today
+  const days = ['zo','ma','di','wo','do','vr','za'];
+  const today = days[new Date().getDay()];
+  const el = document.getElementById('day-' + today);
+  if (el) el.classList.add('today');
+
+  // Week number since start
+  const start = new Date('2026-06-15');
+  const now = new Date();
+  const week = Math.min(12, Math.max(1, Math.ceil((now - start) / (7 * 86400000))));
+  document.getElementById('week-nr').textContent = 'W' + week;
+</script>
+</body>
+</html>
