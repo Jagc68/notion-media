@@ -1,0 +1,15 @@
+Welkom bij deze leersessie. Vandaag leren we over het verschil tussen Gemini, Claude en ChatGPT.
+
+Dit zijn de drie grote AI-assistenten van dit moment. Ze komen van drie verschillende bedrijven: Gemini is van Google, Claude is van Anthropic, en ChatGPT is van OpenAI. Op het oog doen ze hetzelfde: ze beantwoorden vragen, schrijven teksten en helpen je bij code. Maar er zijn belangrijke verschillen die bepalen wanneer je welke tool het beste kunt gebruiken.
+
+Laten we beginnen met Gemini. Gemini is de AI van Google en dat merk je direct. Het is diep geïntegreerd in het Google-ecosysteem: Gmail, Google Docs, Drive, YouTube en Google Search. Als je veel met Google Workspace werkt, is Gemini je natuurlijke keuze. Gemini heeft ook het grootste context window van de drie, namelijk ongeveer één miljoen tokens. Dat betekent dat je een heel boek kunt uploaden en Gemini het in één keer kan verwerken. Daarnaast is Gemini sterk in multimodale input: je kunt niet alleen tekst sturen, maar ook afbeeldingen, audio en video. Voor het bouwen van autonome AI-agents heeft Google het platform Antigravity 2.0 uitgebracht.
+
+Dan Claude, van Anthropic. Claude is de tool die je nu gebruikt via Cowork. Anthropic heeft Claude gebouwd met een sterke focus op veiligheid en betrouwbaarheid. Claude volgt instructies heel precies op en is sterk in redeneren over complexe vraagstukken. Ook het analyseren van lange documenten gaat goed. Het context window van Claude is kleiner dan Gemini — ongeveer tweehonderdduizend tokens — maar dat is voor de meeste taken ruim voldoende. Voor developers heeft Anthropic Claude Code als agent platform, en Cowork voor niet-technische gebruikers.
+
+En dan ChatGPT van OpenAI. ChatGPT was de pionier die de wereld kennis liet maken met AI-assistenten. Het heeft de grootste gebruikersbasis en het breedste ecosysteem van plugins en custom GPTs. ChatGPT is breed inzetbaar en heeft ook beeldgeneratie ingebouwd via DALL-E. Het context window is het kleinst van de drie, maar voor dagelijks gebruik is dat zelden een probleem. Het agent platform heet GPTs en de Assistants API.
+
+Welke kies je wanneer? Gebruik Gemini als je werkt met Google Workspace of grote hoeveelheden data wilt verwerken. Gebruik Claude als je precieze, betrouwbare uitvoering van instructies nodig hebt, of complexe documenten wilt analyseren. Gebruik ChatGPT als je brede ondersteuning zoekt of gebruik wilt maken van het grote plugin-ecosysteem.
+
+De grootste fout die beginners maken, is denken dat ze allemaal hetzelfde zijn. Power users wisselen bewust tussen de drie tools op basis van de taak. En vergeet ook niet: de gratis versies zijn significant minder krachtig dan de betaalde. De drie betaalde versies kosten allemaal ongeveer twintig dollar per maand.
+
+Dat was het verschil tussen Gemini, Claude en ChatGPT. Veel succes met oefenen, en tot de volgende sessie!
