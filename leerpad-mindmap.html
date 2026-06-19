@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Java Developer Leerpad — Mindmap</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; overflow: hidden; width: 100vw; height: 100vh; }
+  svg { width: 100%; height: 100%; cursor: grab; }
+  svg:active { cursor: grabbing; }
+
+  .link { fill: none; stroke-opacity: 0.5; stroke-width: 2; }
+  .link-phase { stroke-width: 3; stroke-opacity: 0.7; }
+
+  .node { cursor: pointer; }
+  .node circle { transition: r 0.2s ease, filter 0.2s ease; }
+  .node:hover circle { filter: brightness(1.3); }
+  .node text { pointer-events: none; font-weight: 600; }
+
+  .label-center { font-size: 15px; font-weight: 800; fill: #fff; text-anchor: middle; }
+  .label-phase { font-size: 12px; font-weight: 700; text-anchor: middle; }
+  .label-course { font-size: 11px; font-weight: 600; text-anchor: middle; fill: #fff; }
+
+  .legend { position: fixed; bottom: 20px; left: 20px; background: rgba(15,23,42,0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; backdrop-filter: blur(8px); }
+  .legend-title { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .legend-label { font-size: 12px; color: #cbd5e1; }
+
+  .hint { position: fixed; bottom: 20px; right: 20px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 12px; font-size: 11px; color: #64748b; }
+
+  .title-badge { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(15,23,42,0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 8px 20px; font-size: 14px; font-weight: 700; color: #f1f5f9; backdrop-filter: blur(8px); white-space: nowrap; }
+
+  .tooltip { position: fixed; background: rgba(15,23,42,0.95); color: #f1f5f9; padding: 10px 14px; border-radius: 10px; font-size: 12px; pointer-events: none; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.4); display: none; z-index: 100; max-width: 200px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="title-badge">🎓 Java Developer Leerpad — 7 Fasen</div>
+
+<svg id="mindmap">
+  <g id="zoom-layer">
+    <g id="links"></g>
+    <g id="nodes"></g>
+  </g>
+</svg>
+
+<div class="legend">
+  <div class="legend-title">Fases</div>
+  <div id="legend-items"></div>
+</div>
+
+<div class="hint">Scroll om te zoomen · Sleep om te bewegen</div>
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const PHASES = [
+  { id: 1, label: "Fase 1",  name: "Fundament",  color: "#3b82f6", bg: "#1e3a5f" },
+  { id: 2, label: "Fase 2",  name: "Java Kern",  color: "#8b5cf6", bg: "#2e1f5e" },
+  { id: 3, label: "Fase 3",  name: "Web & API",  color: "#06b6d4", bg: "#083344" },
+  { id: 4, label: "Fase 4",  name: "Kwaliteit",  color: "#10b981", bg: "#052e1c" },
+  { id: 5, label: "Fase 5",  name: "Frontend",   color: "#f97316", bg: "#431407" },
+  { id: 6, label: "Fase 6",  name: "DevOps",     color: "#6366f1", bg: "#1e1b4b" },
+  { id: 7, label: "Fase 7",  name: "Advanced",   color: "#ec4899", bg: "#500724" },
+];
+
+const COURSES = [
+  { phase: 0, name: "CLI & Shell" },
+  { phase: 0, name: "Homebrew" },
+  { phase: 0, name: "GitHub" },
+  { phase: 0, name: "Scrum" },
+
+  { phase: 1, name: "Java" },
+  { phase: 1, name: "OOP" },
+  { phase: 1, name: "Maven" },
+  { phase: 1, name: "Advanced Java" },
+  { phase: 1, name: "Algorithms" },
+
+  { phase: 2, name: "HTTP & REST" },
+  { phase: 2, name: "Spring Boot" },
+  { phase: 2, name: "SQL" },
+  { phase: 2, name: "Bruno" },
+
+  { phase: 3, name: "Java Testing" },
+  { phase: 3, name: "Design Patterns" },
+  { phase: 3, name: "Security" },
+
+  { phase: 4, name: "TypeScript" },
+  { phase: 4, name: "Angular" },
+
+  { phase: 5, name: "Linux" },
+  { phase: 5, name: "Docker" },
+  { phase: 5, name: "CI/CD" },
+  { phase: 5, name: "Kubernetes" },
+
+  { phase: 6, name: "NoSQL" },
+  { phase: 6, name: "Cloud" },
+  { phase: 6, name: "Claude AI" },
+  { phase: 6, name: "Google Gemini" },
+];
+
+// Layout constants
+const W = window.innerWidth;
+const H = window.innerHeight;
+const CX = W / 2;
+const CY = H / 2;
+const PHASE_R = Math.min(W, H) * 0.28;   // radius for phase nodes
+const COURSE_R = Math.min(W, H) * 0.46;  // radius for course nodes
+
+// Calculate phase angles (evenly spaced, starting from -80°)
+const startAngle = -80 * Math.PI / 180;
+const angleStep = (2 * Math.PI) / PHASES.length;
+
+function phaseAngle(i) { return startAngle + i * angleStep; }
+function toXY(angle, r) {
+  return { x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle) };
+}
+
+// Compute positions
+const phasePositions = PHASES.map((p, i) => {
+  const angle = phaseAngle(i);
+  const pos = toXY(angle, PHASE_R);
+  return { ...p, angle, ...pos };
+});
+
+// For each course, place it in a fan around its phase
+const coursePositions = (() => {
+  const result = [];
+  for (let pi = 0; pi < PHASES.length; pi++) {
+    const grouped = COURSES.filter(c => c.phase === pi);
+    const phAngle = phaseAngle(pi);
+    const count = grouped.length;
+    const spread = count <= 2 ? 0.3 : count <= 4 ? 0.55 : 0.7;
+    grouped.forEach((c, ci) => {
+      const offset = count === 1 ? 0 : (ci / (count - 1) - 0.5) * 2 * spread;
+      const angle = phAngle + offset;
+      const pos = toXY(angle, COURSE_R);
+      result.push({ ...c, angle, phaseIndex: pi, ...pos });
+    });
+  }
+  return result;
+})();
+
+// Render legend
+const legendEl = document.getElementById('legend-items');
+PHASES.forEach(p => {
+  legendEl.innerHTML += `<div class="legend-item">
+    <div class="legend-dot" style="background:${p.color}"></div>
+    <div class="legend-label">${p.label} — ${p.name}</div>
+  </div>`;
+});
+
+// SVG helpers
+const svg = document.getElementById('mindmap');
+const zoomLayer = document.getElementById('zoom-layer');
+const linksG = document.getElementById('links');
+const nodesG = document.getElementById('nodes');
+
+function svgEl(tag, attrs = {}) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+  return el;
+}
+
+function cubicPath(x1, y1, x2, y2) {
+  const mx = (x1 + x2) / 2;
+  const my = (y1 + y2) / 2;
+  // Pull midpoint toward center for a nice curve
+  const cx1 = x1 + (CX - x1) * 0.3;
+  const cy1 = y1 + (CY - y1) * 0.3;
+  const cx2 = x2 + (CX - x2) * 0.3;
+  const cy2 = y2 + (CY - y2) * 0.3;
+  return `M${x1},${y1} C${cx1},${cy1} ${cx2},${cy2} ${x2},${y2}`;
+}
+
+// Draw center node
+const centerCircle = svgEl('circle', { cx: CX, cy: CY, r: 54, fill: '#1e293b', stroke: '#475569', 'stroke-width': 3 });
+nodesG.appendChild(centerCircle);
+const centerGlow = svgEl('circle', { cx: CX, cy: CY, r: 54, fill: 'none', stroke: '#6366f1', 'stroke-width': 1.5, opacity: 0.5 });
+nodesG.appendChild(centerGlow);
+
+function addCenterText(text, dy, size, color) {
+  const t = svgEl('text', { x: CX, y: CY, dy, 'text-anchor': 'middle', 'font-size': size, 'font-weight': '800', fill: color, 'font-family': '-apple-system,sans-serif' });
+  t.textContent = text;
+  nodesG.appendChild(t);
+}
+addCenterText('☕', '-18', '22px', '#f1f5f9');
+addCenterText('Java', '6', '14px', '#f1f5f9');
+addCenterText('Developer', '22', '14px', '#f1f5f9');
+addCenterText('Leerpad', '38', '12px', '#94a3b8');
+
+// Draw phase nodes
+phasePositions.forEach((p, i) => {
+  // Link: center → phase
+  const link = svgEl('path', {
+    d: cubicPath(CX, CY, p.x, p.y),
+    fill: 'none',
+    stroke: p.color,
+    'stroke-width': 3,
+    'stroke-opacity': 0.6,
+    'stroke-linecap': 'round'
+  });
+  linksG.appendChild(link);
+
+  // Phase circle
+  const g = svgEl('g', { class: 'node', 'data-phase': i });
+  const circle = svgEl('circle', { cx: p.x, cy: p.y, r: 38, fill: p.bg, stroke: p.color, 'stroke-width': 2.5 });
+  g.appendChild(circle);
+
+  // Phase label
+  const t1 = svgEl('text', { x: p.x, y: p.y - 6, class: 'label-phase', fill: p.color, 'font-family': '-apple-system,sans-serif', 'font-size': '11', 'font-weight': '700', 'text-anchor': 'middle' });
+  t1.textContent = p.label;
+  g.appendChild(t1);
+  const t2 = svgEl('text', { x: p.x, y: p.y + 10, class: 'label-phase', fill: '#f1f5f9', 'font-family': '-apple-system,sans-serif', 'font-size': '11', 'font-weight': '600', 'text-anchor': 'middle' });
+  t2.textContent = p.name;
+  g.appendChild(t2);
+
+  nodesG.appendChild(g);
+});
+
+// Draw course nodes
+coursePositions.forEach(c => {
+  const ph = phasePositions[c.phaseIndex];
+
+  // Link: phase → course
+  const link = svgEl('path', {
+    d: `M${ph.x},${ph.y} L${c.x},${c.y}`,
+    fill: 'none',
+    stroke: ph.color,
+    'stroke-width': 1.5,
+    'stroke-opacity': 0.45,
+    'stroke-linecap': 'round',
+    'stroke-dasharray': '4 3'
+  });
+  linksG.appendChild(link);
+
+  // Course circle
+  const g = svgEl('g', { class: 'node', 'data-course': c.name });
+  const circle = svgEl('circle', { cx: c.x, cy: c.y, r: 26, fill: '#1e293b', stroke: ph.color, 'stroke-width': 1.8 });
+  g.appendChild(circle);
+
+  // Course text (split if long)
+  const words = c.name.split(' ');
+  if (words.length === 1 || c.name.length <= 8) {
+    const t = svgEl('text', { x: c.x, y: c.y + 4, 'text-anchor': 'middle', 'font-size': '10', 'font-weight': '700', fill: '#f1f5f9', 'font-family': '-apple-system,sans-serif' });
+    t.textContent = c.name;
+    g.appendChild(t);
+  } else {
+    const mid = Math.ceil(words.length / 2);
+    const line1 = words.slice(0, mid).join(' ');
+    const line2 = words.slice(mid).join(' ');
+    [line1, line2].forEach((line, li) => {
+      const t = svgEl('text', { x: c.x, y: c.y + (li === 0 ? -4 : 9), 'text-anchor': 'middle', 'font-size': '9.5', 'font-weight': '700', fill: '#f1f5f9', 'font-family': '-apple-system,sans-serif' });
+      t.textContent = line;
+      g.appendChild(t);
+    });
+  }
+
+  nodesG.appendChild(g);
+});
+
+// ── Pan & Zoom ──
+let scale = 1, panX = 0, panY = 0;
+let dragging = false, dragStart = null, panStart = null;
+
+function applyTransform() {
+  zoomLayer.setAttribute('transform', `translate(${panX},${panY}) scale(${scale})`);
+}
+
+svg.addEventListener('wheel', e => {
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? 0.9 : 1.1;
+  const rect = svg.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  panX = mx - delta * (mx - panX);
+  panY = my - delta * (my - panY);
+  scale = Math.max(0.3, Math.min(3, scale * delta));
+  applyTransform();
+}, { passive: false });
+
+svg.addEventListener('mousedown', e => {
+  dragging = true;
+  dragStart = { x: e.clientX, y: e.clientY };
+  panStart = { x: panX, y: panY };
+});
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  panX = panStart.x + (e.clientX - dragStart.x);
+  panY = panStart.y + (e.clientY - dragStart.y);
+  applyTransform();
+});
+window.addEventListener('mouseup', () => { dragging = false; });
+
+// Touch support
+let lastTouch = null;
+svg.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    dragging = true;
+    dragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    panStart = { x: panX, y: panY };
+  }
+}, { passive: true });
+svg.addEventListener('touchmove', e => {
+  if (dragging && e.touches.length === 1) {
+    panX = panStart.x + (e.touches[0].clientX - dragStart.x);
+    panY = panStart.y + (e.touches[0].clientY - dragStart.y);
+    applyTransform();
+  }
+}, { passive: true });
+svg.addEventListener('touchend', () => { dragging = false; });
+
+// ── Tooltip ──
+const tooltip = document.getElementById('tooltip');
+const courseCount = PHASES.map((_, i) => COURSES.filter(c => c.phase === i).length);
+const courseDetails = {
+  "CLI & Shell": "Terminal, bash-commando's, scripting",
+  "Homebrew": "Package manager voor macOS",
+  "GitHub": "Git, branches, pull requests",
+  "Scrum": "Agile, sprints, ceremonies",
+  "Java": "Syntaxis, types, collections",
+  "OOP": "Classes, interfaces, SOLID, UML",
+  "Maven": "Build tool, dependencies, POM",
+  "Advanced Java": "Concurrency, generics, JVM",
+  "Algorithms": "Big O, sorting, data structures",
+  "HTTP & REST": "Statuscodes, headers, REST API design",
+  "Spring Boot": "DI, controllers, services, JPA",
+  "SQL": "Queries, joins, transacties",
+  "Bruno": "API-testing, assertions",
+  "Java Testing": "JUnit 5, Mockito, TDD",
+  "Design Patterns": "Singleton, Factory, Strategy, Observer",
+  "Security": "JWT, OAuth, OWASP Top 10",
+  "TypeScript": "Types, interfaces, generics",
+  "Angular": "Components, services, routing",
+  "Linux": "Shell, processen, permissions",
+  "Docker": "Containers, images, Dockerfile, Compose",
+  "CI/CD": "GitHub Actions, pipelines, deployments",
+  "Kubernetes": "Pods, services, deployments, scaling",
+  "NoSQL": "MongoDB, Redis, document stores",
+  "Cloud": "AWS, GCP, Azure, IaC",
+  "Claude AI": "LLMs, prompting, agent SDK",
+  "Google Gemini": "Gems, Deep Research, multimodal, Workspace",
+};
+
+nodesG.querySelectorAll('.node').forEach(g => {
+  g.addEventListener('mouseenter', e => {
+    const pi = g.getAttribute('data-phase');
+    const course = g.getAttribute('data-course');
+    let content = '';
+    if (pi !== null) {
+      const p = PHASES[parseInt(pi)];
+      content = `<strong>${p.label} — ${p.name}</strong><br>${courseCount[parseInt(pi)]} cursussen`;
+    } else if (course) {
+      content = `<strong>${course}</strong><br><span style="color:#94a3b8">${courseDetails[course] || ''}</span>`;
+    }
+    if (content) {
+      tooltip.innerHTML = content;
+      tooltip.style.display = 'block';
+    }
+  });
+  g.addEventListener('mousemove', e => {
+    tooltip.style.left = (e.clientX + 14) + 'px';
+    tooltip.style.top = (e.clientY - 10) + 'px';
+  });
+  g.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+});
+
+// Resize
+window.addEventListener('resize', () => location.reload());
+</script>
+</body>
+</html>
