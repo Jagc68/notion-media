@@ -1,0 +1,27 @@
+Welkom bij deze leersessie. Vandaag leren we over Introduction to Java.
+
+Java is een objectgeoriënteerde programmeertaal die in 1995 is ontwikkeld door Sun Microsystems. Het bekendste principe van Java is "Write Once, Run Anywhere" — wat betekent dat je Java-code één keer schrijft, en dat die op elk apparaat kan draaien, of het nu Windows, Mac of Linux is.
+
+Maar hoe werkt dat precies? Dat heeft alles te maken met de manier waarop Java-code wordt uitgevoerd.
+
+Wanneer jij een Java-programma schrijft, sla je dat op als een bestand met de extensie punt java. Daarna gebruik je de compiler, die heet javac, om dat bestand om te zetten naar iets dat een dot class bestand wordt genoemd. Dat dot class bestand bevat geen gewone machinecode, maar bytecode. Bytecode is een soort tussenstap — het is nog niet de taal van je processor, maar wel iets wat de Java Virtual Machine begrijpt.
+
+De Java Virtual Machine, afgekort JVM, is het programma dat die bytecode uiteindelijk uitvoert. Elke computer heeft zijn eigen versie van de JVM, maar alle JVM's begrijpen dezelfde bytecode. Daardoor hoef jij je code maar één keer te schrijven, en werkt het overal.
+
+Nu hoor je misschien ook de termen JDK en JRE. Laten we die even uitleggen.
+
+De JDK staat voor Java Development Kit. Dit is het pakket dat je installeert als je Java wilt programmeren. Het bevat de compiler javac, de Java Virtual Machine, en allerlei standaardtools zoals een debugger en documentatiegenerator.
+
+De JRE staat voor Java Runtime Environment. Dit is alleen nodig om Java-programma's te draaien, niet om ze te schrijven. Als jij de JDK installeert, zit de JRE er al bij. Je hoeft de JRE dus niet apart te installeren.
+
+Elk Java-programma begint met een speciale methode: public static void main, met tussen haakjes String array args. Dit is het startpunt van je programma. De JVM zoekt automatisch naar deze methode wanneer je een programma uitvoert.
+
+Een veelgemaakte fout bij beginners is dat de bestandsnaam niet overeenkomt met de klassenaam. Als je een klasse aanmaakt met de naam Main, dan moet het bestand ook Main punt java heten. Hoofdletters tellen mee. Als je dit vergeet, krijg je een compilatiefout.
+
+Een andere veelgemaakte fout is de verwarring tussen JDK en JRE. Sommige beginners installeren alleen de JRE en begrijpen dan niet waarom de compiler javac niet werkt. Onthoud: voor het schrijven van Java-code heb je de JDK nodig.
+
+Tot slot nog iets over System.out.println. Dit is de standaard manier om tekst op het scherm te tonen in Java. De letters println staan voor print line — het drukt de tekst af en gaat daarna naar een nieuwe regel. Als je geen nieuwe regel wilt, gebruik je System.out.print zonder de letters l-n aan het einde.
+
+Java is de taal waarop de rest van dit hele leerpad is gebouwd. Alles wat je hierna leert — objectgeoriënteerd programmeren, methoden, arrays, Spring Boot — bouwt voort op deze fundamenten. Het is dus belangrijk om de basisconcepten goed te begrijpen voordat je verder gaat.
+
+Dat was Introduction to Java. Veel succes met oefenen, en tot de volgende sessie!
