@@ -48,9 +48,8 @@ Wat wil je doen met dit item?
 A) 🍳 Opslaan als recept
 B) 💰 Bewaren als finance tip / inzicht
 C) 🤖 Samenvatten als AI/Tech notitie
-D) 💡 Toevoegen als content idee
-E) ⏭️  Overslaan (geen actie)
-F) 🗑️  Done + cleanup (later verwijderen van Instagram)
+D) ⏭️  Overslaan (geen actie)
+E) 🗑️  Done + cleanup (later verwijderen van Instagram)
 ```
 
 Wacht op Greg's antwoord voor je iets doet.
