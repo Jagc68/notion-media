@@ -74,7 +74,7 @@ Maak een Notion pagina aan via `notion-create-pages`:
 Bron: [url]
 ```
 
-Daarna: update het Notion item via `notion-update-page` → Status = **Processed**.
+Daarna: update het Notion item via `notion-update-page` → Status = **Done**.
 
 ### B) 💰 Finance tip bewaren
 
