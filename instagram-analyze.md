@@ -1,6 +1,6 @@
 ---
 name: instagram-analyze
-description: Interactieve analysesessie van Instagram Saves. Gebruik ALTIJD wanneer de gebruiker typt /instagram-analyze, wil analyseren wat er in zijn saves zit, wil meekijken bij de verwerking van saves, recepten wil opslaan, finance tips wil bewaren, AI/tech takeaways wil noteren, of items wil verwerken uit zijn Queued lijst.
+description: Interactieve analysesessie van Instagram Saves voor persoonlijk gebruik. Gebruik ALTIJD wanneer de gebruiker typt /instagram-analyze, wil analyseren wat er in zijn saves zit, recepten wil opslaan, finance tips wil bewaren, AI/tech takeaways wil noteren, of Queued items wil verwerken voor eigen kennisgebruik. NIET voor content ideeën of posts bedenken — gebruik daarvoor /instagram-ideation.
 ---
 
 # /instagram-analyze — Interactieve Analysesessie
