@@ -101,7 +101,7 @@ Maak een Notion pagina aan via `notion-create-pages`:
 Bron: [url]
 ```
 
-Daarna: update Status → **Processed**.
+Daarna: update Status → **Done**.
 
 ### C) 🤖 AI/Tech notitie
 
