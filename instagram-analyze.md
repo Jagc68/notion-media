@@ -142,7 +142,7 @@ Bron: [Instagram URL]
 
 Geen actie. Ga naar het volgende item.
 
-### F) 🗑️ Done markeren
+### E) 🗑️ Done markeren
 
 Update de Status van dit item naar "Done" in de Notion database. Het wordt opgepikt door cleanup.py wanneer Greg dat runt.
 
