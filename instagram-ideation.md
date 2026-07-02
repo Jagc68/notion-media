@@ -54,17 +54,29 @@ Genereer minimaal 5, maximaal 10 ideeën. Presenteer ze eerst aan Greg ter revie
 
 Vraag Greg: "Wil je alle ideeën opslaan, of alleen een selectie?"
 
-Sla goedgekeurde ideeën op in de Content Ideas database (ID staat in config.json als `ideas_database_id`) via notion-create-pages:
+Sla goedgekeurde ideeën op in de Content Ideas database via **notion-duplicate-page** + **notion-update-page**.
 
-Properties per idee:
-- **Name**: korte pakkende titel
-- **Platform**: het gekozen platform
-- **Categorie**: passend bij het originele save-item
-- **Status**: "Idee"
-- **Prioriteit**: Hoog / Middel / Laag
-- **Bron URL**: de Instagram URL van het originele save-item
-- **Notities**: de hook + korte uitwerking
-- **Aangemaakt**: vandaag
+### Waarom duplicate en niet create?
+`notion-create-pages` maakt geen database-rijen aan — pagina's komen op de verkeerde plek terecht. De enige werkende aanpak is een bestaande entry dupliceren en daarna updaten.
+
+### Werkwijze per idee:
+1. Roep `notion-duplicate-page` aan met page_id: `391332b7-36df-812a-8b16-c6b7c0dbc46d` (bestaande Content Ideas entry)
+2. Gebruik de teruggegeven `page_id` in een `notion-update-page` aanroep met `command: "update_properties"`
+
+Properties per idee (zet allemaal in één `properties` object — NIET als losse `title` parameter):
+```
+{
+  "Name": "korte pakkende titel (Engels)",
+  "Status": "Idee",
+  "Prioriteit": "Hoog" | "Middel" | "Laag",
+  "Platform": "Instagram Reel" | "Instagram Post" | "YouTube Short" | "TikTok" | "Blog",
+  "Categorie": "AI / Tech" | "Fitness" | "Finance" | "Eten / Recepten" | "Overig",
+  "Bron URL": "https://www.instagram.com/reel/...",
+  "Notities": "Hook: ... | Uitwerking: ..."
+}
+```
+
+Doe ideeën sequentieel (duplicate → update → volgende), niet parallel — anders raken IDs door elkaar.
 
 ---
 
