@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code — Master Cheat Sheet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0f0f0f; color: #e8e8e8; padding: 24px; font-size: 13px; }
+  h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .subtitle { color: #888; font-size: 12px; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px; }
+  .card h2 { font-size: 13px; font-weight: 600; color: #f5c842; margin-bottom: 12px; letter-spacing: .04em; text-transform: uppercase; border-bottom: 1px solid #2a2a2a; padding-bottom: 8px; }
+  .section { margin-bottom: 12px; }
+  .section-title { font-size: 11px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .row { display: flex; gap: 8px; align-items: baseline; padding: 3px 0; border-bottom: 1px solid #1f1f1f; }
+  .row:last-child { border-bottom: none; }
+  code { background: #252525; color: #7dd3fc; border-radius: 4px; padding: 1px 5px; font-family: "SF Mono", Menlo, monospace; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+  .desc { color: #aaa; font-size: 12px; line-height: 1.4; }
+  .tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; margin-right: 4px; }
+  .tag-tip { background: #1a3a1a; color: #4ade80; }
+  .tag-power { background: #1a1a3a; color: #818cf8; }
+  .tag-web { background: #2a1a10; color: #fb923c; }
+  .xml-block { background: #252525; border-radius: 6px; padding: 10px; margin-top: 6px; }
+  .xml-block code { background: transparent; display: block; margin-bottom: 4px; }
+  .xml-desc { color: #888; font-size: 11px; margin-top: 1px; }
+  .footer { text-align: center; margin-top: 20px; color: #555; font-size: 11px; }
+  .page-num { font-size: 11px; color: #555; float: right; margin-top: -2px; }
+</style>
+</head>
+<body>
+
+<h1>Claude Code — Master Cheat Sheet</h1>
+<p class="subtitle">60+ commando's, shortcuts, frameworks &amp; prompting-structuren &nbsp;·&nbsp; @edwinavoiceofai + eigen uitbreiding</p>
+
+<div class="grid">
+
+  <!-- PAGE 1: CLI -->
+  <div class="card">
+    <h2>🚀 CLI &amp; Startup Flags <span class="page-num">p.1</span></h2>
+
+    <div class="section">
+      <div class="section-title">⚡ Launch Modes</div>
+      <div class="row"><code>claude</code><span class="desc">Start interactieve terminal sessie</span></div>
+      <div class="row"><code>claude "prompt"</code><span class="desc">Start en voer direct instructie uit</span></div>
+      <div class="row"><code>claude -p "query"</code><span class="desc">Print mode — streamt en sluit af (pipes)</span></div>
+      <div class="row"><code>claude -c</code><span class="desc">Hervat meest recente conversatie</span></div>
+      <div class="row"><code>claude -r &lt;id&gt;</code><span class="desc">Hervat specifieke sessie op ID</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🛠️ Optimalisatie Flags</div>
+      <div class="row"><code>--no-thinking</code><span class="desc">Zet deep thinking uit (sneller, minder tokens)</span></div>
+      <div class="row"><code>--thinking</code><span class="desc">Forceer analytisch denken voor complexe taken</span></div>
+      <div class="row"><code>--model &lt;naam&gt;</code><span class="desc">Specificeer model bij opstarten</span></div>
+      <div class="row"><code>-w &lt;tree&gt;</code><span class="desc">Start in geïsoleerde Git worktree</span></div>
+      <div class="row"><code>--verbose</code><span class="desc">Stream systeemprompts + token counts</span></div>
+      <div class="row"><code>--version</code><span class="desc">Toon exacte build-versie</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🎛️ Account & Config</div>
+      <div class="row"><code>claude login/logout</code><span class="desc">Authenticeer of wis sessie</span></div>
+      <div class="row"><code>claude config</code><span class="desc">Open configuratiemanager</span></div>
+      <div class="row"><code>claude config set &lt;k&gt; &lt;v&gt;</code><span class="desc">Wijzig instelling direct</span></div>
+      <div class="row"><code>claude config get &lt;k&gt;</code><span class="desc">Lees actieve waarde</span></div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: SLASH COMMANDS -->
+  <div class="card">
+    <h2>🧹 Slash Commands (in sessie) <span class="page-num">p.2</span></h2>
+
+    <div class="section">
+      <div class="section-title">📜 Context & Geschiedenis</div>
+      <div class="row"><code>/clear</code><span class="desc">Wis conversatiegeschiedenis</span></div>
+      <div class="row"><code>/compact</code><span class="desc">Comprimeer history (tokens besparen)</span></div>
+      <div class="row"><code>/undo</code><span class="desc">Draai laatste generatie + bestandswijzigingen terug</span></div>
+      <div class="row"><code>/retry</code><span class="desc">Regenereer laatste antwoord</span></div>
+      <div class="row"><code>/history</code><span class="desc">Toon sessies + token-gebruik</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🔧 Tooling & MCP</div>
+      <div class="row"><code>/init</code><span class="desc">Genereer CLAUDE.md voor je repo</span></div>
+      <div class="row"><code>/mcp</code><span class="desc">Open MCP UI voor externe tools</span></div>
+      <div class="row"><code>/mcp list</code><span class="desc">Toon verbonden MCP-servers</span></div>
+      <div class="row"><code>/mcp connect &lt;srv&gt;</code><span class="desc">Koppel externe tool</span></div>
+      <div class="row"><code>/security</code><span class="desc">Audit workspace-bestanden</span></div>
+      <div class="row"><code>/doctor</code><span class="desc">Diagnose dependencies + API + paden</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">⚙️ Runtime</div>
+      <div class="row"><code>/model [naam]</code><span class="desc">Wissel AI-model mid-conversatie</span></div>
+      <div class="row"><code>/thinking [on/off]</code><span class="desc">Toggle analytisch denken</span></div>
+      <div class="row"><code>/theme [dark/light]</code><span class="desc">Verander CLI-thema</span></div>
+      <div class="row"><code>/help</code><span class="desc">Volledige documentatie</span></div>
+      <div class="row"><code>/exit</code><span class="desc">Sluit sessie en sla history op</span></div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: SHORTCUTS & AGENTS -->
+  <div class="card">
+    <h2>⌨️ Sneltoetsen &amp; Multi-Agent <span class="page-num">p.3</span></h2>
+
+    <div class="section">
+      <div class="section-title">🖱️ Terminal Shortcuts</div>
+      <div class="row"><code>Shift + Tab</code><span class="desc">Wissel Permission Mode (Normal ↔ Auto-Accept ↔ Plan)</span></div>
+      <div class="row"><code>Ctrl + C</code><span class="desc">Annuleer generatie of tool-uitvoering</span></div>
+      <div class="row"><code>\ + Enter</code><span class="desc">Nieuwe regel zonder prompt te versturen</span></div>
+      <div class="row"><code>Alt/⌥ + T</code><span class="desc">Toggle Thinking Mode</span></div>
+      <div class="row"><code>↑ / ↓</code><span class="desc">Doorloop command-history</span></div>
+      <div class="row"><code>Tab</code><span class="desc">Autocomplete bestandspaden</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🤖 Multi-Agent</div>
+      <div class="row"><code>Ctrl+X, Ctrl+K</code><span class="desc">Stop alle achtergrond sub-agents</span></div>
+      <div class="row"><code>/agent spawn &lt;taak&gt;</code><span class="desc">Start geïsoleerde sub-agent</span></div>
+      <div class="row"><code>/agent list</code><span class="desc">Bekijk status + token-gebruik agents</span></div>
+      <div class="row"><code>/agent attach &lt;id&gt;</code><span class="desc">Breng agent naar foreground</span></div>
+      <div class="row"><code>/agent kill &lt;id&gt;</code><span class="desc">Stop specifieke agent</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📂 Bestandssyntax</div>
+      <div class="row"><code>@/pad/bestand</code><span class="desc">Laad specifiek bestand in context</span></div>
+      <div class="row"><code>@📄</code><span class="desc">Voeg alle gewijzigde Git-bestanden toe</span></div>
+      <div class="row"><code>CLAUDE.md</code><span class="desc">Projectinstructiebestand (max 200 regels)</span></div>
+      <div class="row"><code>AGENTS.md</code><span class="desc">Manifest voor sub-agent workflows</span></div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: PROMPTING -->
+  <div class="card">
+    <h2>🎯 Geavanceerde Prompting <span class="page-num">p.4</span></h2>
+
+    <div class="section">
+      <div class="section-title">✍️ Output Conditioning</div>
+      <div class="row"><span class="tag tag-tip">TIP</span><span class="desc"><strong>Direct verb starters</strong> — gebruik <code>Draft...</code> of <code>Write...</code> ipv <em>"Can you help me..."</em></span></div>
+      <div class="row"><span class="tag tag-tip">TIP</span><span class="desc"><strong>Style anchor</strong> — <code>in the style of [referentie]</code></span></div>
+      <div class="row"><span class="tag tag-tip">TIP</span><span class="desc"><strong>Constrained output</strong> — <code>Give me exactly X options, no intro, no outro</code></span></div>
+      <div class="row"><span class="tag tag-tip">TIP</span><span class="desc"><strong>Logical guardrail</strong> — <code>Assuming [constraint], analyze...</code></span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🏗️ XML Tagging (API / Web App)</div>
+      <div class="xml-block">
+        <code>&lt;system_context&gt;</code><div class="xml-desc">Architectuurregels en kaders</div>
+        <code>&lt;source_code&gt;</code><div class="xml-desc">Isoleer code van natuurlijke tekst</div>
+        <code>&lt;ideal_output&gt;</code><div class="xml-desc">Few-shot voorbeelden voor exacte outputstructuur</div>
+        <code>&lt;thinking_process&gt;</code><div class="xml-desc">Forceer stapsgewijze redenering voor eindantwoord</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">💻 Web App UI Shortcuts</div>
+      <div class="row"><code>Ctrl/Cmd + K</code><span class="desc">Open nieuwe chat thread</span></div>
+      <div class="row"><code>Ctrl/Cmd + Shift + O</code><span class="desc">Open project/workspace selector</span></div>
+      <div class="row"><code>Ctrl/Cmd + .</code><span class="desc">Open/sluit Artifacts sidebar</span></div>
+      <div class="row"><span class="tag tag-web">WEB</span><span class="desc"><strong>Drag &amp; drop</strong> — zet code, CSV of PDF direct in context</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Claude Code Master Cheat Sheet &nbsp;·&nbsp; @edwinavoiceofai + eigen uitbreiding &nbsp;·&nbsp; 2026</div>
+
+</body>
+</html>
