@@ -57,7 +57,7 @@ Extraheer uit de caption:
 - Tips
 
 Maak een Notion pagina aan via `notion-create-pages`:
-- Parent page_id: `37db9e5a-6384-8157-9c71-db450a6e0b35` (SQL/Recepten — gebruik Kennisbank `37ab9e5a-6384-8185-962f-d07b1fefe502` als fallback)
+- Parent page_id: `390332b7-36df-80dc-88ae-d37e516e9ba1` (Recepten — onder Social Media)
 - Icon: 🍳
 - Title: naam van het gerecht
 - Content:
