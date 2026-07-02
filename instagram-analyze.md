@@ -156,7 +156,7 @@ Hou bij hoeveel je verwerkt hebt. Na het laatste item geef je een korte samenvat
 
 ```
 ✅ Sessie klaar — [N] items verwerkt
-🍳 Recepten: X  💰 Finance: X  🤖 AI/Tech: X  💡 Ideeën: X  ⏭️ Overgeslagen: X
+🍳 Recepten: X  💰 Finance: X  🤖 AI/Tech: X  ⏭️ Overgeslagen: X  🗑️ Done: X
 ```
 
 ---
