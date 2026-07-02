@@ -138,18 +138,7 @@ Structuur:
 Bron: [Instagram URL]
 ```
 
-### D) 💡 Content idee
-
-Bedenk op basis van de caption:
-- **Hook** (pakkende eerste zin, < 10 woorden)
-- **Format**: Reel / Carrousel / Post / Story
-- **Platform**: Instagram / YouTube Short / TikTok
-- **Greg's invalshoek**: hoe maakt hij dit zijn eigen?
-- **Prioriteit**: Hoog / Middel / Laag
-
-Voeg toe aan de Content Ideas database (`ideas_database_id` uit config.json).
-
-### E) ⏭️ Overslaan
+### D) ⏭️ Overslaan
 
 Geen actie. Ga naar het volgende item.
 
