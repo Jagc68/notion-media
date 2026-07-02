@@ -1,172 +1,179 @@
 ---
-name: leer
-description: Gestructureerde leersessie voor technische concepten. Gebruik deze skill altijd wanneer de gebruiker iets wil leren, begrijpen of bestuderen — getriggerd door zinnen zoals "/leer [onderwerp]", "/learn [onderwerp]", "learn me about X", "leg me uit hoe Y werkt", "ik wil leren over X", "wat is X?", "hoe werkt X?", "explain X to me", "help me understand X", "I want to study X", of wanneer de gebruiker een onbekend begrip tegenkomt in zijn studies. De skill legt het concept helder uit met tekst, visuele diagrammen, embedded YouTube video's en een luisterbaar audio-fragment (text-to-speech), slaat aantekeningen op als Notitie in Anytype gekoppeld aan het juiste topic, en maakt oefentaken aan als Taak in Anytype. Gebruik deze skill proactief.
+name: instagram-analyze
+description: Interactieve analysesessie van Instagram Saves voor persoonlijk gebruik. Gebruik ALTIJD wanneer de gebruiker typt /instagram-analyze, wil analyseren wat er in zijn saves zit, recepten wil opslaan, finance tips wil bewaren, AI/tech takeaways wil noteren, of Queued items wil verwerken voor eigen kennisgebruik. NIET voor content ideeën of posts bedenken — gebruik daarvoor /instagram-ideation.
 ---
 
-# Leer — Gestructureerde Leersessie
+# /instagram-analyze — Interactieve Analysesessie
 
-Je helpt Greg (junior Java developer) een technisch concept leren via Anytype als kennisbank.
+Je verwerkt Greg's Instagram Saves één voor één, interactief. Greg kijkt mee en beslist per item wat ermee gebeurt.
 
-Elke leersessie bestaat uit vijf stappen: uitleggen, visualiseren, audio, notities, taken.
+## Voorbereiding — lees het JSON-bestand
 
-**Lees voor Stap 4 altijd eerst `references/topic-mapping.md`** — dit bevat de volledige mapping van lessen en concepten naar Anytype Topic IDs.
+Lees het bestand `~/Documents/Claude/Projects/Notion/queued_items.json` via de Read tool.
 
----
+Als het bestand niet bestaat of leeg is:
+> "Geen Queued items gevonden. Zet items op **Queued** in Notion en draai daarna:
+> `python3 ~/Documents/Claude/Projects/Notion/export_queued.py`"
 
-## Anytype configuratie
-
-Space ID: bafyreiadfvt6nmg5fryfsdxxu2ci475nguabjce4jxzp7aqml7ggvcsuyi.1p38x745a699
-Notitie type key: notitie
-Taak type key: taak
-Workspace folder: /Users/josephcijntje/Documents/Claude/Projects/Java Study in AnyType/
-
-Taak status tag IDs:
-  To do:  bafyreigirb6xurkx5wacglgcydcwhc2awpfxncimf6fedosamvwa34uxsm
-
-Taak prioriteit tag IDs:
-  Hoog:   bafyreiacpg4t3rybcjkvekeiko2hoi5catxfosmsw7d5toslkpfyqcfxpa
-  Middel: bafyreibpapjggywoeaxkssbvd2yhzip3hb3julna47zv2tmftzbo5zrp4y
-  Laag:   bafyreiexsn3b6vvsjgy7tjjbd5yhmiqoryx6ay4thbzh4mvxifubtwbuqq
+Als het bestand wel items bevat: meld "**X items in de wachtrij. We gaan ze één voor één bekijken.**" en begin.
 
 ---
 
-## Stap 1 — Concept uitleggen
+## Per item — presenteer zo
 
-Geef een heldere uitleg in het Nederlands met deze secties:
-
-**Wat is het?** — Een of twee zinnen, concreet voor een junior developer.
-
-**Waarom is het belangrijk?** — Context voor een Java developer, gekoppeld aan echte situaties.
-
-**Kernconcepten** — Maximaal 5 kernbegrippen met korte uitleg. Java-codevoorbeelden waar zinvol.
-
-**Praktisch voorbeeld** — Concreet, werkend Java-voorbeeld met commentaarregels.
-
-**Veelgemaakte fouten** — 2-3 valkuilen: "beginners verwarren X met Y omdat...".
-
-**Wat je al kent** — Koppel aan het leerpad: CLI, GitHub, Java, OOP, Maven, SpringBoot, SQL, HTTP, Testing, Docker, CI/CD, Algorithms.
-
-**Wat volgt?** — 2-3 logische vervolgonderwerpen.
-
----
-
-## Stap 2 — Visualisatie
-
-### A. Diagram (show_widget)
-
-Roep read_me aan (modules: ["diagram"]), maak dan een show_widget.
-
-Kies de meest geschikte vorm: conceptmap, flowchart, vergelijkingsdiagram, architectuurdiagram of code-annotatie.
-
-Na het tonen: sla het diagram op als PNG in de workspace folder.
-- SVG pad: /Users/josephcijntje/Documents/Claude/Projects/Java Study in AnyType/[concept]-diagram.svg
-- PNG conversie via bash:
-  pip install cairosvg --break-system-packages -q 2>/dev/null
-  python3 -c "import cairosvg; cairosvg.svg2png(url='/sessions/brave-epic-cray/mnt/Java Study in AnyType/[concept]-diagram.svg', write_to='/sessions/brave-epic-cray/mnt/Java Study in AnyType/[concept]-diagram.png', output_width=1600)"
-
-### B. YouTube videos (WebSearch + show_widget)
-
-Zoek 2 videos via WebSearch ("concept java tutorial youtube site:youtube.com").
-Voorkeur: Fireship, Amigoscode, Programming with Mosh, Traversy Media (5-20 min).
-Toon als embedded iframes via show_widget. Fallback: klikbare links.
-
----
-
-## Stap 3 — Audio
-
-Sla spreektekst op als .txt in de workspace folder:
-- Pad: /Users/josephcijntje/Documents/Claude/Projects/Java Study in AnyType/[concept]-audio.txt
-- Schrijf in het Nederlands, volledige gesproken zinnen, geen markdown
-- Begin: "Welkom bij deze leersessie. Vandaag leren we over [concept]."
-- Einde: "Dat was [concept]. Veel succes met oefenen, en tot de volgende sessie!"
-- Streef naar 400 woorden (2-3 minuten)
-
-Maak ook een Web Speech API widget via show_widget:
-- Stemkiezer (getVoices()), standaard Daniel/Samantha
-- Play/Pauzeer/Stop + voortgangsbalk + snelheidsregelaar (0.6 tot 1.6x)
-- Boven widget: "Tip: open het .txt bestand in NaturalReader voor betere stemkwaliteit."
-
----
-
-## Stap 4 — Notities opslaan in Anytype
-
-**Lees eerst references/topic-mapping.md** om het juiste Topic ID te bepalen.
-
-### Topic ID bepalen
-
-1. Zoek het concept op in de "Cursus 1: Introduction to Java" sectie van de mapping:
-   - Kijk of de lesnaam of een trefwoord overeenkomt met een rij in de tabel
-   - Gebruik het Topic ID van die sectie
-
-2. Als het concept niet in cursus 1 staat:
-   - Kijk in de "Bredere topic-mapping" tabel
-   - Match op categorie-trefwoorden (bijv. "For loop" → Control flow, "HashMap" → Data structures)
-
-3. Als er geen match is: ga door zonder topic-koppeling
-
-### Notitie opslaan
-
-Controleer of er al een notitie bestaat via API-search-space:
-- Query: conceptnaam
-- Type filter: notitie
-- Gevonden → update met API-update-object (voeg toe aan bestaande markdown)
-- Niet gevonden → maak nieuw aan met API-create-object
-
-Nieuwe notitie aanmaken (API-create-object):
-- space_id: zie boven
-- type_key: notitie
-- name: "[Concept] — Notities"
-- icon: passende emoji
-- properties: topic (objects: [gevonden Topic ID])
-- markdown: zie body formaat hieronder
-
-Body formaat:
 ```
-## Wat is het?
-[definitie]
+─────────────────────────────────
+📌 Item [Nr] — [N/Totaal]
+👤 [account uit name, bijv. @account]
+🏷️  Categorie: [category]
+🔗 [url]
 
-## Waarom belangrijk?
-[context]
+📝 Caption:
+[volledige caption — niet inkorten]
 
-## Kernconcepten
-[kernbegrippen]
+💡 Eerste indruk: [1 zin wat dit item bevat]
+─────────────────────────────────
 
-## Praktisch voorbeeld
-[java code block]
-
-## Veelgemaakte fouten
-[valkuilen]
-
-## Verbanden
-[leerpad verbanden]
-
-## Wat volgt?
-[vervolgonderwerpen]
-
----
-Diagram: [concept]-diagram.png
-Audio: [concept]-audio.txt
+Wat wil je doen?
+A) 🍳 Opslaan als recept
+B) 💰 Bewaren als finance tip
+C) 🤖 Samenvatten als AI/Tech notitie
+D) ⏭️  Overslaan
+E) 🗑️  Markeren als Done (later cleanup van Instagram)
 ```
 
----
-
-## Stap 5 — Oefentaken aanmaken in Anytype
-
-Maak 2-3 taken aan via API-create-object:
-- space_id: zie boven
-- type_key: taak
-- name: [concrete taakomschrijving — niet "leer X" maar "schrijf een X die Y doet"]
-- properties:
-    status_taak (select): To do tag ID (zie boven)
-    prioriteit (select): Hoog/Middel/Laag tag ID (zie boven)
-    topic (objects): [zelfde Topic ID als de notitie]
-
-Prioriteitsrichtlijn: Hoog voor fundamentele concepten, Middel voor verdieping, Laag voor optioneel.
+Wacht op Greg's antwoord voor je iets doet.
 
 ---
 
-## Toon en stijl
-- Schrijf altijd in het Nederlands
-- Helder en direct, vaktermen kort uitleggen
-- Concrete Java-voorbeelden
-- Tekstuitleg: 400-600 woorden
+## Acties
+
+### A) 🍳 Recept opslaan
+
+Extraheer uit de caption:
+- Naam van het gerecht
+- Ingrediënten (lijst)
+- Bereidingsstappen (in volgorde)
+- Tips
+
+Maak een Notion pagina aan via `notion-create-pages`:
+- Parent page_id: `390332b7-36df-80dc-88ae-d37e516e9ba1` (Recepten)
+- Icon: `https://raw.githubusercontent.com/Jagc68/notion-media/main/fitness-cover-icons/09-fitness-apple.png`
+- Title: naam van het gerecht
+- Content:
+```
+## Ingrediënten
+- ...
+
+## Bereidingswijze
+1. ...
+
+## Tips
+- ...
+
+Bron: [url]
+```
+
+Daarna: update het Notion item via `notion-update-page` → Status = **Processed**.
+
+### B) 💰 Finance tip bewaren
+
+Extraheer:
+- Kernpunt / les (1-2 zinnen)
+- Concrete stappen of cijfers
+- Hoe Greg dit zelf kan toepassen
+
+Maak een Notion pagina aan via `notion-create-pages`:
+- Parent page_id: `389332b7-36df-8015-a959-f1289d327895` (Finance)
+- Icon: `https://raw.githubusercontent.com/Jagc68/notion-media/main/finance-cover-icons/01-finance-coins.png`
+- Title: korte titel van het inzicht
+- Content:
+```
+## Kernpunt
+...
+
+## Details / Cijfers
+...
+
+## Hoe toe te passen
+...
+
+Bron: [url]
+```
+
+Daarna: update Status → **Processed**.
+
+### C) 🤖 AI/Tech notitie
+
+Extraheer:
+- Samenvatting (3-5 zinnen)
+- Key takeaways (max 5 bullets)
+- Tools / namen / links die genoemd worden
+- Acties: wat kan Greg concreet doen met deze info?
+
+Maak een Notion pagina aan via `notion-create-pages`:
+- Parent page_id: `391332b7-36df-80e3-9011-ffa62b3a4791` (AI & Tech)
+- Icon: `https://raw.githubusercontent.com/Jagc68/notion-media/main/wiki-cover-icons/19-wiki-brain.png`
+- Title: pakkende titel
+- Content:
+```
+## Samenvatting
+...
+
+## Key takeaways
+- ...
+
+## Tools & Links
+- ...
+
+## Acties voor Greg
+- ...
+
+Bron: [url]
+```
+
+Daarna: update Status → **Processed**.
+
+### D) ⏭️ Overslaan
+
+Geen actie, geen Notion update. Ga naar het volgende item.
+
+### E) 🗑️ Done markeren
+
+Update via `notion-update-page`:
+- Page ID: het id uit het JSON-item
+- Status → `"Done"` (plain string, niet `{"name": "Done"}`)
+
+---
+
+## Notion API gotcha's
+
+- **Status updaten**: gebruik `"Done"` als plain string in properties, niet `{"name": "Done"}`
+- **Paginatitel updaten via notion-update-page**: gebruik `properties: {"title": "nieuwe titel"}` — de losse `title` parameter werkt NIET
+- **Iconen**: gebruik altijd GitHub raw URLs (`https://raw.githubusercontent.com/Jagc68/notion-media/main/...`), geen emoji
+- **Verkeerde locatie**: gebruik `notion-move-pages` met `new_parent: {"type": "page_id", "page_id": "..."}` om pagina's te verplaatsen
+
+---
+
+## Na elke actie
+
+Bevestig in één zin wat je gedaan hebt, ga dan meteen naar het volgende item zonder te wachten.
+
+## Na het laatste item
+
+```
+✅ Sessie klaar — [N] items verwerkt
+🍳 Recepten: X  💰 Finance: X  🤖 AI/Tech: X  ⏭️ Overgeslagen: X  🗑️ Done: X
+```
+
+Herinner Greg eraan dat Done-items later verwijderd worden via:
+`python3 ~/Documents/Claude/Projects/Notion/cleanup.py`
+
+---
+
+## Stijlregels
+
+- Schrijf in het Nederlands
+- Wees bondig in bevestigingen — Greg hoeft niet elke actie uitgelegd te krijgen
+- Als de caption te kort is om iets zinvols uit te halen, zeg dit eerlijk en stel D of E voor
+- Forceer geen categorie — als iets niet duidelijk past, vraag Greg
