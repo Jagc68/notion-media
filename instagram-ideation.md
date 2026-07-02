@@ -1,3 +1,8 @@
+---
+name: instagram-ideation
+description: Genereer content ideeën vanuit je Instagram Saves en sla ze op in Notion. Gebruik ALTIJD wanneer de gebruiker typt /instagram-ideation, vraagt om content ideeën, posts wil bedenken, ideation wil doen op basis van saves, of wil weten wat hij kan maken van zijn opgeslagen reels.
+---
+
 # /instagram-ideation
 
 Genereer content ideeën vanuit de Instagram Saves database en sla ze op in Content Ideas.
