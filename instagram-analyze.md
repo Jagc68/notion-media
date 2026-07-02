@@ -112,7 +112,7 @@ Extraheer:
 - Acties: wat kan Greg concreet doen met deze info?
 
 Maak een Notion pagina aan via `notion-create-pages`:
-- Parent page_id: `37db9e5a-6384-8105-ab14-c376455332ff` (Claude/AI sectie)
+- Parent page_id: `391332b7-36df-80e3-9011-ffa62b3a4791` (AI & Tech pagina)
 - Icon: 🤖
 - Title: pakkende titel
 - Content:
