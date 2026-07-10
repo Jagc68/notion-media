@@ -1,186 +1,177 @@
 ---
-name: leer
-description: Gestructureerde leersessie voor technische concepten. Gebruik deze skill altijd wanneer de gebruiker iets wil leren, begrijpen of bestuderen — getriggerd door zinnen zoals "/leer [onderwerp]", "/learn [onderwerp]", "learn me about X", "leg me uit hoe Y werkt", "ik wil leren over X", "wat is X?", "hoe werkt X?", "explain X to me", "help me understand X", "I want to study X", of wanneer de gebruiker een onbekend begrip tegenkomt in zijn studies. De skill legt het concept helder uit met tekst, visuele diagrammen, embedded YouTube video's en een luisterbaar audio-fragment (text-to-speech), slaat notities op in Obsidian, en maakt oefentaken aan in de Notion Taken database. Gebruik deze skill proactief.
+name: instagram-analyze
+description: Interactieve analysesessie van Instagram Saves voor persoonlijk gebruik. Gebruik ALTIJD wanneer de gebruiker typt /instagram-analyze, wil analyseren wat er in zijn saves zit, recepten wil opslaan, finance tips wil bewaren, AI/tech takeaways wil noteren, of Queued items wil verwerken voor eigen kennisgebruik. NIET voor content ideeën of posts bedenken — gebruik daarvoor /instagram-ideation.
 ---
 
-# Leer — Gestructureerde Leersessie
+# /instagram-analyze — Interactieve Analysesessie
 
-Je helpt Greg (junior Java developer) een technisch concept leren. Greg bouwt kennis op via een gestructureerd Java Track leerpad.
+Je verwerkt Greg's Instagram Saves één voor één, interactief. Greg kijkt mee en beslist per item wat ermee gebeurt.
 
-Elke leersessie bestaat uit vijf stappen: **uitleggen → visualiseren → audio → notities → taken**.
+## Voorbereiding — lees het JSON-bestand
 
----
+Lees het bestand `~/Documents/Claude/Projects/Notion/queued_items.json` via de Read tool.
 
-## Configuratie
+Als het bestand niet bestaat of leeg is:
+> "Geen Queued items gevonden. Zet items op **Queued** in Notion en draai daarna:
+> `python3 ~/Documents/Claude/Projects/Notion/export_queued.py`"
 
-**Obsidian vault:** `/Users/josephcijntje/Documents/GregsObsidianVault/`
-**Workspace folder:** `/Users/josephcijntje/Documents/Claude/Projects/Notion/`
-**Workspace bash pad:** `/sessions/sweet-peaceful-einstein/mnt/Notion/`
-**GitHub media repo (bash):** `/sessions/sweet-peaceful-einstein/mnt/GitHub/notion-media`
-**GitHub raw base URL:** `https://raw.githubusercontent.com/Jagc68/notion-media/main/`
-**Notion Taken database (data_source_id):** `64a7434e-3ef5-4c97-a11f-9838548e3ac8`
+Als het bestand wel items bevat: meld "**X items in de wachtrij. We gaan ze één voor één bekijken.**" en begin.
 
 ---
 
-## Concept → Obsidian map mapping
+## Per item — presenteer zo
 
-| Concept / onderwerp | Obsidian map |
-|---------------------|--------------|
-| Introduction / JVM / JRE / JDK / eerste programma / println / IDE / IntelliJ / datatypes / variabelen / operators / control flow / arrays / methoden / CLI / OOP basis / exceptions / debugging / AI tools | `01 - Java/Fase 1 - Fundament/` |
-| Geavanceerde OOP / overerving / polymorfisme / abstract / enum / generics / algoritmen / sorting / Big O | `01 - Java/Fase 2 - Java Kern/` |
-| Spring Boot / REST API / HTTP / SQL / databases / JPA / Bruno / API-testing | `01 - Java/Fase 3 - Web & API/` |
-| Testing / JUnit / Mockito / TDD / Design Patterns / Security / JWT / OAuth | `01 - Java/Fase 4 - Kwaliteit/` |
-| TypeScript / Angular / frontend | `01 - Java/Fase 5 - Frontend/` |
-| Linux / Docker / CI/CD / Kubernetes | `01 - Java/Fase 6 - DevOps/` |
-| Advanced Java / concurrency / threads / JVM internals | `01 - Java/Fase 7 - Advanced/` |
-| AI / Claude / LLMs / prompting / tools | `02 - AI & Tech/` |
-| Alles wat niet in bovenstaande past | `02 - AI & Tech/` |
+```
+─────────────────────────────────
+📌 Item [Nr] — [N/Totaal]
+👤 [account uit name, bijv. @account]
+🏷️  Categorie: [category]
+🔗 [url]
 
----
+📝 Caption:
+[volledige caption — niet inkorten]
 
-## Stap 1 — Concept uitleggen
+💡 Eerste indruk: [1 zin wat dit item bevat]
+─────────────────────────────────
 
-Geef een heldere uitleg in het Nederlands met deze secties:
-
-**🎯 Wat is het?** — Één of twee zinnen, concreet voor een junior developer.
-
-**💡 Waarom is het belangrijk?** — Context voor een Java developer, gekoppeld aan echte situaties.
-
-**🔑 Kernconcepten** — Maximaal 5 kernbegrippen met korte uitleg. Java-codevoorbeelden waar zinvol.
-
-**💻 Praktisch voorbeeld** — Concreet, werkend Java-voorbeeld met commentaarregels.
-
-**⚠️ Veelgemaakte fouten** — 2-3 valkuilen: "beginners verwarren X met Y omdat...".
-
-**🔗 Wat je al kent** — Koppel aan het leerpad: CLI, GitHub, Java, OOP, Maven, SpringBoot, SQL, HTTP, Testing, Docker, CI/CD, Algorithms.
-
-**📚 Wat volgt?** — 2-3 logische vervolgonderwerpen.
-
-Streef naar 400–600 woorden.
-
----
-
-## Stap 2 — Visualisatie
-
-### A. Diagram (show_widget)
-
-Roep `read_me` aan (modules: ["diagram"]), maak dan een `show_widget`.
-
-Kies de meest geschikte vorm: conceptmap, flowchart, vergelijkingsdiagram, architectuurdiagram of code-annotatie. Maak het interactief waar zinvol (hover voor uitleg).
-
-Sla het diagram op als SVG via Write tool naar workspace folder, converteer naar PNG en push naar GitHub:
-
-```bash
-CONCEPT="[concept-naam-zonder-spaties-lowercase]"
-WORKSPACE="/sessions/sweet-peaceful-einstein/mnt/Notion"
-REPO_PATH="/sessions/sweet-peaceful-einstein/mnt/GitHub/notion-media"
-
-pip install cairosvg --break-system-packages -q 2>/dev/null
-python3 -c "import cairosvg; cairosvg.svg2png(url='${WORKSPACE}/${CONCEPT}-diagram.svg', write_to='${WORKSPACE}/${CONCEPT}-diagram.png', output_width=1600)"
-
-cp "${WORKSPACE}/${CONCEPT}-diagram.png" "$REPO_PATH/"
-cd "$REPO_PATH" && git add "${CONCEPT}-diagram.png" && git commit -m "Add ${CONCEPT} diagram" && git push
-echo "Gepusht: https://raw.githubusercontent.com/Jagc68/notion-media/main/${CONCEPT}-diagram.png"
+Wat wil je doen?
+A) 🍳 Opslaan als recept
+B) 💰 Bewaren als finance tip
+C) 🤖 Samenvatten als AI/Tech notitie
+D) ⏭️  Overslaan
+E) 🗑️  Markeren als Done (later cleanup van Instagram)
 ```
 
-### B. YouTube videos (WebSearch + show_widget)
-
-Zoek 2 videos via WebSearch: `"[concept] java tutorial youtube site:youtube.com"`
-Voorkeur: Fireship, Amigoscode, Programming with Mosh, Traversy Media (5–20 min).
-Toon als embedded iframes via `show_widget`. Fallback: klikbare links.
-
-Sla de gevonden video-URLs op:
-```
-VIDEO_1_URL="https://www.youtube.com/watch?v=..."
-VIDEO_1_TITLE="[Titel van video 1]"
-VIDEO_2_URL="https://www.youtube.com/watch?v=..."
-VIDEO_2_TITLE="[Titel van video 2]"
-```
+Wacht op Greg's antwoord voor je iets doet.
 
 ---
 
-## Stap 3 — Audio
+## Acties
 
-Schrijf de spreektekst naar de workspace folder via Write tool:
-- **Pad:** `/Users/josephcijntje/Documents/Claude/Projects/Notion/[concept]-audio.txt`
-- Nederlands, volledige zinnen, geen markdown
-- Begin: "Welkom bij deze leersessie. Vandaag leren we over [concept]."
-- Einde: "Dat was [concept]. Veel succes met oefenen, en tot de volgende sessie!"
-- Streef naar ~400 woorden (2–3 minuten)
+### A) 🍳 Recept opslaan
 
-Push naar GitHub:
-```bash
-CONCEPT="[concept-naam-zonder-spaties-lowercase]"
-WORKSPACE="/sessions/sweet-peaceful-einstein/mnt/Notion"
-REPO_PATH="/sessions/sweet-peaceful-einstein/mnt/GitHub/notion-media"
+Extraheer uit de caption:
+- Naam van het gerecht
+- Ingrediënten (lijst)
+- Bereidingsstappen (in volgorde)
+- Tips
 
-cp "${WORKSPACE}/${CONCEPT}-audio.txt" "$REPO_PATH/"
-cd "$REPO_PATH" && git add "${CONCEPT}-audio.txt" && git commit -m "Add ${CONCEPT} audio" && git push
-echo "Gepusht: https://raw.githubusercontent.com/Jagc68/notion-media/main/${CONCEPT}-audio.txt"
+Maak een Notion pagina aan via `notion-create-pages`:
+- Parent page_id: `390332b7-36df-80dc-88ae-d37e516e9ba1` (Recepten)
+- Icon: `https://raw.githubusercontent.com/Jagc68/notion-media/main/fitness-cover-icons/09-fitness-apple.png`
+- Title: naam van het gerecht
+- Content:
+```
+## Ingrediënten
+- ...
+
+## Bereidingswijze
+1. ...
+
+## Tips
+- ...
+
+Bron: [url]
 ```
 
-Presenteer het .txt bestand met `present_files`.
+Daarna: update het Notion item via `notion-update-page` → Status = **Processed**.
 
-Maak ook een **Web Speech API audiospeler widget** via `show_widget`:
-- Stemkiezer dropdown (`speechSynthesis.getVoices()`), standaard Daniel (en-GB) of Samantha (en-US)
-- Play / Pauzeer / Stop + voortgangsbalk + huidige zin + snelheidsregelaar (0.6× tot 1.6×)
-- Boven widget: *"💡 Tip: open het .txt bestand in NaturalReader voor betere stemkwaliteit."*
+### B) 💰 Finance tip bewaren
 
----
+Extraheer:
+- Kernpunt / les (1-2 zinnen)
+- Concrete stappen of cijfers
+- Hoe Greg dit zelf kan toepassen
 
-## Stap 4 — Notities opslaan in Obsidian
-
-Gebruik de mapping bovenaan om de juiste Obsidian map te bepalen.
-
-Maak een nieuw markdown bestand aan via de `Write` tool:
-- **Pad:** `/Users/josephcijntje/Documents/GregsObsidianVault/[map]/[concept].md`
-- Gebruik een korte, duidelijke bestandsnaam (bijv. `hashmap.md`, `spring-boot-basics.md`)
-
-### Notitie formaat:
-
+Maak een markdown bestand aan in Obsidian via de `Write` tool:
+- **Pad:** `/Users/josephcijntje/Documents/GregsObsidianVault/04 - Finance/[korte-titel].md`
+- Gebruik een korte bestandsnaam zonder spaties (bijv. `compound-interest-tip.md`)
+- Content:
 ```markdown
-## 🎯 Wat is het?
-[definitie]
+## Kernpunt
+...
 
-## 🔑 Kernconcepten
-[kernbegrippen met codevoorbeelden]
+## Details / Cijfers
+...
 
-## 💻 Praktisch voorbeeld
-[java code block]
+## Hoe toe te passen
+...
 
-## ⚠️ Veelgemaakte fouten
-[valkuilen]
-
-## 🔗 Verbanden
-[leerpad verbanden]
-
-## 📚 Wat volgt?
-[vervolgonderwerpen]
-
----
-
-🖼️ **Diagram:** https://raw.githubusercontent.com/Jagc68/notion-media/main/[concept]-diagram.png
-🔊 **Audio:** https://raw.githubusercontent.com/Jagc68/notion-media/main/[concept]-audio.txt
-🎥 **Video 1:** [VIDEO_1_TITLE] → [VIDEO_1_URL]
-🎥 **Video 2:** [VIDEO_2_TITLE] → [VIDEO_2_URL]
+Bron: [url]
 ```
 
+Daarna: update het Notion item via `notion-update-page` → Status = **Processed**.
+
+### C) 🤖 AI/Tech notitie
+
+Extraheer:
+- Samenvatting (3-5 zinnen)
+- Key takeaways (max 5 bullets)
+- Tools / namen / links die genoemd worden
+- Acties: wat kan Greg concreet doen met deze info?
+
+Maak een markdown bestand aan in Obsidian via de `Write` tool:
+- **Pad:** `/Users/josephcijntje/Documents/GregsObsidianVault/02 - AI & Tech/[pakkende-titel].md`
+- Gebruik een korte bestandsnaam zonder spaties (bijv. `claude-mcp-server.md`)
+- Content:
+```markdown
+## Samenvatting
+...
+
+## Key takeaways
+- ...
+
+## Tools & Links
+- ...
+
+## Acties voor Greg
+- ...
+
+Bron: [url]
+```
+
+Daarna: update het Notion item via `notion-update-page` → Status = **Processed**.
+
+### D) ⏭️ Overslaan
+
+Geen actie, geen Notion update. Ga naar het volgende item.
+
+### E) 🗑️ Done markeren
+
+Update via `notion-update-page`:
+- Page ID: het id uit het JSON-item
+- Status → `"Done"` (plain string, niet `{"name": "Done"}`)
+
 ---
 
-## Stap 5 — Oefentaken aanmaken in Notion
+## Notion API gotcha's
 
-Taken blijven in Notion. Maak 2–3 concrete oefentaken aan via `notion-create-pages`:
-- `parent`: `{"type": "data_source_id", "data_source_id": "64a7434e-3ef5-4c97-a11f-9838548e3ac8"}`
-- Eigenschappen per taak:
-  - `Taak`: concrete omschrijving — niet "leer X" maar "schrijf een X die Y doet"
-  - `Status`: `"To do"`
-  - `Prioriteit`: `"Hoog"` (fundamenteel) / `"Middel"` (verdieping) / `"Laag"` (optioneel)
-  - `Onderwerp`: naam van het concept
+- **Status updaten**: gebruik `"Done"` als plain string in properties, niet `{"name": "Done"}`
+- **Paginatitel updaten via notion-update-page**: gebruik `properties: {"title": "nieuwe titel"}` — de losse `title` parameter werkt NIET
+- **Iconen**: gebruik altijd GitHub raw URLs (`https://raw.githubusercontent.com/Jagc68/notion-media/main/...`), geen emoji
+- **Verkeerde locatie**: gebruik `notion-move-pages` met `new_parent: {"type": "page_id", "page_id": "..."}` om pagina's te verplaatsen
 
 ---
 
-## Toon en stijl
-- Schrijf altijd in het **Nederlands**
-- Helder en direct, vaktermen kort uitleggen
-- Concrete Java-voorbeelden waar mogelijk
-- Tekstuitleg: 400–600 woorden
+## Na elke actie
+
+Bevestig in één zin wat je gedaan hebt, ga dan meteen naar het volgende item zonder te wachten.
+
+## Na het laatste item
+
+```
+✅ Sessie klaar — [N] items verwerkt
+🍳 Recepten: X  💰 Finance: X  🤖 AI/Tech: X  ⏭️ Overgeslagen: X  🗑️ Done: X
+```
+
+Herinner Greg eraan dat Done-items later verwijderd worden via:
+`python3 ~/Documents/Claude/Projects/Notion/cleanup.py`
+
+---
+
+## Stijlregels
+
+- Schrijf in het Nederlands
+- Wees bondig in bevestigingen — Greg hoeft niet elke actie uitgelegd te krijgen
+- Als de caption te kort is om iets zinvols uit te halen, zeg dit eerlijk en stel D of E voor
+- Forceer geen categorie — als iets niet duidelijk past, vraag Greg
