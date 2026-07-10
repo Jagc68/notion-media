@@ -1,45 +1,60 @@
 ---
-name: goedemorgen
-description: Dagelijkse morning briefing. Gebruik ALTIJD wanneer Greg typt "/goedemorgen", "goedemorgen", "good morning" of de dag begint. Haalt de sessie-log van gisteren op uit Notion en geeft een overzicht van open taken, beslissingen en volgende stappen.
+name: ikgaslapen
+description: Dagelijkse afsluiting. Gebruik ALTIJD wanneer Greg typt "/ikgaslapen", "/goedenavond", "ik ga slapen", "tot morgen" of de dag afsluit. Vat de dag samen en schrijft het weg naar het Notion Dagboek.
 ---
 
-# /goedemorgen
+# /ikgaslapen
 
-Geef Greg een korte morning briefing op basis van de laatste daglog in zijn Notion Dagboek.
+Vat de huidige sessie samen en sla het op als daglog in Greg's Notion Dagboek.
 
-## Stap 1 — Haal de laatste daglog op
+## Stap 1 — Maak de samenvatting
 
-Gebruik `notion-search` om de meest recente subpagina op te halen onder het Dagboek (page_id: `399332b7-36df-8181-ae6b-e24f1e05514e`).
+Analyseer de huidige conversatie en maak een gestructureerde samenvatting:
 
-Zoek op: "daglog" of gebruik `notion-fetch` op de Dagboek pagina om de lijst van subpagina's te zien. Haal de meest recente op (hoogste datum in de titel).
+**Besproken / gebouwd:**
+- Wat hebben we vandaag gedaan? (concreet, niet vaag)
 
-## Stap 2 — Presenteer de briefing
+**Beslissingen genomen:**
+- Welke keuzes zijn gemaakt en waarom?
 
-Geef een korte, gestructureerde briefing in het Nederlands:
+**Geleerd:**
+- Nieuwe concepten, tools of inzichten
 
+**Open vragen / volgende stappen:**
+- Wat is nog niet afgerond?
+- Wat is de logische volgende stap?
+
+Houd het onder 300 woorden — kort en to the point.
+
+## Stap 2 — Schrijf weg naar Notion
+
+Maak een nieuwe subpagina aan onder het Dagboek via `notion-create-pages`:
+
+- **Parent page_id:** `399332b7-36df-8181-ae6b-e24f1e05514e`
+- **Titel:** datum van vandaag, bijv. `2026-07-10`
+- **Icon:** `https://raw.githubusercontent.com/Jagc68/notion-media/main/wiki-cover-icons/02-wiki-notebook-pen.png`
+- **Content:** de samenvatting uit Stap 1 in dit format:
+
+```markdown
+## 🛠️ Besproken / gebouwd
+[inhoud]
+
+## ✅ Beslissingen
+[inhoud]
+
+## 💡 Geleerd
+[inhoud]
+
+## 👉 Volgende stappen
+[inhoud]
 ```
-☀️ Goedemorgen Greg!
 
-📅 Gisteren ([datum]):
-[Wat je bezig was met — 2-3 zinnen]
+## Stap 3 — Bevestig
 
-✅ Afgerond:
-- [item]
-
-🔄 Open / in progress:
-- [item]
-
-❓ Open vragen:
-- [item]
-
-👉 Logische eerste stap vandaag:
-[concrete suggestie]
-```
-
-Als er geen daglog bestaat (eerste keer), zeg dan:
-> "Nog geen eerdere logs gevonden. Ik maak vanavond de eerste aan via /ikgaslapen."
+Zeg kort:
+> "Daglog opgeslagen voor [datum]. Welterusten! 👋"
 
 ## Toon
-- Kort en direct — geen lange uitleg
 - Nederlands
-- Maximaal 150 woorden
+- Bondig en feitelijk — dit is een log, geen essay
+- Maximaal 300 woorden in de Notion pagina
