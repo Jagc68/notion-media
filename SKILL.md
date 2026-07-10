@@ -1,83 +1,45 @@
 ---
-name: ikgaslapen
-description: Dagelijkse afsluiting. Gebruik ALTIJD wanneer Greg typt "/ikgaslapen", "/goedenavond", "ik ga slapen", "tot morgen" of de dag afsluit. Vat de dag samen en schrijft het weg naar de Obsidian Dagboek map.
+name: goedemorgen
+description: Dagelijkse morning briefing. Gebruik ALTIJD wanneer Greg typt "/goedemorgen", "goedemorgen", "good morning" of de dag begint. Leest de meest recente daglog uit de Obsidian vault en geeft een overzicht van open taken, beslissingen en volgende stappen.
 ---
 
-# /ikgaslapen
+# /goedemorgen
 
-Vat de huidige sessie samen en sla het op als daglog in Greg's Obsidian vault.
+Geef Greg een korte morning briefing op basis van de laatste daglog in zijn Obsidian vault.
 
-## Stap 1 — Maak de samenvatting
-
-Analyseer de huidige conversatie en maak een gestructureerde samenvatting:
-
-**Besproken / gebouwd:**
-- Wat hebben we vandaag gedaan? (concreet, niet vaag)
-
-**Beslissingen genomen:**
-- Welke keuzes zijn gemaakt en waarom?
-
-**Geleerd:**
-- Nieuwe concepten, tools of inzichten
-
-**Open vragen / volgende stappen:**
-- Wat is nog niet afgerond?
-- Wat is de logische volgende stap?
-
-Houd het onder 300 woorden — kort en to the point.
-
-## Stap 2 — Schrijf weg naar Obsidian
+## Stap 1 — Haal de laatste daglog op
 
 Dagboek map: `/Users/josephcijntje/Documents/GregsObsidianVault/00 - Dagboek/`
 
-Bestandsnaam: `YYYY-MM-DD.md` (bijv. `2026-07-10.md`)
+Gebruik `Glob` om de bestanden in de map te zien (`*.md`), sorteer op naam (hoogste datum = meest recent). Lees het meest recente bestand met `Read`.
 
-**Check eerst of het bestand al bestaat (meerdere sessies op één dag):**
+## Stap 2 — Presenteer de briefing
 
-- Als het bestand **niet bestaat**: maak het aan met de samenvatting
-- Als het bestand **al bestaat**: voeg de nieuwe sessie toe onderaan met een scheidingslijn
+Geef een korte, gestructureerde briefing in het Nederlands:
 
-### Format voor nieuw bestand:
-```markdown
-## 🛠️ Besproken / gebouwd
-[inhoud]
+```
+☀️ Goedemorgen Greg!
 
-## ✅ Beslissingen
-[inhoud]
+📅 Gisteren ([datum]):
+[Wat je bezig was met — 2-3 zinnen]
 
-## 💡 Geleerd
-[inhoud]
+✅ Afgerond:
+- [item]
 
-## 👉 Volgende stappen
-[inhoud]
+🔄 Open / in progress:
+- [item]
+
+❓ Open vragen:
+- [item]
+
+👉 Logische eerste stap vandaag:
+[concrete suggestie]
 ```
 
-### Format voor extra sessie (append):
-```markdown
-
----
-
-## 🛠️ Besproken / gebouwd — Sessie 2
-[inhoud]
-
-## ✅ Beslissingen
-[inhoud]
-
-## 💡 Geleerd
-[inhoud]
-
-## 👉 Volgende stappen
-[inhoud]
-```
-
-Gebruik de `Write` tool (nieuw bestand) of `Edit` tool (append aan bestaand bestand).
-
-## Stap 3 — Bevestig
-
-Zeg kort:
-> "Daglog opgeslagen voor [datum]. Welterusten! 👋"
+Als er geen daglog bestaat, zeg dan:
+> "Nog geen eerdere logs gevonden. Ik maak vanavond de eerste aan via /ikgaslapen."
 
 ## Toon
+- Kort en direct — geen lange uitleg
 - Nederlands
-- Bondig en feitelijk — dit is een log, geen essay
-- Maximaal 300 woorden per sessie
+- Maximaal 150 woorden
