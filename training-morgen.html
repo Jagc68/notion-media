@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Herstart — Vrijdag 17 juli</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; padding: 16px; max-width: 480px; margin: 0 auto; }
+  .header { padding: 20px 0 16px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; background: #0f2818; color: #22c55e; margin-bottom: 8px; letter-spacing: 0.05em; text-transform: uppercase; }
+  h1 { font-size: 22px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .meta { font-size: 13px; color: #64748b; }
+  .divider { height: 1px; background: #1e293b; margin: 16px 0; }
+  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #475569; margin-bottom: 10px; }
+
+  /* Hometrainer blok */
+  .cardio-block { background: #1e293b; border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+  .cardio-title { font-size: 16px; font-weight: 700; color: #60a5fa; margin-bottom: 6px; }
+  .cardio-detail { font-size: 14px; color: #94a3b8; line-height: 1.7; }
+  .cardio-detail span { color: #60a5fa; font-weight: 600; }
+
+  /* Grote countdowntimer hometrainer */
+  .big-timer { background: #0f1e3a; border: 1.5px solid #1e3a6e; border-radius: 16px; padding: 20px; text-align: center; margin: 12px 0; }
+  .big-timer-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #3b82f6; margin-bottom: 8px; }
+  .big-timer-display { font-size: 64px; font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace; color: #60a5fa; letter-spacing: -3px; margin-bottom: 16px; }
+  .big-timer-display.running { color: #f59e0b; }
+  .big-timer-display.done-t { color: #22c55e; }
+  .big-timer-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .bt-btn { padding: 11px 0; border: 1.5px solid #1e3a6e; border-radius: 10px; background: #0f172a; color: #60a5fa; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .bt-btn.start-btn { border-color: #3b82f6; background: #1e3a6e; color: #93c5fd; }
+  .bt-btn.stop { border-color: #ef4444; color: #ef4444; }
+
+  /* KB circuit */
+  .warmup { background: #1e293b; border-radius: 12px; padding: 12px 16px; font-size: 14px; color: #94a3b8; line-height: 1.8; }
+  .rounds { display: flex; gap: 8px; margin-bottom: 14px; }
+  .round-btn { flex: 1; padding: 8px 0; border-radius: 10px; border: 1.5px solid #334155; background: #0f172a; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.15s; }
+  .round-btn.active { border-color: #f59e0b; color: #f59e0b; background: #2d1b00; }
+  .round-btn.done-r { border-color: #22c55e; color: #22c55e; background: #0f2818; }
+
+  .exercise { display: flex; align-items: center; gap: 12px; background: #1e293b; border-radius: 12px; padding: 14px 16px; margin-bottom: 8px; cursor: pointer; }
+  .exercise.done { background: #0f2818; }
+  .checkbox { width: 28px; height: 28px; border: 2px solid #334155; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .exercise.done .checkbox { background: #22c55e; border-color: #22c55e; }
+  .checkbox-icon { display: none; font-size: 16px; }
+  .exercise.done .checkbox-icon { display: block; }
+  .ex-info { flex: 1; }
+  .ex-name { font-size: 15px; font-weight: 600; color: #f1f5f9; }
+  .exercise.done .ex-name { color: #4ade80; }
+  .ex-detail { font-size: 12px; color: #64748b; margin-top: 2px; }
+  .ex-badges { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: #0f172a; color: #94a3b8; }
+  .badge.kb { color: #f59e0b; }
+  .badge.werk { color: #f59e0b; background: #2d1b00; }
+  .badge.rust { color: #60a5fa; background: #0f1e3a; }
+
+  .progress-wrap { margin: 16px 0 4px; }
+  .progress-bg { height: 6px; background: #1e293b; border-radius: 3px; }
+  .progress-fill { height: 6px; background: #f59e0b; border-radius: 3px; width: 0%; transition: width 0.3s; }
+  .progress-text { font-size: 12px; color: #475569; text-align: center; margin-top: 6px; }
+
+  /* Kleine KB timer */
+  .timer-section { background: #1e293b; border-radius: 16px; padding: 20px; margin: 16px 0; text-align: center; }
+  .timer-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #475569; margin-bottom: 8px; }
+  .timer-display { font-size: 56px; font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace; color: #f1f5f9; letter-spacing: -2px; margin-bottom: 16px; }
+  .timer-display.werk { color: #f59e0b; }
+  .timer-display.rust { color: #60a5fa; }
+  .timer-display.done-t { color: #22c55e; }
+  .timer-btns { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+  .t-btn { padding: 10px 0; border: 1.5px solid #334155; border-radius: 10px; background: #0f172a; color: #94a3b8; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .t-btn.werk-btn { border-color: #f59e0b; color: #f59e0b; }
+  .t-btn.rust-btn { border-color: #60a5fa; color: #60a5fa; }
+  .t-btn.rond-btn { border-color: #a78bfa; color: #a78bfa; }
+  .t-btn.stop { border-color: #ef4444; color: #ef4444; }
+
+  .cooldown { background: #1e293b; border-radius: 12px; padding: 12px 16px; font-size: 14px; color: #94a3b8; line-height: 1.8; }
+  .tip { background: #1e293b; border-left: 3px solid #22c55e; border-radius: 0 10px 10px 0; padding: 12px 14px; font-size: 13px; color: #94a3b8; margin: 16px 0; }
+  .log-btn { width: 100%; margin-top: 20px; padding: 16px; background: #22c55e; color: #0f172a; font-size: 16px; font-weight: 700; border: none; border-radius: 14px; cursor: pointer; }
+  .log-btn:active { opacity: 0.8; }
+  .next { text-align: center; font-size: 13px; color: #475569; margin-top: 16px; padding-bottom: 32px; }
+  .phase-badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 6px; margin-bottom: 10px; }
+  .phase-1 { background: #0f1e3a; color: #60a5fa; }
+  .phase-2 { background: #2d1b00; color: #f59e0b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Vrijdag 17 juli — Herstart 💪</div>
+  <h1>Hometrainer + KB Circuit</h1>
+  <p class="meta">⏱ ~75 min &nbsp;·&nbsp; 🏠 Thuis &nbsp;·&nbsp; 12 / 16 kg</p>
+</div>
+
+<div class="tip">Welkom terug. Vandaag geen PR's — gewoon bewegen. 2 rondes, geen 3. Na een maand rust is dat precies goed.</div>
+
+<div class="divider"></div>
+
+<!-- FASE 1: HOMETRAINER -->
+<span class="phase-badge phase-1">Fase 1 — Hometrainer</span>
+<p class="section-label">45 minuten steady state</p>
+
+<div class="cardio-block">
+  <div class="cardio-title">🚴 Hometrainer</div>
+  <div class="cardio-detail">
+    Tempo: <span>laag tot matig</span> &nbsp;·&nbsp; Hartslag: <span>120–135 bpm</span><br>
+    Gewoon doortrappen, niet sprinten. Vetverbrandingszone.<br>
+    Muziek of podcast aan en genieten.
+  </div>
+</div>
+
+<div class="big-timer">
+  <div class="big-timer-label" id="bt-label">45:00 — druk Start als je begint</div>
+  <div class="big-timer-display" id="bt-display">45:00</div>
+  <div class="big-timer-btns">
+    <button class="bt-btn start-btn" onclick="startBigTimer()">▶ Start</button>
+    <button class="bt-btn" onclick="pauseBigTimer()">⏸ Pauze</button>
+    <button class="bt-btn stop" onclick="resetBigTimer()">↺ Reset</button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FASE 2: KB CIRCUIT -->
+<span class="phase-badge phase-2">Fase 2 — Kettlebell Circuit</span>
+<p class="section-label">~30 minuten</p>
+
+<p class="section-label">Warming-up — 5 min</p>
+<div class="warmup">
+  Armcirkels ×10 · heupscharnieren ×10 · bodyweight squat ×10 · halos 8kg ×5 per kant
+</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Circuit — 2 rondes &nbsp;·&nbsp; 40s werk / 20s rust / 90s tussen rondes</p>
+
+<div class="rounds">
+  <div class="round-btn active" id="r1" onclick="setRound(1)">Ronde 1</div>
+  <div class="round-btn" id="r2" onclick="setRound(2)">Ronde 2</div>
+</div>
+
+<div class="exercise" id="ex0" onclick="toggleEx(0)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">KB Swing</div>
+    <div class="ex-badges">
+      <span class="badge kb">16 kg</span>
+      <span class="badge werk">40s werk</span>
+      <span class="badge rust">20s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex1" onclick="toggleEx(1)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">Push-up</div>
+    <div class="ex-badges">
+      <span class="badge">Eigen gewicht</span>
+      <span class="badge werk">40s werk</span>
+      <span class="badge rust">20s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex2" onclick="toggleEx(2)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">KB Goblet Squat</div>
+    <div class="ex-badges">
+      <span class="badge kb">12 kg</span>
+      <span class="badge werk">40s werk</span>
+      <span class="badge rust">20s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex3" onclick="toggleEx(3)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">Mountain Climber</div>
+    <div class="ex-badges">
+      <span class="badge">Eigen gewicht</span>
+      <span class="badge werk">40s werk</span>
+      <span class="badge rust">20s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="exercise" id="ex4" onclick="toggleEx(4)">
+  <div class="checkbox"><span class="checkbox-icon">✓</span></div>
+  <div class="ex-info">
+    <div class="ex-name">KB Bent-over Row</div>
+    <div class="ex-badges">
+      <span class="badge kb">12 kg</span>
+      <span class="badge werk">40s werk</span>
+      <span class="badge rust">20s rust</span>
+    </div>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bg"><div class="progress-fill" id="progress"></div></div>
+  <p class="progress-text" id="progress-text">0 van 5 klaar in ronde 1</p>
+</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Rusttimer KB</p>
+<div class="timer-section">
+  <div class="timer-label" id="timer-label">Klaar om te starten</div>
+  <div class="timer-display" id="timer">0:40</div>
+  <div class="timer-btns">
+    <button class="t-btn werk-btn" onclick="startTimer(40, 'werk')">40s werk</button>
+    <button class="t-btn rust-btn" onclick="startTimer(20, 'rust')">20s rust</button>
+    <button class="t-btn rond-btn" onclick="startTimer(90, 'rond')">90s ronde</button>
+    <button class="t-btn stop" onclick="resetTimer()">Reset</button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Cool-down — 5 min</p>
+<div class="cooldown">
+  Heupflexor stretch · hamstring stretch · thoracale rotatie · diepe ademhaling ×10
+</div>
+
+<button class="log-btn" onclick="logDone()">✓ Herstart gelukt — goed gedaan!</button>
+<p class="next">Volgende training: zondag of maandag — Training A (Kettlebell Kracht)</p>
+
+<script>
+// === HOMETRAINER TIMER ===
+let btRemaining = 45 * 60;
+let btInterval = null;
+let btRunning = false;
+
+function startBigTimer() {
+  if (btRunning) return;
+  btRunning = true;
+  document.getElementById('bt-label').textContent = '🔥 Aan het fietsen — houd vol!';
+  document.getElementById('bt-display').className = 'big-timer-display running';
+  btInterval = setInterval(() => {
+    btRemaining--;
+    if (btRemaining <= 0) {
+      clearInterval(btInterval);
+      btRunning = false;
+      document.getElementById('bt-display').textContent = 'KLAAR!';
+      document.getElementById('bt-display').className = 'big-timer-display done-t';
+      document.getElementById('bt-label').textContent = '✅ 45 minuten gereden — fase 2 starten!';
+      if (navigator.vibrate) navigator.vibrate([400, 200, 400, 200, 400]);
+    } else {
+      updateBigDisplay();
+    }
+  }, 1000);
+}
+
+function pauseBigTimer() {
+  if (btRunning) {
+    clearInterval(btInterval);
+    btRunning = false;
+    document.getElementById('bt-label').textContent = '⏸ Gepauzeerd';
+    document.getElementById('bt-display').className = 'big-timer-display';
+  } else {
+    startBigTimer();
+  }
+}
+
+function resetBigTimer() {
+  clearInterval(btInterval);
+  btRunning = false;
+  btRemaining = 45 * 60;
+  document.getElementById('bt-display').className = 'big-timer-display';
+  document.getElementById('bt-label').textContent = '45:00 — druk Start als je begint';
+  updateBigDisplay();
+}
+
+function updateBigDisplay() {
+  const m = Math.floor(btRemaining / 60);
+  const s = btRemaining % 60;
+  document.getElementById('bt-display').textContent = m + ':' + String(s).padStart(2, '0');
+}
+
+// === KB CIRCUIT ===
+let currentRound = 1;
+const total = 5;
+
+function setRound(r) {
+  currentRound = r;
+  ['r1','r2'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'round-btn' + (i + 1 === r ? ' active' : (i + 1 < r ? ' done-r' : ''));
+  });
+  document.querySelectorAll('.exercise').forEach(el => el.classList.remove('done'));
+  document.getElementById('progress').style.width = '0%';
+  document.getElementById('progress-text').textContent = '0 van ' + total + ' klaar in ronde ' + r;
+}
+
+function toggleEx(i) {
+  const el = document.getElementById('ex' + i);
+  el.classList.toggle('done');
+  const done = document.querySelectorAll('.exercise.done').length;
+  document.getElementById('progress').style.width = (done / total * 100) + '%';
+  document.getElementById('progress-text').textContent = done + ' van ' + total + ' klaar in ronde ' + currentRound;
+  if (done === total && currentRound < 2) {
+    setTimeout(() => {
+      if (confirm('Ronde ' + currentRound + ' klaar! 90s rust, dan Ronde 2?')) {
+        setRound(2);
+        startTimer(90, 'rond');
+      }
+    }, 300);
+  }
+}
+
+let interval = null, remaining = 40;
+function startTimer(s, mode) {
+  clearInterval(interval);
+  remaining = s;
+  const labels = { werk: '🔥 Werk!', rust: '😮‍💨 Rust', rond: '☕ Rust tussen rondes' };
+  const classes = { werk: 'timer-display werk', rust: 'timer-display rust', rond: 'timer-display rust' };
+  document.getElementById('timer-label').textContent = labels[mode];
+  document.getElementById('timer').className = classes[mode];
+  updateDisplay();
+  interval = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(interval);
+      document.getElementById('timer').textContent = mode === 'werk' ? 'RUST!' : 'GO!';
+      document.getElementById('timer').className = 'timer-display done-t';
+      document.getElementById('timer-label').textContent = mode === 'werk' ? '✅ Stop — neem 20s rust' : '✅ Start volgende oefening';
+      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    } else {
+      updateDisplay();
+    }
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(interval);
+  remaining = 40;
+  document.getElementById('timer').className = 'timer-display';
+  document.getElementById('timer-label').textContent = 'Klaar om te starten';
+  updateDisplay();
+}
+
+function updateDisplay() {
+  const m = Math.floor(remaining / 60), s = remaining % 60;
+  document.getElementById('timer').textContent = m + ':' + String(s).padStart(2, '0');
+}
+
+function logDone() {
+  document.querySelector('.log-btn').textContent = '💪 Week 1, dag 1 — welkom terug!';
+  document.querySelector('.log-btn').style.background = '#22c55e';
+}
+</script>
+</body>
+</html>
