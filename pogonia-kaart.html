@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗺️ Pogonia Vakantiekaart — September 2026</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; }
+  #header { padding: 14px 20px; background: #16213e; border-bottom: 1px solid #0f3460; display: flex; align-items: center; gap: 12px; }
+  #header h1 { font-size: 18px; color: #e8c97a; }
+  #header span { font-size: 13px; color: #888; }
+  #map { height: calc(100vh - 55px); }
+  .legend { background: #1a1a2e; border: 1px solid #0f3460; padding: 12px 14px; border-radius: 8px; font-size: 12px; line-height: 2; min-width: 160px; }
+  .legend h4 { color: #e8c97a; margin-bottom: 6px; font-size: 13px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+  .legend-item:hover { background: rgba(255,255,255,0.05); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .leaflet-popup-content-wrapper { background: #1a1a2e; border: 1px solid #0f3460; border-radius: 8px; color: #eee; }
+  .leaflet-popup-tip { background: #1a1a2e; }
+  .leaflet-popup-content { margin: 10px 14px; min-width: 180px; }
+  .popup-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .popup-type { font-size: 11px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .popup-desc { font-size: 12px; line-height: 1.5; color: #ccc; }
+  .popup-star { color: #e8c97a; }
+</style>
+</head>
+<body>
+<div id="header">
+  <span style="font-size:22px">🇬🇷</span>
+  <h1>Pogonia Vakantiekaart — September 2026</h1>
+  <span>Schiereiland tussen Pogonia en Lefkada stad</span>
+</div>
+<div id="map"></div>
+
+<script>
+const map = L.map('map', { center: [38.78, 20.80], zoom: 12 });
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors',
+  maxZoom: 18
+}).addTo(map);
+
+// Category colors
+const colors = {
+  strand: '#00bcd4',
+  restaurant: '#ff7043',
+  kasteel: '#ab47bc',
+  klooster: '#66bb6a',
+  hotel: '#29b6f6',
+  dorp: '#ffa726',
+  activiteit: '#ec407a',
+  historisch: '#8d6e63',
+  route: '#78909c'
+};
+
+function makeIcon(color, emoji) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,0.5)">${emoji}</div>`,
+    iconSize: [28,28], iconAnchor: [14,14], popupAnchor: [0,-14]
+  });
+}
+
+function addMarker(lat, lng, emoji, color, title, type, desc, star) {
+  const icon = makeIcon(color, emoji);
+  const starHtml = star ? `<div class="popup-star">⭐ ${star}</div>` : '';
+  L.marker([lat, lng], {icon}).addTo(map).bindPopup(`
+    <div class="popup-title">${title}</div>
+    <div class="popup-type">${type}</div>
+    ${starHtml}
+    <div class="popup-desc">${desc}</div>
+  `);
+}
+
+// === STRANDEN (blauw) ===
+addMarker(38.825, 20.761, '🏖️', colors.strand, 'Vagia Beach', 'Strand', 'Bij Kastro Griva. Rustig, lokaal, kiezel/zand.');
+addMarker(38.793, 20.883, '🏖️', colors.strand, 'Pogonia Beach', 'Strand', 'Fijn zand, ondiep turquoise water, bomen tot aan het water. Jachthaven erbij.');
+addMarker(38.808, 20.742, '🏖️', colors.strand, 'Agios Ioannis Beach', 'Strand', 'Witte kiezels, stille baai, kerkje erbij. Per auto bereikbaar.');
+addMarker(38.778, 20.724, '🏖️', colors.strand, 'Vathiavali Beach', 'Strand ⭐ BESTE', 'Het beste strand van de regio. Jarenlang alleen per boot. Exotisch, maagdelijk. Ligstoelen + kantine. Vroeg gaan!');
+addMarker(38.742, 20.710, '🏖️', colors.strand, 'Gerakas Beach', 'Strand', 'Zuidwestpunt schiereiland. Geen verharde weg. Alleen per onverhard pad of boot. Zeer afgelegen.');
+addMarker(38.757, 20.717, '🏖️', colors.strand, 'Varko Bay', 'Baai / Strand', 'Kleine beschutte baai op de westse kust. Varko Luxury Suites erbij.');
+addMarker(38.730, 20.870, '🏖️', colors.strand, 'Marathaki Beach', 'Strand', 'Zuidpunt oostkust. Afgelegen, geen verharde weg.');
+addMarker(38.692, 20.877, '🏖️', colors.strand, 'Asprogiali Beach', 'Strand', 'Bij Mytikas-baai. Lokaal, rustig, geen toerisme.');
+
+// === KASTELEN (paars) ===
+addMarker(38.828, 20.762, '🏰', colors.kasteel, 'Kastro Griva', 'Kasteel', 'Ali Pasha 1806, met Franse hulp. Gratis, altijd open. Uitzicht over Lefkada-lagune is buitengewoon. Nauwelijks toeristisch.');
+addMarker(38.803, 20.862, '🏰', colors.kasteel, 'Kastro Agios Georgios Plagias', 'Kasteel', 'In Plagiá, naast het gemeentelijk voetbalveld. Tweede kasteel van het schiereiland.');
+addMarker(38.838, 20.723, '🏰', colors.kasteel, 'Kastro Agias Mavras', 'Kasteel ⭐ MUST-SEE', 'Venetiaans fort 14e eeuw — pal naast de zwaaibrug naar Lefkada stad. Gratis toegankelijk. Een van de best bewaard gebleven Venetiaanse forten van Griekenland.');
+addMarker(38.835, 20.730, '🏰', colors.kasteel, 'Τύρας (Κάστρο)', 'Fort/toren', 'Klein Venetiaans fortje langs de lagune-route, vlak voor de brug.');
+addMarker(38.724, 20.875, '🏰', colors.kasteel, 'Kastro Varnakas / Castle of Glosson', 'Kasteel', 'Byzantijns kasteel bij Kandila/Varnakas. Afgelegen, nauwelijks bezoekers.');
+
+// === HISTORISCH (bruin) ===
+addMarker(38.810, 20.862, '🏛️', colors.historisch, 'Ancient City of Sterna', 'Historisch', '5e eeuw v.Chr., bergtop 507m. Mogelijk Sollion (Korinthische kolonie). Vrij toegankelijk. Geen officieel pad — goed schoeisel meenemen.');
+addMarker(38.800, 20.862, '🏛️', colors.historisch, 'Palia Plagia', 'Verlaten dorp', 'Spookdorp vlak onder de Sterna-ruïnes. Verlaten.');
+addMarker(38.797, 20.874, '🏛️', colors.historisch, 'Ancient Paleros', 'Historisch', 'Aparte archeologische site bij Pogonia. De antieke haven van Paleros lag precies hier.');
+
+// === KLOOSTERS (groen) ===
+addMarker(38.828, 20.865, '⛪', colors.klooster, 'Ιερά Μονή Αγίας Παρασκευής', 'Klooster', 'Klooster in het noordoosten van het schiereiland.');
+addMarker(38.768, 20.873, '⛪', colors.klooster, 'Moni Agiou Dimitriou', 'Klooster', 'Tweede klooster, gelegen in de bergkam oostzijde. Minder bezocht.');
+
+// === RESTAURANTS / EEN & DRINKEN (oranje) ===
+addMarker(38.793, 20.882, '🍽️', colors.restaurant, 'Koutavos Tavern', 'Restaurant', 'Ταβέρνα Κούταβος, vlak bij Pogonia.');
+addMarker(38.798, 20.884, '🍽️', colors.restaurant, 'Ταβέρνα Κάβος', 'BBQ Restaurant', 'Bij Potamaki Beach. Barbecue-specialiteiten.');
+addMarker(38.803, 20.858, '🍽️', colors.restaurant, 'Plagiá — 5 tavernas + 3 cafés', 'Dorpshub', 'Kolokithas, O Christos, Mr. Thomas, Spyros Pantazis, Stamoulakis + Café Μωραΐτης, DOT! Coffee, Kafeneio Panos. Het actiefste dorp op het schiereiland!');
+addMarker(38.796, 20.856, '🍽️', colors.restaurant, 'Taverna Bakoula', 'Restaurant', 'In Agios Georgios Stenou. Bevestigde lokale taverna.');
+addMarker(38.790, 20.854, '🍽️', colors.restaurant, 'Panorama Restaurant', 'Restaurant', 'In het dorpje Panorama, met uitzicht.');
+addMarker(38.695, 20.877, '🍽️', colors.restaurant, 'Tavern Beach Bar Delfinia', 'Restaurant', 'Beachbar + taverna bij Mytikas. Lokaal en ontspannen.');
+addMarker(38.842, 20.720, '🍽️', colors.restaurant, 'η Καντίνα (i Kantina)', 'Wegkantine', 'Kleine kantine op het wegknooppunt bij de lagune. Lokaal, eenvoudig.');
+
+// === PALEROS (op fietsafstand) ===
+addMarker(38.797, 20.876, '🍽️', colors.restaurant, 'Paleros — restaurants', 'Fietsafstand', 'Ψαροταβέρνα Αννας (vis), Restaurant Potamaki, La Creme Patisserie, Paleros Yacht Club, Luzazul. 10 min fietsen van Pogonia.');
+
+// === HOTELS (lichtblauw) ===
+addMarker(38.757, 20.717, '🏨', colors.hotel, 'Varko Luxury Suites', 'Hotel', 'Bij Varko Bay, westse kust. Luxe suites met uitzicht op de baai.');
+addMarker(38.775, 20.875, '🏨', colors.hotel, 'Thalassa Hotel', 'Hotel', 'Eerste hotel op de oostkust, ten zuiden van Paleros/Varko.');
+addMarker(38.765, 20.872, '🏨', colors.hotel, 'Kosta Maria', 'Verblijf', 'Kleine nederzetting met verblijf op de oostkust.');
+addMarker(38.748, 20.872, '🏨', colors.hotel, 'Hani Inn 1834', 'Historisch hotel', 'Inn uit 1834 ten zuiden van Perivolia — uniek voor overnachting of koffie.');
+addMarker(38.693, 20.877, '🏨', colors.hotel, 'Alexander Hotel', 'Hotel ⭐ Best beoordeeld', 'Best beoordeeld hotel in de omgeving van Mytikas.');
+
+// === ACTIVITEITEN (roze) ===
+addMarker(38.793, 20.875, '🐴', colors.activiteit, 'Aetherion Riding Ranch', 'Paardrijden', 'Paardrijden vlak bij Paleros. Begeleide ritten in het heuvellandschap.');
+
+// === DORPEN ===
+addMarker(38.803, 20.860, '🏘️', colors.dorp, 'Plagiá', 'Dorp', 'Het actiefste dorp. 5 tavernas, 3 cafés, kasteel, voetbalveld. Verplicht bezoek!');
+addMarker(38.796, 20.856, '🏘️', colors.dorp, 'Agios Georgios Stenou', 'Dorp', 'Met Taverna Bakoula. Rustiek, authentiek.');
+addMarker(38.758, 20.872, '🏘️', colors.dorp, 'Perivolia (Περιβόλια)', 'Dorp', 'Vriendelijk kustdorpje op de oostkust.');
+addMarker(38.688, 20.877, '🏘️', colors.dorp, 'Mytikas (Μύτικας)', 'Kustdorp', 'Zuidpunt schiereiland. Boot naar eilandjes Kalamos & Kastos. Griekse dorpssfeer.');
+
+// === ROUTE PUNT ===
+addMarker(38.832, 20.720, '🌉', colors.route, 'Zwaaibrug → Lefkada stad', 'Route', 'De smalle draaibare brug over het kanaal. Verbindt vasteland met Lefkada stad. 5 min rijden van Kastro Agias Mavras.');
+addMarker(38.796, 20.872, '🌉', colors.route, 'Peratia Mill (Μύλος Περατιάς)', 'Historische molen', 'Oude windmolen in Peratia, langs de lagune-route naar Lefkada.');
+
+// Uitkijkpunt
+addMarker(38.808, 20.858, '👁️', colors.historisch, 'Κόκκινο Στεφάνι', 'Uitkijkpunt', '"Rode Kroon" — uitkijkpunt op de heuvelrug van het schiereiland.');
+
+// Legend
+const legend = L.control({position: 'bottomright'});
+legend.onAdd = function() {
+  const div = L.DomUtil.create('div', 'legend');
+  div.innerHTML = `
+    <h4>🗺️ Legenda</h4>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.strand}"></div> Strand / Baai</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.kasteel}"></div> Kasteel / Fort</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.historisch}"></div> Historisch</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.klooster}"></div> Klooster</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.restaurant}"></div> Restaurant / Café</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.hotel}"></div> Hotel / Verblijf</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.dorp}"></div> Dorp</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.activiteit}"></div> Activiteit</div>
+    <div class="legend-item"><div class="legend-dot" style="background:${colors.route}"></div> Route / Brug</div>
+  `;
+  return div;
+};
+legend.addTo(map);
+</script>
+</body>
+</html>
