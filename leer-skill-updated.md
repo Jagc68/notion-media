@@ -170,8 +170,8 @@ Maak 2–3 concrete oefentaken aan via `notion-create-pages`:
 ---
 
 ## Toon en stijl
-- Schrijf altijd in het **Nederlands**
-- Helder en direct, vaktermen kort uitleggen
+- Schrijf altijd in het **Engels** — de hele Java track is Engelstalig
+- Helder en direct, jargon kort uitleggen
 - Concrete Java-voorbeelden waar mogelijk
 - Tekstuitleg: 400–600 woorden
 - Greg is visueel, praktisch en auditief ingesteld — houd tekst bondig, maak diagrammen rijk en zorg altijd voor audio
