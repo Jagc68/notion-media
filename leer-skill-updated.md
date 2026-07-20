@@ -157,7 +157,37 @@ Maak een markdown bestand aan in de lesmap via de `Write` tool:
 
 ---
 
-## Stap 5 — Oefentaken aanmaken in Notion
+## Stap 5 — Notion lespagina aanmaken
+
+Maak een lespagina aan in de Java Track in Notion. Dit is de mobiele versie van de les — Greg gebruikt dit op zijn iPhone in de trein.
+
+**Java Track page_id:** `3a3332b7-36df-81a7-9875-c56cf92d9c6a`
+
+### A. Maak de lespagina aan
+
+Gebruik `notion-create-pages` met parent `page_id: 3a3332b7-36df-81a7-9875-c56cf92d9c6a`.
+
+- **Titel:** `[les-nummer] — [Concept]` (bijv. `1.1a — Introduction to Java`)
+- **Icon:** passend Java icon van `https://raw.githubusercontent.com/Jagc68/notion-media/main/java-cover-icons/`
+- **Content:** volledige Engelse notitie + video links onderaan + `*(audio attached below)*` als placeholder
+
+### B. Upload audio als bijlage
+
+Gebruik `notion-create-attachment` met de spreektekst (zelfde inhoud als het lokale .txt bestand):
+- `filename`: `[concept]-audio.txt`
+- `content_type`: `text/plain`
+- `content`: de volledige spreektekst
+
+Gebruik daarna `notion-update-page` met `update_content` om de placeholder `*(audio attached below)*` te vervangen door:
+`<file src="file-upload://[returned file_upload_id]"></file>`
+
+### C. Resultaat
+
+Op iPhone: Notion → Java Track → les → download audio → open in NaturalReader.
+
+---
+
+## Stap 6 — Oefentaken aanmaken in Notion
 
 Maak 2–3 concrete oefentaken aan via `notion-create-pages`:
 - `parent`: `{"type": "data_source_id", "data_source_id": "64a7434e-3ef5-4c97-a11f-9838548e3ac8"}`
