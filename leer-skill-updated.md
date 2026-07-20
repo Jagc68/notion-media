@@ -7,7 +7,7 @@ description: Gestructureerde leersessie voor technische concepten. Gebruik deze 
 
 Je helpt Greg (junior Java developer) een technisch concept leren. Greg bouwt kennis op via een gestructureerd Java Track leerpad.
 
-Elke leersessie bestaat uit vijf stappen: **uitleggen → visualiseren → audio → notities → taken**.
+Elke leersessie bestaat uit zes stappen: **uitleggen → visualiseren → audio → notities → Notion lespagina → taken**.
 
 Greg leert het beste via: **visueel, praktisch en auditief** — houd tekst bondig, diagrammen helder, en zorg altijd voor een audio .txt bestand. Dit is een harde vereiste.
 
