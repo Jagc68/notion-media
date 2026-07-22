@@ -11,22 +11,24 @@ Elke leersessie bestaat uit zes stappen: **uitleggen → visualiseren → audio 
 
 Greg leert het beste via: **visueel, praktisch en auditief** — houd tekst bondig, diagrammen helder, en zorg altijd voor een audio .txt bestand. Dit is een harde vereiste.
 
+**Alle leerinhoud (notities, audio, Notion) schrijf je in het Engels.** De Java track is volledig Engelstalig.
+
 ---
 
 ## Configuratie
 
 **Obsidian vault:** `/Users/josephcijntje/Documents/GregsObsidianVault/`
 **Notion Taken database (data_source_id):** `64a7434e-3ef5-4c97-a11f-9838548e3ac8`
+**Notion Java Track (page_id):** `3a3332b7-36df-81a7-9875-c56cf92d9c6a`
 
 ### Lesmap bepalen
 
-Elke les heeft een eigen submap in Obsidian op basis van de lesstructuur. Het pad is altijd:
+Elke les heeft een eigen submap in Obsidian. Het pad is altijd:
 `[Obsidian vault]/01 - Java/[Fase]/[Hoofdstuk]/[Les]/[Subonderwerp]/`
 
-Voorbeeld voor les "a Introduction to Java" onder hoofdstuk "1 1 Introduction to Java":
-`01 - Java/Fase 1 - Fundament/1 Introduction to Java/1 1 Introduction to Java/a Introduction to Java/`
+Voorbeeld: `01 - Java/Fase 1 - Fundament/1 Introduction to Java/1 1 Introduction to Java/a Introduction to Java/`
 
-Sla **alle bestanden van een les** (notitie, diagram, audio) op in diezelfde lesmap. Zo blijft alles bij elkaar.
+Sla **alle bestanden van een les** (notitie, diagram SVG, audio .txt) op in diezelfde lesmap.
 
 ---
 
@@ -47,23 +49,23 @@ Sla **alle bestanden van een les** (notitie, diagram, audio) op in diezelfde les
 
 ## Stap 1 — Concept uitleggen
 
-Geef een heldere uitleg in het Nederlands met deze secties (gebruik exact deze emoji-headers):
+Geef een heldere uitleg **in het Engels** met deze secties (gebruik exact deze emoji-headers):
 
-**🎯 Wat is het?** — Één of twee zinnen, concreet voor een junior developer.
+**🎯 What is it?** — One or two sentences, concrete for a junior developer.
 
-**💡 Waarom is het belangrijk?** — Context voor een Java developer, gekoppeld aan echte situaties. Waarom leer je dit nu, wat bouw je er later mee?
+**💡 Why does it matter?** — Context for a Java developer, linked to real situations. Why learn this now, what will you build with it later?
 
-**🔑 Kernconcepten** — Maximaal 5 kernbegrippen met korte uitleg. Java-codevoorbeelden waar zinvol.
+**🔑 Key concepts** — Max 5 key terms with short explanation. Java code examples where useful.
 
-**💻 Praktisch voorbeeld** — Concreet, werkend Java-voorbeeld met commentaarregels.
+**💻 Practical example** — Concrete, working Java example with comment lines.
 
-**⚠️ Veelgemaakte fouten** — 2-3 valkuilen: "beginners verwarren X met Y omdat...".
+**⚠️ Common mistakes** — 2-3 pitfalls: "beginners confuse X with Y because...".
 
-**🔗 Verbanden** — Koppel aan het leerpad: CLI, GitHub, Java, OOP, Maven, SpringBoot, SQL, HTTP, Testing, Docker, CI/CD, Algorithms.
+**🔗 Connections** — Link to the learning path: CLI, GitHub, Java, OOP, Maven, SpringBoot, SQL, HTTP, Testing, Docker, CI/CD, Algorithms.
 
-**📚 Wat volgt?** — 2-3 logische vervolgonderwerpen.
+**📚 What's next?** — 2-3 logical follow-up topics.
 
-Streef naar 400–600 woorden.
+Aim for 400–600 words.
 
 ---
 
@@ -85,17 +87,19 @@ Sla het diagram ook op als SVG in de lesmap via de `Write` tool:
 Zoek 2 videos via WebSearch: `"[concept] java tutorial youtube"`
 Voorkeur: Fireship, Amigoscode, Programming with Mosh, Traversy Media (5–20 min).
 
+Sla de URLs op voor gebruik in Stap 4 en 5.
+
 ---
 
 ## Stap 3 — Audio (VERPLICHT)
 
 Audio is een harde vereiste — sla dit nooit over. Greg leert auditief.
 
-Schrijf de spreektekst als .txt bestand naar de lesmap via de `Write` tool:
+Schrijf de spreektekst **in het Engels** als .txt bestand naar de lesmap via de `Write` tool:
 - **Pad:** `[lesmap]/[concept]-audio.txt`
-- Nederlands, volledige gesproken zinnen, geen markdown, geen bullet points
-- Begin: "Welkom bij deze leersessie. Vandaag leren we over [concept]."
-- Einde: "Dat was [concept]. Veel succes met oefenen, en tot de volgende sessie!"
+- Engels, volledige gesproken zinnen, geen markdown, geen bullet points
+- Begin: "Welcome to this learning session. Today we're covering [concept]."
+- Einde: "That was [concept]. Good luck practicing, and see you in the next session!"
 - Streef naar ~400 woorden (2–3 minuten luistertijd)
 
 Presenteer het .txt bestand met `present_files` zodat Greg het direct kan openen in NaturalReader.
@@ -103,13 +107,13 @@ Presenteer het .txt bestand met `present_files` zodat Greg het direct kan openen
 Maak ook een **Web Speech API audiospeler widget** via `show_widget` als snelle preview:
 - Stemkiezer dropdown (`speechSynthesis.getVoices()`), standaard Daniel (en-GB) of Samantha (en-US)
 - Play / Pauzeer / Stop + voortgangsbalk + huidige zin + snelheidsregelaar (0.6× tot 1.6×)
-- Boven widget: *"💡 Tip: open het .txt bestand in NaturalReader voor betere stemkwaliteit."*
+- Boven widget: *"💡 Tip: open the .txt file in NaturalReader for better voice quality."*
 
 ---
 
 ## Stap 4 — Notities opslaan in Obsidian
 
-Maak een markdown bestand aan in de lesmap via de `Write` tool:
+Maak een markdown bestand aan **in het Engels** in de lesmap via de `Write` tool:
 - **Bestandsnaam:** `Notities — [Concept].md`
 - **Pad:** `[lesmap]/Notities — [Concept].md`
 
@@ -117,28 +121,28 @@ Maak een markdown bestand aan in de lesmap via de `Write` tool:
 
 ```markdown
 > [!info] [Concept]
-> [één zin kernboodschap]
+> [one sentence core message]
 
-## 🎯 Wat is het?
-[definitie]
+## 🎯 What is it?
+[definition]
 
-## 💡 Waarom is het belangrijk?
-[context en motivatie]
+## 💡 Why does it matter?
+[context and motivation]
 
-## 🔑 Kernconcepten
-[kernbegrippen met codevoorbeelden]
+## 🔑 Key concepts
+[key terms with code examples]
 
-## 💻 Praktisch voorbeeld
+## 💻 Practical example
 [java code block]
 
-## ⚠️ Veelgemaakte fouten
-[valkuilen]
+## ⚠️ Common mistakes
+[pitfalls]
 
-## 🔗 Verbanden
-[leerpad verbanden]
+## 🔗 Connections
+[learning path connections]
 
-## 📚 Wat volgt?
-[vervolgonderwerpen]
+## 📚 What's next?
+[follow-up topics]
 
 ---
 
@@ -148,18 +152,18 @@ Maak een markdown bestand aan in de lesmap via de `Write` tool:
 
 ---
 
-🔊 **Audio:** [[concept-audio.txt]]  ← open in NaturalReader voor de beste ervaring
+🔊 **Audio:** [[concept-audio.txt]]  ← open in NaturalReader for the best experience
 
-🎥 **Video 1:** [Titel](URL)
+🎥 **Video 1:** [Title](URL)
 
-🎥 **Video 2:** [Titel](URL)
+🎥 **Video 2:** [Title](URL)
 ```
 
 ---
 
 ## Stap 5 — Notion lespagina aanmaken
 
-Maak een lespagina aan in de Java Track in Notion. Dit is de mobiele versie van de les — Greg gebruikt dit op zijn iPhone in de trein.
+Maak een lespagina aan in de Java Track in Notion. Greg gebruikt dit op zijn iPhone in de trein — audio én diagram moeten hier beschikbaar zijn.
 
 **Java Track page_id:** `3a3332b7-36df-81a7-9875-c56cf92d9c6a`
 
@@ -167,23 +171,41 @@ Maak een lespagina aan in de Java Track in Notion. Dit is de mobiele versie van 
 
 Gebruik `notion-create-pages` met parent `page_id: 3a3332b7-36df-81a7-9875-c56cf92d9c6a`.
 
-- **Titel:** `[les-nummer] — [Concept]` (bijv. `1.1a — Introduction to Java`)
+- **Titel:** `[les-nummer] — [Concept]` (bijv. `1.1b — Basic Literals`)
 - **Icon:** passend Java icon van `https://raw.githubusercontent.com/Jagc68/notion-media/main/java-cover-icons/`
-- **Content:** volledige Engelse notitie + video links onderaan + `*(audio attached below)*` als placeholder
+- **Content:** volledige Engelse notitie-tekst + video links onderaan + twee placeholders:
+  ```
+  *(diagram here)*
+  *(audio here)*
+  ```
 
-### B. Upload audio als bijlage
+### B. Upload het diagram
 
-Gebruik `notion-create-attachment` met de spreektekst (zelfde inhoud als het lokale .txt bestand):
+Lees de SVG uit de lesmap (via Read tool) en upload via `notion-create-attachment`:
+- `filename`: `[concept]-diagram.svg`
+- `content_type`: `image/svg+xml`
+- `content`: de volledige SVG tekst
+
+Vervang `*(diagram here)*` op de pagina via `notion-update-page` → `update_content`:
+```
+<file src="file-upload://[returned file_upload_id]"></file>
+```
+
+### C. Upload de audio
+
+Gebruik `notion-create-attachment` met de spreektekst:
 - `filename`: `[concept]-audio.txt`
 - `content_type`: `text/plain`
-- `content`: de volledige spreektekst
+- `content`: de volledige spreektekst (zelfde als het lokale .txt bestand)
 
-Gebruik daarna `notion-update-page` met `update_content` om de placeholder `*(audio attached below)*` te vervangen door:
-`<file src="file-upload://[returned file_upload_id]"></file>`
+Vervang `*(audio here)*` via `notion-update-page` → `update_content`:
+```
+<file src="file-upload://[returned file_upload_id]"></file>
+```
 
-### C. Resultaat
+### D. Resultaat
 
-Op iPhone: Notion → Java Track → les → download audio → open in NaturalReader.
+Op iPhone: Notion → Java Track → les → bekijk diagram → download audio → open in NaturalReader.
 
 ---
 
@@ -192,15 +214,15 @@ Op iPhone: Notion → Java Track → les → download audio → open in NaturalR
 Maak 2–3 concrete oefentaken aan via `notion-create-pages`:
 - `parent`: `{"type": "data_source_id", "data_source_id": "64a7434e-3ef5-4c97-a11f-9838548e3ac8"}`
 - Eigenschappen per taak:
-  - `Taak`: concrete omschrijving — niet "leer X" maar "schrijf een X die Y doet"
+  - `Taak`: concrete omschrijving — niet "learn X" maar "write a X that does Y"
   - `Status`: `"To do"`
-  - `Prioriteit`: `"Hoog"` (fundamenteel) / `"Middel"` (verdieping) / `"Laag"` (optioneel)
+  - `Prioriteit`: `"Hoog"` (fundamental) / `"Middel"` (deepening) / `"Laag"` (optional)
   - `Onderwerp`: naam van het concept
 
 ---
 
 ## Toon en stijl
-- Schrijf altijd in het **Engels** — de hele Java track is Engelstalig
+- **Alle leerinhoud in het Engels** — notities, audio, Notion pagina, video beschrijvingen
 - Helder en direct, jargon kort uitleggen
 - Concrete Java-voorbeelden waar mogelijk
 - Tekstuitleg: 400–600 woorden
