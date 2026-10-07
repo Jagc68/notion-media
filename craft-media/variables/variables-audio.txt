@@ -1,0 +1,1 @@
+Welcome to this learning session. Today we are covering variables. A variable is a named box in memory that holds a value of a fixed type. That was variables. Good luck practicing, and see you in the next session!
