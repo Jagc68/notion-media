@@ -232,9 +232,11 @@ Maak een markdown bestand aan **in het Engels** in de lesmap via de `Write` tool
 
 ---
 
-## Stap 5 — Media naar GitHub (brug voor Craft)
+## Stap 5 — Media naar GitHub (één bron voor Notion én Craft)
 
-Craft kan via de koppeling geen bestanden uploaden, maar **haalt een bestand op via een openbare URL en slaat het daarna zelf op** in Greg's Craft-space. GitHub is dus alleen het doorgeefluik.
+GitHub is de enige plek waar diagram en audio naartoe gaan. Notion en Craft gebruiken daarna allebei dezelfde raw-URL's.
+- **Craft** haalt het bestand op via de URL en **slaat het zelf op** in Greg's Craft-space.
+- **Notion** toont het bestand **rechtstreeks vanaf GitHub** (kopieert niet). Verwijder daarom **nooit** bestanden uit `craft-media/`, anders breken de Notion-lessen.
 
 Push naar `Jagc68/notion-media`, map `craft-media/[concept-slug]/`:
 - `[concept]-diagram.png`
@@ -252,7 +254,7 @@ Is de repo nog niet aan de sessie gekoppeld, koppel hem eerst (add_repo, owner `
 
 **Route B — vanaf Greg's Mac** (als Route A geweigerd wordt en er een shell op de Mac is): zelfde stappen in een lokale clone van `notion-media`; de push gebruikt Greg's eigen Git-inlog.
 
-Lukt geen van beide? Ga door met Notion en Craft zonder afbeelding/audio in Craft en meld dat in één zin.
+Lukt geen van beide? Gebruik dan voor Notion de noodroute uit Stap 6C, maak Craft af zonder afbeelding/audio en meld dat in één zin.
 
 Controleer na de push dat de raw-URL bereikbaar is (WebFetch of `curl -sI`). Na een verse push kan het een minuut duren voordat raw.githubusercontent.com het bestand serveert.
 
@@ -291,9 +293,10 @@ Gebruik `notion-create-pages` met parent `page_id: 3a3332b7-36df-81a7-9875-c56cf
   ## What's next? {color="orange"}
   [tekst]
   ## Diagram {color="gray"}
-  *(diagram here)*
+  ![Diagram]([raw-URL van de PNG])
   ## Podcast {color="brown"}
-  *(audio here)*
+  <audio src="[raw-URL van de .m4a]">[concept]-audio.m4a</audio>   ← alleen als 3B gelukt is
+  <file src="[raw-URL van de .txt]">[concept]-audio.txt</file>
   <details>
   <summary>Podcast script</summary>
   	[volledige spreektekst]
@@ -303,29 +306,17 @@ Gebruik `notion-create-pages` met parent `page_id: 3a3332b7-36df-81a7-9875-c56cf
   [Titel 2](URL)
   ```
 
-### B. Upload het diagram
+### B. Controleren
 
-Lees de SVG uit de lesmap (via Read tool) en upload via `notion-create-attachment`:
-- `filename`: `[concept]-diagram.svg`
-- `content_type`: `image/svg+xml`
-- `content`: de volledige SVG tekst
+Fetch de pagina na het aanmaken en controleer dat het diagram en het audiobestand erin staan met de GitHub raw-URL's.
 
-Vervang `*(diagram here)*` op de pagina via `notion-update-page` → `update_content`:
-```
-<file src="file-upload://[returned file_upload_id]"></file>
-```
+### C. Noodroute (alleen als de GitHub-push in Stap 5 mislukt)
 
-### C. Upload de audio
+Upload dan direct naar Notion via `notion-create-attachment`:
+- diagram: `filename` `[concept]-diagram.svg`, `content_type` `image/svg+xml`, `content` de volledige SVG-tekst
+- audio: `filename` `[concept]-audio.txt`, `content_type` `text/plain`, `content` de volledige spreektekst
 
-Gebruik `notion-create-attachment` met de spreektekst:
-- `filename`: `[concept]-audio.txt`
-- `content_type`: `text/plain`
-- `content`: de volledige spreektekst (zelfde als het lokale .txt bestand)
-
-Vervang `*(audio here)*` via `notion-update-page` → `update_content`:
-```
-<file src="file-upload://[returned file_upload_id]"></file>
-```
+Zet ze op de plek van het diagram en de audio met `<file src="file-upload://[returned file_upload_id]"></file>` (via `notion-update-page` → `update_content`).
 
 ### D. Resultaat
 
