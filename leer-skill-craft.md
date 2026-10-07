@@ -1,6 +1,6 @@
 ---
 name: leer
-description: Gestructureerde leersessie voor technische concepten. Gebruik deze skill altijd wanneer de gebruiker iets wil leren, begrijpen of bestuderen — getriggerd door zinnen zoals "/leer [onderwerp]", "/learn [onderwerp]", "learn me about X", "leg me uit hoe Y werkt", "ik wil leren over X", "wat is X?", "hoe werkt X?", "explain X to me", "help me understand X", "I want to study X", of wanneer de gebruiker een onbekend begrip tegenkomt in zijn studies. De skill legt het concept helder uit met tekst, visuele diagrammen, embedded YouTube video's en een luisterbaar audio-fragment (text-to-speech), slaat notities op in Obsidian, maakt een lespagina in Notion én Craft, en zet oefentaken in de Notion Taken database én de Craft Oefentaken-lijst. Gebruik deze skill proactief.
+description: Gestructureerde leersessie voor technische concepten (/leer, /learn, leg uit, hoe werkt X). Legt uit met tekst, diagram, video's en audio, slaat op in Obsidian, Notion én Craft in Greg's eigen huisstijl, en maakt oefentaken.
 ---
 
 # Leer — Gestructureerde Leersessie
@@ -14,6 +14,38 @@ Greg leert het beste via: **visueel, praktisch en auditief** — houd tekst bond
 **Alle leerinhoud (notities, audio, Notion, Craft) schrijf je in het Engels.** De Java track is volledig Engelstalig.
 
 **Testperiode Craft:** Greg test Craft naast Notion. Schrijf daarom elke les naar **beide**. Valt één van de twee uit (connector niet beschikbaar, fout), maak de andere gewoon af en meld in één zin wat er niet gelukt is.
+
+---
+
+## Huisstijl (VERPLICHT — geldt voor Notion, Craft en Obsidian)
+
+Greg heeft een eigen stijl: gestikte badge-iconen met witte lijn-iconen, een warme beige papierachtergrond en gedempte kleuren. Zie de cover en iconen in `Jagc68/notion-media/java-cover-icons/`.
+
+**Harde regels:**
+- **Geen emoji's** in kopjes, callouts, toggles, labels of lijstjes. Nergens in de lespagina's. Kopjes zijn gewoon tekst: `What is it?`, niet `🎯 What is it?`.
+- **Geen andere iconen** dan Greg's eigen badge-iconen uit `java-cover-icons/`. Gebruik geen Craft- of Notion-thema's, geen ingebouwde iconensets.
+- **Rustig:** alleen de kopjes krijgen kleur. Gewone tekst blijft zonder kleur. Alleen de kernzin en de veelgemaakte fouten staan in een gekleurd blok.
+
+**Kleurenpalet** (uit Greg's eigen iconen):
+
+| Sectie | Craft (hex) | Notion (dichtstbijzijnde) |
+|---|---|---|
+| Kernzin (blok bovenaan) | `#3661C1` kobalt | `blue_bg` |
+| What is it? | `#3661C1` kobalt | `blue` |
+| Why does it matter? | `#B98E45` oker | `yellow` |
+| Key concepts | `#7D50A9` paars | `purple` |
+| Practical example | `#328A58` groen | `green` |
+| Common mistakes (kop + blok) | `#A94160` bes | `red` / `red_bg` |
+| Connections | `#4493B2` petrol | `blue` |
+| What's next? | `#C25337` roestrood | `orange` |
+| Diagram | `#5A6673` leigrijs | `gray` |
+| Podcast | `#4493B2` petrol | `brown` |
+| Videos | `#C25337` roestrood | `orange` |
+
+**Vaste assets:**
+- Cover: `https://raw.githubusercontent.com/Jagc68/notion-media/main/java-cover-icons/java-track-cover.png`
+- Badge-iconen: `https://raw.githubusercontent.com/Jagc68/notion-media/main/java-cover-icons/[bestand]` — kies het passende icoon per les:
+  `01-java-coffee` (intro/algemeen), `02-java-code` (syntax/code), `03-java-terminal` (CLI), `04-java-braces` (methoden/klassen), `05-java-database` (SQL/JPA), `06-java-git-branch` (Git), `07-java-bug` (debugging/exceptions/testing), `08-java-globe` (web/HTTP), `09-java-sprout` (basis/beginners), `10-java-zap` (performance/concurrency), `11-java-shield` (security), `12-java-monitor` (IDE/frontend), `13-java-graduation-cap` (examen/samenvatting), `14-java-server` (Spring Boot/REST), `15-java-package` (Maven/packages), `16-java-cpu` (JVM internals), `17-java-layers` (OOP/architectuur), `18-java-rocket` (deploy/CI/CD), `19-java-book-open` (theorie), `20-java-puzzle` (algoritmen/design patterns). Allemaal `.png`.
 
 ---
 
@@ -65,21 +97,23 @@ Sla **alle bestanden van een les** (notitie, diagram SVG + PNG, audio .txt en ev
 
 ## Stap 1 — Concept uitleggen
 
-Geef een heldere uitleg **in het Engels** met deze secties (gebruik exact deze emoji-headers):
+Geef een heldere uitleg **in het Engels** met deze secties (exact deze kopjes, zonder emoji's):
 
-**🎯 What is it?** — One or two sentences, concrete for a junior developer.
+**What is it?** — One or two sentences, concrete for a junior developer.
 
-**💡 Why does it matter?** — Context for a Java developer, linked to real situations. Why learn this now, what will you build with it later?
+**Why does it matter?** — Context for a Java developer, linked to real situations. Why learn this now, what will you build with it later?
 
-**🔑 Key concepts** — Max 5 key terms with short explanation. Java code examples where useful.
+**Key concepts** — Max 5 key terms with short explanation. Java code examples where useful.
 
-**💻 Practical example** — Concrete, working Java example with comment lines.
+**Practical example** — Concrete, working Java example with comment lines.
 
-**⚠️ Common mistakes** — 2-3 pitfalls: "beginners confuse X with Y because...".
+**Common mistakes** — 2-3 pitfalls: "beginners confuse X with Y because...".
 
-**🔗 Connections** — Link to the learning path: CLI, GitHub, Java, OOP, Maven, SpringBoot, SQL, HTTP, Testing, Docker, CI/CD, Algorithms.
+**Connections** — Link to the learning path: CLI, GitHub, Java, OOP, Maven, SpringBoot, SQL, HTTP, Testing, Docker, CI/CD, Algorithms.
 
-**📚 What's next?** — 2-3 logical follow-up topics.
+**What's next?** — 2-3 logical follow-up topics.
+
+Formuleer ook één **kernzin** (one sentence core message) voor bovenaan de lespagina's.
 
 Aim for 400–600 words.
 
@@ -91,7 +125,7 @@ Aim for 400–600 words.
 
 Roep `read_me` aan (modules: ["diagram"]), maak dan een `show_widget`.
 
-Kies de meest geschikte vorm: conceptmap, flowchart, vergelijkingsdiagram, architectuurdiagram of code-annotatie. Maak het interactief waar zinvol (hover voor uitleg). Gebruik donkere achtergrond (#1e1e2e) met heldere kleuren.
+Kies de meest geschikte vorm: conceptmap, flowchart, vergelijkingsdiagram, architectuurdiagram of code-annotatie. Maak het interactief waar zinvol (hover voor uitleg). Gebruik donkere achtergrond (#1e1e2e) met heldere kleuren. Geen emoji's in het diagram.
 
 Sla het diagram op in de lesmap:
 - **SVG:** `[lesmap]/[concept]-diagram.svg` — standalone, geen externe dependencies. Obsidian rendert dit via `![[bestand.svg]]`.
@@ -143,7 +177,7 @@ Presenteer het .txt (en .m4a als die er is) zodat Greg het direct kan openen in 
 Maak ook een **Web Speech API audiospeler widget** via `show_widget` als snelle preview:
 - Stemkiezer dropdown (`speechSynthesis.getVoices()`), standaard Daniel (en-GB) of Samantha (en-US)
 - Play / Pauzeer / Stop + voortgangsbalk + huidige zin + snelheidsregelaar (0.6× tot 1.6×)
-- Boven widget: *"💡 Tip: open the .txt file in NaturalReader for better voice quality."*
+- Boven widget: *"Tip: open the .txt file in NaturalReader for better voice quality."*
 
 ---
 
@@ -153,54 +187,54 @@ Maak een markdown bestand aan **in het Engels** in de lesmap via de `Write` tool
 - **Bestandsnaam:** `Notities — [Concept].md`
 - **Pad:** `[lesmap]/Notities — [Concept].md`
 
-### Notitie formaat (gebruik exact deze structuur):
+### Notitie formaat (gebruik exact deze structuur, zonder emoji's):
 
 ```markdown
 > [!info] [Concept]
-> [one sentence core message]
+> [kernzin]
 
-## 🎯 What is it?
+## What is it?
 [definition]
 
-## 💡 Why does it matter?
+## Why does it matter?
 [context and motivation]
 
-## 🔑 Key concepts
+## Key concepts
 [key terms with code examples]
 
-## 💻 Practical example
+## Practical example
 [java code block]
 
-## ⚠️ Common mistakes
+## Common mistakes
 [pitfalls]
 
-## 🔗 Connections
+## Connections
 [learning path connections]
 
-## 📚 What's next?
+## What's next?
 [follow-up topics]
 
 ---
 
-## 🖼️ Diagram
+## Diagram
 
 ![[concept-diagram.svg]]
 
 ---
 
-🔊 **Audio:** [[concept-audio.txt]]  ← open in NaturalReader for the best experience
-🎧 **Podcast:** [[concept-audio.m4a]]  ← alleen als 3B gelukt is
+**Audio:** [[concept-audio.txt]] — open in NaturalReader for the best experience
+**Podcast:** [[concept-audio.m4a]] — alleen als 3B gelukt is
 
-🎥 **Video 1:** [Title](URL)
+**Video 1:** [Title](URL)
 
-🎥 **Video 2:** [Title](URL)
+**Video 2:** [Title](URL)
 ```
 
 ---
 
 ## Stap 5 — Media naar GitHub (brug voor Craft)
 
-Craft kan via de koppeling geen bestanden uploaden, maar **haalt een bestand op via een openbare URL en slaat het daarna zelf op** in Greg's Craft-space. GitHub is dus alleen de doorgeefluik.
+Craft kan via de koppeling geen bestanden uploaden, maar **haalt een bestand op via een openbare URL en slaat het daarna zelf op** in Greg's Craft-space. GitHub is dus alleen het doorgeefluik.
 
 Push naar `Jagc68/notion-media`, map `craft-media/[concept-slug]/`:
 - `[concept]-diagram.png`
@@ -228,18 +262,45 @@ Controleer na de push dat de raw-URL bereikbaar is (WebFetch of `curl -sI`). Na 
 
 Maak een lespagina aan in de Java Track in Notion. Greg gebruikt dit op zijn iPhone in de trein — audio én diagram moeten hier beschikbaar zijn.
 
-**Java Track page_id:** `3a3332b7-36df-81a7-9875-c56cf92d9c6a`
+Notion kent geen eigen hex-kleuren, achtergrondkleur of afgerond lettertype. Benader de huisstijl daarom met cover, Greg's badge-icoon en de Notion-kleuren uit de tabel in **Huisstijl**.
 
 ### A. Maak de lespagina aan
 
 Gebruik `notion-create-pages` met parent `page_id: 3a3332b7-36df-81a7-9875-c56cf92d9c6a`.
 
-- **Titel:** `[les-nummer] — [Concept]` (bijv. `1.1b — Basic Literals`)
-- **Icon:** passend Java icon van `https://raw.githubusercontent.com/Jagc68/notion-media/main/java-cover-icons/`
-- **Content:** volledige Engelse notitie-tekst + video links onderaan + twee placeholders:
+- **Titel:** `[les-nummer] — [Concept]` (bijv. `1.1b — Basic Literals`), zonder emoji
+- **Icon:** het passende badge-icoon uit **Huisstijl** (volledige raw-URL naar de .png). Nooit een emoji of Notion-icoon.
+- **Cover:** de Java Track-cover uit **Huisstijl**
+- **Content** (Notion-flavored Markdown, geen emoji's, geen `<callout>`-blokken want die tonen een icoon):
   ```
+  > **[kernzin]** {color="blue_bg"}
+  ## What is it? {color="blue"}
+  [tekst zonder kleur]
+  ## Why does it matter? {color="yellow"}
+  [tekst]
+  ## Key concepts {color="purple"}
+  - **[term]**: [uitleg]
+  ## Practical example {color="green"}
+  ```java
+  [code]
+  ```
+  ## Common mistakes {color="red"}
+  > [valkuilen] {color="red_bg"}
+  ## Connections {color="blue"}
+  [tekst]
+  ## What's next? {color="orange"}
+  [tekst]
+  ## Diagram {color="gray"}
   *(diagram here)*
+  ## Podcast {color="brown"}
   *(audio here)*
+  <details>
+  <summary>Podcast script</summary>
+  	[volledige spreektekst]
+  </details>
+  ## Videos {color="orange"}
+  [Titel 1](URL)
+  [Titel 2](URL)
   ```
 
 ### B. Upload het diagram
@@ -274,29 +335,36 @@ Op iPhone: Notion → Java Track → les → bekijk diagram → download audio �
 
 ## Stap 7 — Craft lespagina aanmaken
 
-### A. Document aanmaken
+### A. Document aanmaken en opmaken
 
 ```
 documents create --title "[les-nummer] — [Concept]" --folder 4e078632-06e5-5c2e-13c0-b05152c7c092
 ```
 Bewaar de `rootBlockId` en de Craft app-link (`craftdocs://open?...`) uit het resultaat. Herhaal de titel **niet** in de body.
 
+Zet daarna direct de huisstijl op de pagina:
+```
+blocks update --id [rootBlockId] --cover-url "https://raw.githubusercontent.com/Jagc68/notion-media/main/java-cover-icons/java-track-cover.png" --backdrop-type solid --backdrop-color "#ECE5D6" --theme-color "#3661C1" --font system-rounded --separator line
+```
+Gebruik **nooit** `--theme-id`, washi-tape of andere decoratie.
+
 ### B. Inhoud toevoegen (één `blocks add --json` met een array)
 
-Volgorde van blokken:
-1. `<callout>` met de kernzin (one sentence core message)
-2. De secties uit Stap 1 als `## 🎯 What is it?` … `## 📚 What's next?` (markdown text-blokken)
-3. Java-codevoorbeelden als `{"type":"code","language":"java","rawCode":"..."}`
-4. `## 🖼️ Diagram` gevolgd door `{"type":"image","url":"[raw-URL van de PNG]"}`
-5. `## 🎧 Podcast` gevolgd door:
+Volgorde van blokken (kleuren uit de tabel in **Huisstijl**; gewone tekst zonder `color`):
+1. Kernzin: `{"type":"text","markdown":"[kernzin]","decorations":["callout"],"color":"#3661C1"}`
+2. Per sectie een kop met kleur, bijv. `{"type":"text","markdown":"## What is it?","color":"#3661C1"}`, gevolgd door de tekst zonder kleur
+3. Java-code als `{"type":"code","language":"java","rawCode":"..."}`
+4. Bij Common mistakes: de valkuilen in een blok `{"type":"text","markdown":"[valkuilen]","decorations":["callout"],"color":"#A94160"}`
+5. `## Diagram` (`#5A6673`) gevolgd door `{"type":"image","url":"[raw-URL van de PNG]"}`
+6. `## Podcast` (`#4493B2`) gevolgd door:
    - `{"type":"file","url":"[raw-URL van de .m4a]"}` als die er is
    - `{"type":"file","url":"[raw-URL van de .txt]"}`
    - een toggle met de volledige spreektekst, zodat Greg hem ook met iOS "Spraak scherm" kan laten voorlezen:
      ```
-     + 🎧 Podcast script
+     + Podcast script
        - [volledige spreektekst]
      ```
-6. `## 🎥 Videos` gevolgd door twee `{"type":"richUrl","url":"[YouTube-URL]","title":"[titel]"}`-blokken
+7. `## Videos` (`#C25337`) gevolgd door twee `{"type":"richUrl","url":"[YouTube-URL]","title":"[titel]"}`-blokken
 
 Gebruik **nooit** SVG-URL's voor afbeeldingen in Craft; die worden overgeslagen.
 
@@ -334,6 +402,7 @@ Sluit af met een korte samenvatting in het Nederlands: welke les is aangemaakt, 
 
 ## Toon en stijl
 - **Alle leerinhoud in het Engels** — notities, audio, Notion- en Craft-pagina, video beschrijvingen
+- **Geen emoji's of vreemde iconen** — alleen Greg's eigen badge-iconen en het kleurenpalet uit **Huisstijl**
 - Helder en direct, jargon kort uitleggen
 - Concrete Java-voorbeelden waar mogelijk
 - Tekstuitleg: 400–600 woorden
