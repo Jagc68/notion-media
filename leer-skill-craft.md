@@ -22,7 +22,7 @@ Greg leert het beste via: **visueel, praktisch en auditief** — houd tekst bond
 Greg heeft een eigen stijl: gestikte badge-iconen met witte lijn-iconen, een warme beige papierachtergrond en gedempte kleuren. Zie de cover en iconen in `Jagc68/notion-media/java-cover-icons/`.
 
 **Harde regels:**
-- **Geen emoji's** in kopjes, callouts, toggles, labels of lijstjes. Nergens in de lespagina's. Kopjes zijn gewoon tekst: `What is it?`, niet `🎯 What is it?`.
+- **Geen emoji's** in titels, kopjes, callouts, toggles, labels of lijstjes. Nergens in de lespagina's. Kopjes zijn gewoon tekst: `What is it?`, niet `🎯 What is it?`.
 - **Geen andere iconen** dan Greg's eigen badge-iconen uit `java-cover-icons/`. Gebruik geen Craft- of Notion-thema's, geen ingebouwde iconensets.
 - **Rustig:** alleen de kopjes krijgen kleur. Gewone tekst blijft zonder kleur. Alleen de kernzin en de veelgemaakte fouten staan in een gekleurd blok.
 
@@ -129,7 +129,7 @@ Kies de meest geschikte vorm: conceptmap, flowchart, vergelijkingsdiagram, archi
 
 Sla het diagram op in de lesmap:
 - **SVG:** `[lesmap]/[concept]-diagram.svg` — standalone, geen externe dependencies. Obsidian rendert dit via `![[bestand.svg]]`.
-- **PNG:** `[lesmap]/[concept]-diagram.png` — **verplicht voor Craft**, want Craft slaat SVG-afbeeldingen over.
+- **PNG:** `[lesmap]/[concept]-diagram.png` — **verplicht voor Notion en Craft** (Craft slaat SVG-afbeeldingen over).
   Converteer met cairosvg (installeer indien nodig met `pip install --break-system-packages cairosvg`):
   ```python
   import cairosvg
@@ -250,7 +250,7 @@ cd /tmp/notion-media && git fetch origin main && git reset --hard origin/main
 mkdir -p craft-media/[concept-slug] && cp [bestanden] craft-media/[concept-slug]/
 git add craft-media/[concept-slug] && git commit -m "Add media for [Concept] lesson" && git push origin main
 ```
-Is de repo nog niet aan de sessie gekoppeld, koppel hem eerst (add_repo, owner `Jagc68`, repo `notion-media`, access `push`).
+Is de repo nog niet aan de sessie gekoppeld, koppel hem eerst (add_repo, owner `Jagc68`, repo `notion-media`, access `push`). Geeft de push een serverfout, probeer het dan na een korte pauze één keer opnieuw.
 
 **Route B — vanaf Greg's Mac** (als Route A geweigerd wordt en er een shell op de Mac is): zelfde stappen in een lokale clone van `notion-media`; de push gebruikt Greg's eigen Git-inlog.
 
