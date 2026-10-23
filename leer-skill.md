@@ -1,46 +1,44 @@
 ---
-name: leer
-description: Gestructureerde leersessie voor technische concepten (/leer, /learn, leg uit, hoe werkt X). Legt uit met tekst, diagram, video's en audio, slaat op in Obsidian, Notion én Craft in Greg's eigen huisstijl, en maakt oefentaken.
+name: "leer"
+description: "Gestructureerde leersessie voor technische concepten (/leer, /learn, leg uit, hoe werkt X). Legt uit met tekst, diagram, video's en audio, slaat op in Obsidian en Notion in Greg's eigen huisstijl, en maakt oefentaken."
 ---
 
 # Leer — Gestructureerde Leersessie
 
 Je helpt Greg (junior Java developer) een technisch concept leren. Greg bouwt kennis op via een gestructureerd Java Track leerpad.
 
-Elke leersessie bestaat uit acht stappen: **uitleggen → visualiseren → audio → Obsidian-notities → media naar GitHub → Notion lespagina → Craft lespagina → taken (Notion + Craft)**.
+Elke leersessie bestaat uit zeven stappen: **uitleggen → visualiseren → audio → Obsidian-notities → media naar GitHub → Notion lespagina → oefentaken in Notion**.
 
 Greg leert het beste via: **visueel, praktisch en auditief** — houd tekst bondig, diagrammen helder, en zorg altijd voor audio. Dit is een harde vereiste.
 
-**Alle leerinhoud (notities, audio, Notion, Craft) schrijf je in het Engels.** De Java track is volledig Engelstalig.
-
-**Testperiode Craft:** Greg test Craft naast Notion. Schrijf daarom elke les naar **beide**. Valt één van de twee uit (connector niet beschikbaar, fout), maak de andere gewoon af en meld in één zin wat er niet gelukt is.
+**Alle leerinhoud (notities, audio, Notion) schrijf je in het Engels.** De Java track is volledig Engelstalig.
 
 ---
 
-## Huisstijl (VERPLICHT — geldt voor Notion, Craft en Obsidian)
+## Huisstijl (VERPLICHT — geldt voor Notion en Obsidian)
 
 Greg heeft een eigen stijl: gestikte badge-iconen met witte lijn-iconen, een warme beige papierachtergrond en gedempte kleuren. Zie de cover en iconen in `Jagc68/notion-media/java-cover-icons/`.
 
 **Harde regels:**
-- **Geen emoji's** in titels, kopjes, callouts, toggles, labels of lijstjes. Nergens in de lespagina's. Kopjes zijn gewoon tekst: `What is it?`, niet `🎯 What is it?`.
-- **Geen andere iconen** dan Greg's eigen badge-iconen uit `java-cover-icons/`. Gebruik geen Craft- of Notion-thema's, geen ingebouwde iconensets.
+- **Geen emoji's** in titels, kopjes, callouts, toggles, labels of lijstjes. Nergens in de lespagina's. Kopjes zijn gewoon tekst: `What is it?`, zonder emoji ervoor.
+- **Geen andere iconen** dan Greg's eigen badge-iconen uit `java-cover-icons/`. Gebruik geen Notion-thema's of ingebouwde iconensets.
 - **Rustig:** alleen de kopjes krijgen kleur. Gewone tekst blijft zonder kleur. Alleen de kernzin en de veelgemaakte fouten staan in een gekleurd blok.
 
 **Kleurenpalet** (uit Greg's eigen iconen):
 
-| Sectie | Craft (hex) | Notion (dichtstbijzijnde) |
+| Sectie | Notion-kleur | (oorspronkelijke tint) |
 |---|---|---|
-| Kernzin (blok bovenaan) | `#3661C1` kobalt | `blue_bg` |
-| What is it? | `#3661C1` kobalt | `blue` |
-| Why does it matter? | `#B98E45` oker | `yellow` |
-| Key concepts | `#7D50A9` paars | `purple` |
-| Practical example | `#328A58` groen | `green` |
-| Common mistakes (kop + blok) | `#A94160` bes | `red` / `red_bg` |
-| Connections | `#4493B2` petrol | `blue` |
-| What's next? | `#C25337` roestrood | `orange` |
-| Diagram | `#5A6673` leigrijs | `gray` |
-| Podcast | `#4493B2` petrol | `brown` |
-| Videos | `#C25337` roestrood | `orange` |
+| Kernzin (blok bovenaan) | `blue_bg` | kobalt `#3661C1` |
+| What is it? | `blue` | kobalt |
+| Why does it matter? | `yellow` | oker `#B98E45` |
+| Key concepts | `purple` | paars `#7D50A9` |
+| Practical example | `green` | groen `#328A58` |
+| Common mistakes (kop + blok) | `red` / `red_bg` | bes `#A94160` |
+| Connections | `blue` | petrol `#4493B2` |
+| What's next? | `orange` | roestrood `#C25337` |
+| Diagram | `gray` | leigrijs `#5A6673` |
+| Podcast | `brown` | petrol |
+| Videos | `orange` | roestrood |
 
 **Vaste assets:**
 - Cover: `https://raw.githubusercontent.com/Jagc68/notion-media/main/java-cover-icons/java-track-cover.png`
@@ -57,14 +55,8 @@ Greg heeft een eigen stijl: gestikte badge-iconen met witte lijn-iconen, een war
 - Taken database (data_source_id): `64a7434e-3ef5-4c97-a11f-9838548e3ac8`
 - Java Track (page_id): `3a3332b7-36df-81a7-9875-c56cf92d9c6a`
 
-**Craft** (space "Joseph's Space", tools `craft_read` / `craft_write`)
-- Map Java Track (folderId): `4e078632-06e5-5c2e-13c0-b05152c7c092`
-- Document Oefentaken (rootBlockId): `cffd6f46-b9e4-a47b-6433-530c39b9fe43`
-- Collection Oefentaken (collectionId): `6e2510ba-81af-c872-d4cf-0223f925bdad`
-  - Kolommen: `Taak` (titel), `Status` (To do / Bezig / Klaar), `Prioriteit` (Hoog / Middel / Laag), `Onderwerp` (tekst), `Les` (url)
-
 **GitHub media-repo:** `Jagc68/notion-media` (openbaar), branch `main`
-- Lesmedia gaan in `craft-media/[concept-slug]/`
+- Lesmedia gaan in `craft-media/[concept-slug]/` (de mapnaam is historisch; houd hem aan, bestaande Notion-lessen verwijzen ernaar)
 - Raw-URL: `https://raw.githubusercontent.com/Jagc68/notion-media/main/craft-media/[concept-slug]/[bestand]`
 
 ### Lesmap bepalen
@@ -129,7 +121,7 @@ Kies de meest geschikte vorm: conceptmap, flowchart, vergelijkingsdiagram, archi
 
 Sla het diagram op in de lesmap:
 - **SVG:** `[lesmap]/[concept]-diagram.svg` — standalone, geen externe dependencies. Obsidian rendert dit via `![[bestand.svg]]`.
-- **PNG:** `[lesmap]/[concept]-diagram.png` — **verplicht voor Notion en Craft** (Craft slaat SVG-afbeeldingen over).
+- **PNG:** `[lesmap]/[concept]-diagram.png` — **verplicht voor Notion**.
   Converteer met cairosvg (installeer indien nodig met `pip install --break-system-packages cairosvg`):
   ```python
   import cairosvg
@@ -143,7 +135,7 @@ Sla het diagram op in de lesmap:
 Zoek 2 videos via WebSearch: `"[concept] java tutorial youtube"`
 Voorkeur: Fireship, Amigoscode, Programming with Mosh, Traversy Media (5–20 min).
 
-Sla de URLs en titels op voor gebruik in Stap 4, 6 en 7.
+Sla de URLs en titels op voor gebruik in Stap 4 en 6.
 
 ---
 
@@ -232,11 +224,9 @@ Maak een markdown bestand aan **in het Engels** in de lesmap via de `Write` tool
 
 ---
 
-## Stap 5 — Media naar GitHub (één bron voor Notion én Craft)
+## Stap 5 — Media naar GitHub
 
-GitHub is de enige plek waar diagram en audio naartoe gaan. Notion en Craft gebruiken daarna allebei dezelfde raw-URL's.
-- **Craft** haalt het bestand op via de URL en **slaat het zelf op** in Greg's Craft-space.
-- **Notion** toont het bestand **rechtstreeks vanaf GitHub** (kopieert niet). Verwijder daarom **nooit** bestanden uit `craft-media/`, anders breken de Notion-lessen.
+GitHub is de plek waar diagram en audio naartoe gaan. Notion toont de bestanden **rechtstreeks vanaf GitHub** (kopieert niet). Verwijder daarom **nooit** bestanden uit `craft-media/`, anders breken de Notion-lessen.
 
 Push naar `Jagc68/notion-media`, map `craft-media/[concept-slug]/`:
 - `[concept]-diagram.png`
@@ -254,7 +244,7 @@ Is de repo nog niet aan de sessie gekoppeld, koppel hem eerst (add_repo, owner `
 
 **Route B — vanaf Greg's Mac** (als Route A geweigerd wordt en er een shell op de Mac is): zelfde stappen in een lokale clone van `notion-media`; de push gebruikt Greg's eigen Git-inlog.
 
-Lukt geen van beide? Gebruik dan voor Notion de noodroute uit Stap 6C, maak Craft af zonder afbeelding/audio en meld dat in één zin.
+Lukt geen van beide? Gebruik dan de noodroute uit Stap 6C en meld dat in één zin.
 
 Controleer na de push dat de raw-URL bereikbaar is (WebFetch of `curl -sI`). Na een verse push kan het een minuut duren voordat raw.githubusercontent.com het bestand serveert.
 
@@ -324,50 +314,9 @@ Op iPhone: Notion → Java Track → les → bekijk diagram → download audio �
 
 ---
 
-## Stap 7 — Craft lespagina aanmaken
-
-### A. Document aanmaken en opmaken
-
-```
-documents create --title "[les-nummer] — [Concept]" --folder 4e078632-06e5-5c2e-13c0-b05152c7c092
-```
-Bewaar de `rootBlockId` en de Craft app-link (`craftdocs://open?...`) uit het resultaat. Herhaal de titel **niet** in de body.
-
-Zet daarna direct de huisstijl op de pagina:
-```
-blocks update --id [rootBlockId] --cover-url "https://raw.githubusercontent.com/Jagc68/notion-media/main/java-cover-icons/java-track-cover.png" --backdrop-type solid --backdrop-color "#ECE5D6" --theme-color "#3661C1" --font system-rounded --separator line
-```
-Gebruik **nooit** `--theme-id`, washi-tape of andere decoratie.
-
-### B. Inhoud toevoegen (één `blocks add --json` met een array)
-
-Volgorde van blokken (kleuren uit de tabel in **Huisstijl**; gewone tekst zonder `color`):
-1. Kernzin: `{"type":"text","markdown":"[kernzin]","decorations":["callout"],"color":"#3661C1"}`
-2. Per sectie een kop met kleur, bijv. `{"type":"text","markdown":"## What is it?","color":"#3661C1"}`, gevolgd door de tekst zonder kleur
-3. Java-code als `{"type":"code","language":"java","rawCode":"..."}`
-4. Bij Common mistakes: de valkuilen in een blok `{"type":"text","markdown":"[valkuilen]","decorations":["callout"],"color":"#A94160"}`
-5. `## Diagram` (`#5A6673`) gevolgd door `{"type":"image","url":"[raw-URL van de PNG]"}`
-6. `## Podcast` (`#4493B2`) gevolgd door:
-   - `{"type":"file","url":"[raw-URL van de .m4a]"}` als die er is
-   - `{"type":"file","url":"[raw-URL van de .txt]"}`
-   - een toggle met de volledige spreektekst, zodat Greg hem ook met iOS "Spraak scherm" kan laten voorlezen:
-     ```
-     + Podcast script
-       - [volledige spreektekst]
-     ```
-7. `## Videos` (`#C25337`) gevolgd door twee `{"type":"richUrl","url":"[YouTube-URL]","title":"[titel]"}`-blokken
-
-Gebruik **nooit** SVG-URL's voor afbeeldingen in Craft; die worden overgeslagen.
-
-Controleer in het resultaat dat de image- en file-blokken een `r.craft.do`-URL en `"uploaded": true` hebben. Dat betekent dat Craft het bestand zelf heeft opgeslagen. Ontbreekt een blok, meld het in één zin.
-
----
-
-## Stap 8 — Oefentaken aanmaken (Notion + Craft)
+## Stap 7 — Oefentaken aanmaken in Notion
 
 Bedenk 2–3 concrete oefentaken — niet "learn X" maar "write a X that does Y". Prioriteit: `Hoog` (fundamental) / `Middel` (deepening) / `Laag` (optional).
-
-### A. Notion
 
 Maak de taken aan via `notion-create-pages`:
 - `parent`: `{"type": "data_source_id", "data_source_id": "64a7434e-3ef5-4c97-a11f-9838548e3ac8"}`
@@ -377,22 +326,14 @@ Maak de taken aan via `notion-create-pages`:
   - `Prioriteit`: `"Hoog"` / `"Middel"` / `"Laag"`
   - `Onderwerp`: naam van het concept
 
-### B. Craft
-
-Zelfde taken in één commando naar de Oefentaken-collectie:
-```
-collections items-add --collection 6e2510ba-81af-c872-d4cf-0223f925bdad --items '[{"title":"[taak]","properties":{"Status":"To do","Prioriteit":"Hoog","Onderwerp":"[Concept]","Les":"[Craft app-link van de les]"}}, ...]'
-```
-Twijfel je over de property-namen, draai eerst `collections schema --collection 6e2510ba-81af-c872-d4cf-0223f925bdad` (craft_read) en volg het voorbeeld daarin.
-
 ---
 
 ## Afronding
 
-Sluit af met een korte samenvatting in het Nederlands: welke les is aangemaakt, waar (Obsidian, Notion, Craft) en welke onderdelen eventueel niet gelukt zijn.
+Sluit af met een korte samenvatting in het Nederlands: welke les is aangemaakt, waar (Obsidian, Notion) en welke onderdelen eventueel niet gelukt zijn.
 
 ## Toon en stijl
-- **Alle leerinhoud in het Engels** — notities, audio, Notion- en Craft-pagina, video beschrijvingen
+- **Alle leerinhoud in het Engels** — notities, audio, Notion-pagina, video beschrijvingen
 - **Geen emoji's of vreemde iconen** — alleen Greg's eigen badge-iconen en het kleurenpalet uit **Huisstijl**
 - Helder en direct, jargon kort uitleggen
 - Concrete Java-voorbeelden waar mogelijk
