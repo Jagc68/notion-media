@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Slides</title>
+<style>
+  :root { --paper:#F4EFE6; --ink:#2B2B2B; --muted:#5A6673; --line:#D8CDBB; --card:#FBF8F2; --accent:#C8692B; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { height:100%; background:var(--paper); color:var(--ink);
+    font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; overflow:hidden;
+    -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent; }
+  #app { height:100%; display:flex; flex-direction:column; }
+  #stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center;
+    padding:8px; touch-action:pan-y pinch-zoom; position:relative; }
+  #slide { max-width:100%; max-height:100%; aspect-ratio:16/9; object-fit:contain; display:block;
+    border-radius:6px; box-shadow:0 1px 0 var(--line), 0 6px 20px rgba(43,43,43,.08);
+    background:var(--card); transition:opacity .15s ease; }
+  #slide.fade { opacity:.35; }
+  .hit { position:absolute; top:0; bottom:0; width:22%; cursor:pointer; }
+  .hit.l { left:0; } .hit.r { right:0; }
+  #bar { flex:none; display:flex; align-items:center; gap:8px; padding:6px 12px 10px;
+    padding-bottom:max(10px, env(safe-area-inset-bottom)); }
+  button { font:inherit; font-size:14px; color:var(--ink); background:var(--card); border:1px solid var(--line);
+    border-radius:8px; height:34px; min-width:40px; padding:0 12px; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center; gap:6px; }
+  button:hover { border-color:var(--muted); }
+  button:disabled { opacity:.35; cursor:default; }
+  button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  #count { font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; min-width:56px; text-align:center; }
+  #progress { flex:1; height:4px; background:var(--line); border-radius:2px; overflow:hidden; }
+  #progress i { display:block; height:100%; width:0; background:var(--accent); transition:width .2s ease; }
+  #msg { padding:24px; color:var(--muted); font-size:15px; }
+  /* pseudo-fullscreen for browsers without the Fullscreen API on elements (iPhone) */
+  body.pseudo #app { position:fixed; inset:0; z-index:10; background:var(--paper); }
+  @media (max-width:420px) { #fsLabel { display:none; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <img id="slide" alt="">
+    <div class="hit l" id="hitL" aria-hidden="true"></div>
+    <div class="hit r" id="hitR" aria-hidden="true"></div>
+  </div>
+  <div id="bar">
+    <button id="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <span id="count">0 / 0</span>
+    <button id="next" aria-label="Next slide"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div id="progress"><i></i></div>
+    <button id="fs" aria-label="Full screen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span id="fsLabel">Full screen</span></button>
+  </div>
+</div>
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var deck = (params.get('deck') || '').replace(/[^a-z0-9\-\/]/gi, '');
+  var base = '../craft-media/' + deck + '/';
+  var img = document.getElementById('slide');
+  var countEl = document.getElementById('count');
+  var bar = document.querySelector('#progress i');
+  var prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+  var slides = [], i = 0, cache = {};
+
+  function fail(t) { document.getElementById('stage').innerHTML = '<p id="msg">' + t + '</p>'; }
+  if (!deck) return fail('No deck given. Use ?deck=lesson-slug/slides-v1');
+
+  function load(n) {
+    if (n < 0 || n >= slides.length || cache[n]) return;
+    cache[n] = new Image(); cache[n].src = base + slides[n];
+  }
+  function show(n, push) {
+    if (!slides.length) return;
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    img.classList.add('fade');
+    var src = base + slides[i];
+    var pre = new Image();
+    pre.onload = pre.onerror = function () { img.src = src; img.classList.remove('fade'); };
+    pre.src = src;
+    img.alt = 'Slide ' + (i + 1) + ' of ' + slides.length;
+    countEl.textContent = (i + 1) + ' / ' + slides.length;
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    prevB.disabled = i === 0; nextB.disabled = i === slides.length - 1;
+    load(i + 1); load(i - 1); load(i + 2);
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+  var go = function (d) { show(i + d); };
+
+  fetch(base + 'manifest.json', { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (m) {
+      slides = m.slides || [];
+      if (!slides.length) return fail('This deck has no slides.');
+      var start = parseInt(location.hash.slice(1), 10);
+      show(isNaN(start) ? 0 : start - 1);
+    })
+    .catch(function () { fail('Slides could not be loaded.'); });
+
+  prevB.onclick = function () { go(-1); };
+  nextB.onclick = function () { go(1); };
+  document.getElementById('hitL').onclick = function () { go(-1); };
+  document.getElementById('hitR').onclick = function () { go(1); };
+
+  document.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { go(1); e.preventDefault(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { go(-1); e.preventDefault(); }
+    else if (k === 'Home') show(0);
+    else if (k === 'End') show(slides.length - 1);
+    else if (k === 'f' || k === 'F') toggleFs();
+    else if (k === 'Escape' && document.body.classList.contains('pseudo')) document.body.classList.remove('pseudo');
+  });
+
+  // swipe
+  var sx = null, sy = null;
+  var stage = document.getElementById('stage');
+  stage.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { sx = null; return; }
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3) go(dx < 0 ? 1 : -1);
+    sx = null;
+  }, { passive: true });
+
+  // full screen: real Fullscreen API when allowed; else open in a new tab (Notion iframe) or pseudo-fullscreen
+  var app = document.getElementById('app');
+  var inFrame = window.self !== window.top;
+  function toggleFs() {
+    var d = document;
+    if (d.fullscreenElement || d.webkitFullscreenElement) {
+      (d.exitFullscreen || d.webkitExitFullscreen).call(d); return;
+    }
+    var req = app.requestFullscreen || app.webkitRequestFullscreen;
+    var enabled = d.fullscreenEnabled || d.webkitFullscreenEnabled;
+    if (req && enabled) {
+      var p = req.call(app);
+      if (p && p.catch) p.catch(fallback);
+    } else fallback();
+  }
+  function fallback() {
+    if (inFrame) { window.open(location.href, '_blank', 'noopener'); return; }
+    document.body.classList.toggle('pseudo');
+  }
+  document.getElementById('fs').onclick = toggleFs;
+})();
+</script>
+</body>
+</html>
