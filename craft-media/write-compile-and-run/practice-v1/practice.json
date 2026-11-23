@@ -1,0 +1,164 @@
+{
+ "title": "Write, compile, and run",
+ "chapter": 1,
+ "quiz": [
+  {
+   "q": "What does <code>javac</code> produce from <code>Hello.java</code>?",
+   "code": "",
+   "options": [
+    "Machine code for your processor",
+    "Bytecode in <code>Hello.class</code>",
+    "A new <code>Hello.java</code>",
+    "A running program"
+   ],
+   "answer": 1,
+   "explain": "javac compiles source code into platform-independent bytecode, stored in a .class file."
+  },
+  {
+   "q": "Which part turns bytecode into instructions for your computer?",
+   "code": "",
+   "options": [
+    "javac",
+    "The text editor",
+    "The JVM",
+    "The .java file"
+   ],
+   "answer": 2,
+   "explain": "The JVM interprets the bytecode and JIT-compiles hot parts to machine code for the current platform."
+  },
+  {
+   "q": "Does <code>java Hello.java</code> work on JDK 23?",
+   "code": "",
+   "options": [
+    "No, single-file launch is new in Java 25",
+    "Yes, it compiles in memory and runs (JEP 330, since JDK 11)",
+    "Only with --enable-preview",
+    "Only if Hello.class already exists"
+   ],
+   "answer": 1,
+   "explain": "Single-file source-code launch has been final since JDK 11, so JDK 23 and JDK 25 behave the same."
+  },
+  {
+   "q": "This compiles. What happens when you run it?",
+   "code": "System.out.println(\"Start\");\nSystem.out.println(1 / 0);",
+   "options": [
+    "Nothing, it does not compile",
+    "It prints Start, then stops with ArithmeticException",
+    "It prints Start and Infinity",
+    "It prints Start and 0"
+   ],
+   "answer": 1,
+   "explain": "javac only checks the code; dividing an int by zero fails while the JVM runs it. The first line has already printed Start."
+  },
+  {
+   "q": "Does this compile when saved as <code>Hello.java</code>?",
+   "code": "class hello {\n    public static void main(String[] args) {\n        System.out.println(\"hi\");\n    }\n}",
+   "options": [
+    "Yes",
+    "No, the class name does not match the file name",
+    "Only on JDK 25",
+    "No, main must be in a public class"
+   ],
+   "answer": 0,
+   "explain": "Only a public class must match the file name. This class is not public, so javac compiles it into hello.class."
+  },
+  {
+   "q": "What does write once, run anywhere mean?",
+   "code": "",
+   "options": [
+    "You only write code once in your career",
+    "The same bytecode runs unchanged on every platform with a JVM",
+    "Source code runs directly on any processor",
+    "javac runs only once per project"
+   ],
+   "answer": 1,
+   "explain": "Bytecode is platform-independent; every JVM can run it unchanged."
+  },
+  {
+   "q": "Which command runs the compiled <code>Hello.class</code>?",
+   "code": "",
+   "options": [
+    "<code>java Hello.class</code>",
+    "<code>java Hello</code>",
+    "<code>javac Hello</code>",
+    "<code>run Hello</code>"
+   ],
+   "answer": 1,
+   "explain": "The <code>java</code> command wants the class name. <code>java Hello.class</code> fails with \"Could not find or load main class Hello.class\"."
+  },
+  {
+   "q": "You run <code>java Mini.java</code> on JDK 23 (no flags). <code>Mini.java</code> contains only <code>void main() { IO.println(\"hi\"); }</code>. What happens?",
+   "code": "",
+   "options": [
+    "It prints hi, just like on JDK 25",
+    "Compile error: implicitly declared classes are a preview feature",
+    "It fails only because of IO.println",
+    "It asks which JDK to use"
+   ],
+   "answer": 1,
+   "explain": "On JDK 23 compact source files are a preview (JEP 477) and need --enable-preview. On JDK 25 the same file runs with no flags."
+  },
+  {
+   "q": "Which workflow should you use for a Hyperskill project in IntelliJ?",
+   "code": "",
+   "options": [
+    "Compact source files with <code>IO.println</code>",
+    "The classic public class, compiled by javac and run by java on JDK 23",
+    "--enable-preview everywhere",
+    "It does not matter"
+   ],
+   "answer": 1,
+   "explain": "Hyperskill's checks run on JDK 23 and expect the classic style."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What are the three stages of a Java program?",
+   "back": "Write source code, compile it to bytecode, run it on the JVM."
+  },
+  {
+   "front": "What does javac do?",
+   "back": "It compiles a .java file into bytecode in a .class file."
+  },
+  {
+   "front": "What is bytecode?",
+   "back": "Platform-independent instructions in a .class file that only a JVM can run."
+  },
+  {
+   "front": "What does the JVM do?",
+   "back": "It loads bytecode and runs it, interpreting it or JIT-compiling it to machine code."
+  },
+  {
+   "front": "What does write once, run anywhere mean?",
+   "back": "The same .class file runs unchanged on any computer with a JVM."
+  },
+  {
+   "front": "Classic way to compile and run <code>Hello.java</code>?",
+   "back": "<code>javac Hello.java</code>, then <code>java Hello</code>."
+  },
+  {
+   "front": "Why does <code>java Hello.class</code> fail?",
+   "back": "The <code>java</code> command wants the class name: <code>java Hello</code>."
+  },
+  {
+   "front": "What does <code>java Hello.java</code> do?",
+   "back": "It compiles in memory and runs at once, without writing a .class file."
+  },
+  {
+   "front": "Is <code>java Hello.java</code> a Java 25 feature?",
+   "back": "No. It is JEP 330, available since JDK 11."
+  },
+  {
+   "front": "Compile error vs run-time error?",
+   "back": "A compile error stops javac, so no .class file is made. A run-time error stops the JVM while the program runs."
+  },
+  {
+   "front": "Which file name must public class Hello have?",
+   "back": "Hello.java."
+  },
+  {
+   "front": "What is new in Java 25 for this lesson?",
+   "back": "Compact source files are final (JEP 512): void main() with IO.println, no flag."
+  }
+ ]
+}

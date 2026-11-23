@@ -1,0 +1,172 @@
+{
+ "title": "Writing first program",
+ "chapter": 1,
+ "quiz": [
+  {
+   "q": "What does this program print?",
+   "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello\");\n        System.out.println(\"World\");\n    }\n}",
+   "options": [
+    "Hello World on one line",
+    "Hello and World on two lines",
+    "World and Hello on two lines",
+    "Nothing, it does not compile"
+   ],
+   "answer": 1,
+   "explain": "println prints the text and then a new line, and statements run from top to bottom."
+  },
+  {
+   "q": "This method is called Main with a capital M. What happens?",
+   "code": "public class Hello {\n    public static void Main(String[] args) {\n        System.out.println(\"Hi\");\n    }\n}",
+   "options": [
+    "javac refuses to compile it",
+    "It runs and prints Hi",
+    "It compiles, but java cannot start it: no main method",
+    "It prints Main"
+   ],
+   "answer": 2,
+   "explain": "Main is a valid method name, so javac compiles it. The JVM only starts a method named exactly main."
+  },
+  {
+   "q": "Which error does this line give inside a .java file?",
+   "code": "System.out.println(\"Hello, World!\")",
+   "options": [
+    "';' expected (compile error)",
+    "Main method not found",
+    "It prints Hello, World! without a problem",
+    "package system does not exist"
+   ],
+   "answer": 0,
+   "explain": "Every statement ends with a semicolon. Only jshell lets you leave it out."
+  },
+  {
+   "q": "Is this a complete, valid program in Java 25 (saved as Hi.java)?",
+   "code": "void main() {\n    IO.println(\"Hi\");\n}",
+   "options": [
+    "No, a class is always required",
+    "No, main must be public static",
+    "Yes, it is a compact source file",
+    "Only with --enable-preview"
+   ],
+   "answer": 2,
+   "explain": "JEP 512 is final in Java 25: the compiler makes an implicit class. In Java 23 it was a preview."
+  },
+  {
+   "q": "A file contains public class Main. What must the file be called?",
+   "code": "",
+   "options": [
+    "main.java",
+    "Main.java",
+    "Any name ending in .java",
+    "Main.class"
+   ],
+   "answer": 1,
+   "explain": "A public top-level class needs a file with exactly the same name, case included. Main.class is the bytecode javac produces."
+  },
+  {
+   "q": "Which of these is NOT a Java keyword?",
+   "code": "",
+   "options": [
+    "class",
+    "static",
+    "main",
+    "void"
+   ],
+   "answer": 2,
+   "explain": "main is an identifier (a name), not a keyword."
+  },
+  {
+   "q": "What is a block in Java?",
+   "code": "",
+   "options": [
+    "One line of code",
+    "Zero or more statements between braces { }",
+    "A comment between /* and */",
+    "A file with a class"
+   ],
+   "answer": 1,
+   "explain": "Hello World has two blocks: the class body and the main method body."
+  },
+  {
+   "q": "Which JDK and style should you use for the Hyperskill projects in IntelliJ?",
+   "code": "",
+   "options": [
+    "JDK 25 with void main() and IO.println",
+    "JDK 23 with the classic public class and public static void main",
+    "JDK 23 with void main() without any flag",
+    "It does not matter"
+   ],
+   "answer": 1,
+   "explain": "Hyperskill's checks run on JDK 23, where compact source files are only a preview."
+  },
+  {
+   "q": "In Java 25, what does a bare <code>println(\"Hi\")</code> (without <code>IO.</code> or <code>System.out.</code>) do in a compact source file?",
+   "code": "",
+   "options": [
+    "Prints Hi",
+    "Prints Hi only with --enable-preview",
+    "Does not compile: write <code>IO.println(\"Hi\")</code>",
+    "Prints println"
+   ],
+   "answer": 2,
+   "explain": "In Java 23's preview the IO methods were imported automatically. In final Java 25 you must write IO.println."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What is a statement?",
+   "back": "One action, such as printing text. It ends with a semicolon."
+  },
+  {
+   "front": "What is sequential flow?",
+   "back": "Statements run one after another, from top to bottom."
+  },
+  {
+   "front": "What is a block?",
+   "back": "Zero or more statements between braces { }."
+  },
+  {
+   "front": "What is the classic entry point of a Java program?",
+   "back": "<code>public static void main(String[] args)</code>"
+  },
+  {
+   "front": "Is main a keyword?",
+   "back": "No. main is an identifier (a name)."
+  },
+  {
+   "front": "What happens if you write Main instead of main?",
+   "back": "It compiles, but java cannot start it."
+  },
+  {
+   "front": "What does println do?",
+   "back": "It prints the text and then moves to a new line."
+  },
+  {
+   "front": "Why does <code>System.out.println(Hello, World!);</code> not compile?",
+   "back": "Text needs double quotes; without them Java reads Hello and World as names."
+  },
+  {
+   "front": "What happens with system.out.println (small s)?",
+   "back": "It does not compile: package system does not exist."
+  },
+  {
+   "front": "What must the file be called for public class Main?",
+   "back": "Main.java."
+  },
+  {
+   "front": "What is the smallest valid program in Java 25?",
+   "back": "A compact source file: <code>void main() { IO.println(\"Hi\"); }</code>"
+  },
+  {
+   "front": "Compact source files: Java 23 vs Java 25?",
+   "back": "Java 23: preview, needs --enable-preview. Java 25: final (JEP 512)."
+  },
+  {
+   "front": "Which methods does IO have in Java 25?",
+   "back": "Only print, println and readln. There is no IO.printf."
+  },
+  {
+   "front": "Is System.out.println legacy in Java 25?",
+   "back": "No. It is the standard in real projects."
+  }
+ ]
+}

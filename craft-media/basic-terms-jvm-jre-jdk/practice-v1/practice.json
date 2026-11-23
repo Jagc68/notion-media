@@ -1,0 +1,172 @@
+{
+ "title": "Basic terms: JVM, JRE, JDK",
+ "chapter": 1,
+ "quiz": [
+  {
+   "q": "Which one do you need to compile <code>Hello.java</code> with javac?",
+   "code": "",
+   "options": [
+    "The JVM",
+    "The JRE",
+    "The JDK",
+    "Any of the three"
+   ],
+   "answer": 2,
+   "explain": "Only the JDK contains javac. The JRE and the JVM can only run compiled bytecode."
+  },
+  {
+   "q": "What is the JRE?",
+   "code": "",
+   "options": [
+    "The compiler",
+    "The JVM plus the standard class library",
+    "The JDK plus extra tools",
+    "Another name for bytecode"
+   ],
+   "answer": 1,
+   "explain": "JRE = JVM + class library: everything you need to run a program, nothing to compile one."
+  },
+  {
+   "q": "What does this print when you run it with JDK 25?",
+   "code": "System.out.println(System.getProperty(\"java.class.version\"));",
+   "options": [
+    "25",
+    "25.0.5",
+    "69.0",
+    "67.0"
+   ],
+   "answer": 2,
+   "explain": "java.class.version is the bytecode version the JVM supports: 69.0 for Java 25 (67.0 for Java 23)."
+  },
+  {
+   "q": "You compile with JDK 25 and start the <code>.class</code> with JDK 23. What happens?",
+   "code": "",
+   "options": [
+    "It runs normally",
+    "It runs, but slower",
+    "UnsupportedClassVersionError: version 69.0, only up to 67.0",
+    "javac refuses to compile"
+   ],
+   "answer": 2,
+   "explain": "An older JVM cannot run newer bytecode. The other way round works: JDK 25 runs JDK 23 bytecode."
+  },
+  {
+   "q": "Does this compile?",
+   "code": "System.out.println(Runtime.version().feature);",
+   "options": [
+    "Yes, it prints 25",
+    "Yes, it prints null",
+    "No: feature is a method and needs brackets",
+    "Only on JDK 23"
+   ],
+   "answer": 2,
+   "explain": "javac reports \"cannot find symbol: variable feature\". Write <code>Runtime.version().feature()</code>."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(System.getProperty(\"java.verison\"));",
+   "options": [
+    "25.0.5",
+    "null",
+    "An error message",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "An unknown property name is not an error: getProperty returns null. Check the spelling: java.version."
+  },
+  {
+   "q": "What does \"write once, run anywhere\" mean?",
+   "code": "",
+   "options": [
+    "One JVM runs on every operating system",
+    "The same bytecode runs on any JVM of the same or a newer version, on any OS",
+    "The .java file runs without compiling",
+    "Java has no versions"
+   ],
+   "answer": 1,
+   "explain": "The bytecode is portable. The JVM itself is built separately for Windows, macOS and Linux."
+  },
+  {
+   "q": "Which statement about Java 25 is true?",
+   "code": "",
+   "options": [
+    "It is a short release, like Java 23",
+    "It is an LTS release; java -version shows LTS",
+    "It brought back a separate JRE from Oracle",
+    "Its JVM can no longer run Java 23 bytecode"
+   ],
+   "answer": 1,
+   "explain": "Java 25 is LTS. There is still no separate Oracle JRE, and a newer JVM always runs older bytecode."
+  },
+  {
+   "q": "<code>java Hello.java</code> works on a full JDK. Why does it fail on a runtime that has only <code>java.base</code>?",
+   "code": "",
+   "options": [
+    "The runtime has no JVM",
+    "The launcher compiles in memory and needs jdk.compiler",
+    ".java files need a newer JVM",
+    "It does not fail"
+   ],
+   "answer": 1,
+   "explain": "Single-file launch compiles the source first. Without the jdk.compiler module the launcher stops with \"Module jdk.compiler not in boot Layer\"."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What does the JVM do?",
+   "back": "It runs bytecode: loads classes, interprets, JIT-compiles hot code, manages memory."
+  },
+  {
+   "front": "What is in the JRE?",
+   "back": "The JVM plus the standard class library."
+  },
+  {
+   "front": "What does the JDK add to the JRE?",
+   "back": "Development tools: javac, jshell, jar, javadoc, jlink."
+  },
+  {
+   "front": "Which part do you need to compile Java code?",
+   "back": "The JDK: only it has javac."
+  },
+  {
+   "front": "Is the JVM the same program on every operating system?",
+   "back": "No. There is a JVM per OS; the bytecode is the same."
+  },
+  {
+   "front": "What does a <code>.class</code> file contain?",
+   "back": "Bytecode, plus the class file version that made it."
+  },
+  {
+   "front": "Class file version of Java 23?",
+   "back": "67.0"
+  },
+  {
+   "front": "Class file version of Java 25?",
+   "back": "69.0"
+  },
+  {
+   "front": "Can a Java 25 JVM run Java 23 bytecode?",
+   "back": "Yes. Newer JVMs run older bytecode."
+  },
+  {
+   "front": "Which error do you get when an older JVM meets newer bytecode?",
+   "back": "<code>UnsupportedClassVersionError</code>"
+  },
+  {
+   "front": "Does Oracle still ship a separate JRE?",
+   "back": "No, not since JDK 11. Some vendors do; jlink builds your own."
+  },
+  {
+   "front": "How do you get only the main Java version number in code?",
+   "back": "<code>Runtime.version().feature()</code>"
+  },
+  {
+   "front": "What does <code>System.getProperty</code> return for an unknown name?",
+   "back": "null"
+  },
+  {
+   "front": "Which of Java 23 and Java 25 is LTS?",
+   "back": "Java 25."
+  }
+ ]
+}

@@ -1,0 +1,172 @@
+{
+ "title": "Basic literals: numbers, strings and characters",
+ "chapter": 1,
+ "quiz": [
+  {
+   "q": "What does this print?",
+   "code": "System.out.println('1' + 1);",
+   "options": [
+    "2",
+    "11",
+    "50",
+    "It does not compile"
+   ],
+   "answer": 2,
+   "explain": "'1' is a char with character code 49. A char plus an int is arithmetic on the code: 49 + 1 = 50."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(\"123\" + 1);",
+   "options": [
+    "124",
+    "1231",
+    "123 1",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "With a String on one side, + glues text together: \"123\" + 1 becomes \"1231\"."
+  },
+  {
+   "q": "What does this print?",
+   "code": "int population = 17_900_000;\nSystem.out.println(population);",
+   "options": [
+    "17_900_000",
+    "17900000",
+    "17.900.000",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "Underscores only make the literal easier to read. They are not part of the value, so println shows 17900000."
+  },
+  {
+   "q": "Which line does NOT compile?",
+   "code": "",
+   "options": [
+    "char c = 'A';",
+    "String s = \"A\";",
+    "char c = \"A\";",
+    "String s = \"\";"
+   ],
+   "answer": 2,
+   "explain": "Double quotes make a String, and a String does not fit in a char: incompatible types. The empty string \"\" is valid."
+  },
+  {
+   "q": "Which is a valid character literal?",
+   "code": "",
+   "options": [
+    "'AB'",
+    "''",
+    "'$'",
+    "\"x\""
+   ],
+   "answer": 2,
+   "explain": "A char literal is exactly one symbol in single quotes. 'AB' and '' do not compile; \"x\" is a String."
+  },
+  {
+   "q": "Which number literal does NOT compile?",
+   "code": "",
+   "options": [
+    "1_000_000",
+    "1000_",
+    "-100",
+    "0"
+   ],
+   "answer": 1,
+   "explain": "Underscores may only sit between digits. A trailing underscore gives \"illegal underscore\"."
+  },
+  {
+   "q": "What is \"123\"?",
+   "code": "",
+   "options": [
+    "An integer literal",
+    "A character literal",
+    "A string literal that contains digits",
+    "A compile error"
+   ],
+   "answer": 2,
+   "explain": "Anything in double quotes is a String, also when it only holds digits. You cannot do arithmetic with it directly."
+  },
+  {
+   "q": "What is a literal?",
+   "code": "",
+   "options": [
+    "A value written straight into the code, like 42 or \"Hi\"",
+    "The name of a variable",
+    "A keyword such as int",
+    "A comment"
+   ],
+   "answer": 0,
+   "explain": "A literal is a fixed value in the source code. The variable is the named container you usually put it in."
+  },
+  {
+   "q": "Do literals differ between Java 23 and Java 25?",
+   "code": "",
+   "options": [
+    "Yes, Java 25 removed underscores",
+    "Yes, char literals need double quotes in Java 25",
+    "No, they are the same; only IO.println for printing is new in Java 25",
+    "Yes, strings changed"
+   ],
+   "answer": 2,
+   "explain": "Integer, char and string literals are identical in both versions. Java 25 adds IO.println and compact source files; use System.out.println on Hyperskill's JDK 23."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What is a literal?",
+   "back": "A fixed value written straight into the code, such as 1000, 'A' or \"Halsteren\"."
+  },
+  {
+   "front": "What is an integer literal?",
+   "back": "A whole number without a decimal point: 0, 10, -100."
+  },
+  {
+   "front": "What are underscores in 1_000_000 for?",
+   "back": "Readability only. Java ignores them; the value is 1000000."
+  },
+  {
+   "front": "Where may an underscore go in a number?",
+   "back": "Only between digits. 1000_ gives \"illegal underscore\"."
+  },
+  {
+   "front": "What is a character literal?",
+   "back": "Exactly one symbol in single quotes: 'A', '1', ' ', '$'."
+  },
+  {
+   "front": "Why does 'AB' not compile?",
+   "back": "A char holds exactly one symbol. Text with more symbols needs double quotes: \"AB\"."
+  },
+  {
+   "front": "What is a string literal?",
+   "back": "A sequence of characters in double quotes: \"text\", \"123\", even the empty \"\"."
+  },
+  {
+   "front": "'A' vs \"A\"?",
+   "back": "'A' is a char, \"A\" is a String. char c = \"A\"; does not compile."
+  },
+  {
+   "front": "'1' vs 1?",
+   "back": "'1' is a char with character code 49; 1 is an int."
+  },
+  {
+   "front": "What does '1' + 1 give?",
+   "back": "50: the char code 49 plus 1."
+  },
+  {
+   "front": "What does \"123\" + 1 give?",
+   "back": "\"1231\": with a String involved, + glues text."
+  },
+  {
+   "front": "What does 123 + 1 give?",
+   "back": "124: number plus number is arithmetic."
+  },
+  {
+   "front": "What is the largest int?",
+   "back": "2_147_483_647."
+  },
+  {
+   "front": "Do literals differ in Java 23 and Java 25?",
+   "back": "No. Only printing in a small program differs: IO.println is final in Java 25."
+  }
+ ]
+}

@@ -1,0 +1,176 @@
+{
+ "title": "Hyperskill Academy plugin",
+ "chapter": 2,
+ "quiz": [
+  {
+   "q": "Where do you install the Hyperskill Academy plugin from inside IntelliJ?",
+   "code": "",
+   "options": [
+    "Plugins, Marketplace",
+    "File, Project Structure",
+    "The Terminal tool window",
+    "Settings, Keymap"
+   ],
+   "answer": 0,
+   "explain": "Search Hyperskill Academy in the Marketplace tab, install it and restart. Logging in is under Settings, Tools, Hyperskill."
+  },
+  {
+   "q": "What do you click on hyperskill.org to open a stage in IntelliJ?",
+   "code": "",
+   "options": [
+    "Check",
+    "Solve in IDE on the IDE tab",
+    "Reset",
+    "Download ZIP"
+   ],
+   "answer": 1,
+   "explain": "Solve in IDE hands the stage to the running plugin, which opens the project."
+  },
+  {
+   "q": "You click the green Run triangle and the output looks right. Is the stage done on Hyperskill?",
+   "code": "",
+   "options": [
+    "Yes, Run submits it",
+    "No, only Check runs the tests and counts",
+    "Yes, after a restart",
+    "Only if you also press Reset"
+   ],
+   "answer": 1,
+   "explain": "Run only runs your program. Check runs Hyperskill's tests."
+  },
+  {
+   "q": "The task asks for <code>Today: legs</code>. What does Check say about this code?",
+   "code": "System.out.println(\"today: legs\");",
+   "options": [
+    "Congratulations",
+    "Wrong answer in test #1",
+    "A compile error",
+    "Nothing, it only runs"
+   ],
+   "answer": 1,
+   "explain": "The program runs, but the tests compare the output exactly, including the capital T."
+  },
+  {
+   "q": "You paste this into a Hyperskill project (JDK 23) and press Check. What happens?",
+   "code": "void main() {\n    IO.println(\"Today: legs\");\n}",
+   "options": [
+    "Congratulations",
+    "It compiles with a warning",
+    "Compile error: implicitly declared classes are a preview feature",
+    "It prints Today: legs and fails one test"
+   ],
+   "answer": 2,
+   "explain": "Compact source files are a preview in Java 23 and final in Java 25. In a Hyperskill project, use the classic class and main."
+  },
+  {
+   "q": "What does <code>java Hello.java</code> (JDK 25) give for this file?",
+   "code": "public class Hello {\n    public static void Main(String[] args) {\n        System.out.println(\"Hi\");\n    }\n}",
+   "options": [
+    "Hi",
+    "can't find main(String[]) or main() method in class: Hello",
+    "';' expected",
+    "class Hello is public, should be declared in a file named Main.java"
+   ],
+   "answer": 1,
+   "explain": "Java is case-sensitive: Main is a different method than main, so there is no starting point."
+  },
+  {
+   "q": "Which button throws away your changes in a task and brings back the starting code?",
+   "code": "",
+   "options": [
+    "Check",
+    "Next",
+    "Reset",
+    "Run"
+   ],
+   "answer": 2,
+   "explain": "Reset drops all task changes so you can start again."
+  },
+  {
+   "q": "Which shortcut hides or shows Project View on a Mac?",
+   "code": "",
+   "options": [
+    "Cmd+1",
+    "Option+F12",
+    "Cmd+D",
+    "Control+R"
+   ],
+   "answer": 0,
+   "explain": "Cmd+1 (Alt+1 on Windows) toggles the Project tool window. Cmd+Shift+F12 hides all panels at once."
+  },
+  {
+   "q": "Which JDK should a Hyperskill project in IntelliJ use, and which Gym Log?",
+   "code": "",
+   "options": [
+    "Both JDK 25",
+    "Hyperskill JDK 23, Gym Log JDK 25",
+    "Hyperskill JDK 25, Gym Log JDK 23",
+    "Both JDK 21"
+   ],
+   "answer": 1,
+   "explain": "Hyperskill's projects and checks are set up for JDK 23; Gym Log is where you use JDK 25."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What is the Hyperskill Academy plugin?",
+   "back": "An IntelliJ plugin that opens Hyperskill tasks in the IDE and runs their tests."
+  },
+  {
+   "front": "Where do you log in to the Hyperskill Academy plugin?",
+   "back": "Settings, Tools, Hyperskill, Log in to Hyperskill."
+  },
+  {
+   "front": "Which button on hyperskill.org opens a stage in IntelliJ?",
+   "back": "Solve in IDE, on the IDE tab."
+  },
+  {
+   "front": "What must be running before Solve in IDE works?",
+   "back": "IntelliJ with the Hyperskill Academy plugin."
+  },
+  {
+   "front": "What does Project View show in a Hyperskill project?",
+   "back": "The stages and tasks as a tree, with your source files."
+  },
+  {
+   "front": "Which panel holds the task text and the Check button?",
+   "back": "Task Description."
+  },
+  {
+   "front": "What does Check do?",
+   "back": "It runs Hyperskill's tests on your code and records the result."
+  },
+  {
+   "front": "What does the green Run triangle do in a Hyperskill project?",
+   "back": "It only runs your program; nothing is graded."
+  },
+  {
+   "front": "What does Reset do?",
+   "back": "Throws away your changes and restores the starting code."
+  },
+  {
+   "front": "How do Hyperskill's tests compare your output?",
+   "back": "Exactly, character for character."
+  },
+  {
+   "front": "Mac shortcut: hide or show Project View",
+   "back": "Cmd+1."
+  },
+  {
+   "front": "Mac shortcut: hide all panels except the editor",
+   "back": "Cmd+Shift+F12."
+  },
+  {
+   "front": "Which JDK do Hyperskill projects in IntelliJ use?",
+   "back": "JDK 23."
+  },
+  {
+   "front": "Why does <code>IO.println</code> fail in a Hyperskill project?",
+   "back": "<code>IO</code> is final only in JDK 25; the project runs on JDK 23."
+  },
+  {
+   "front": "Old names for the plugin in older guides?",
+   "back": "JetBrains Academy plugin or EduTools."
+  }
+ ]
+}

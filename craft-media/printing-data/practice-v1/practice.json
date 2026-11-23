@@ -1,0 +1,164 @@
+{
+ "title": "Printing data",
+ "chapter": 1,
+ "quiz": [
+  {
+   "q": "What does this print?",
+   "code": "System.out.print(\"Gym\");\nSystem.out.print(\"Log\");",
+   "options": [
+    "Gym Log on one line",
+    "GymLog on one line",
+    "Gym and Log on two lines",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "print adds neither a line break nor a space, so the two strings end up glued together."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(\"sets: \" + 1 + 2);",
+   "options": [
+    "sets: 3",
+    "sets: 12",
+    "sets: 1 2",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "The expression starts with text, so each + glues the next number onto the text: sets: 12."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(1 + 2 + \" sets\");",
+   "options": [
+    "12 sets",
+    "3 sets",
+    "1 + 2 sets",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "Java reads left to right: 1 + 2 is 3 first, then the text is glued on."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(3.50);",
+   "options": [
+    "3.50",
+    "3.5",
+    "3,50",
+    "3"
+   ],
+   "answer": 1,
+   "explain": "A number is printed as a value. Trailing zeros are not part of the value, so println shows 3.5."
+  },
+  {
+   "q": "Which line does NOT compile?",
+   "code": "",
+   "options": [
+    "<code>System.out.println();</code>",
+    "<code>System.out.print();</code>",
+    "<code>System.out.print(\"\");</code>",
+    "<code>System.out.println('A');</code>"
+   ],
+   "answer": 1,
+   "explain": "print always needs a value. An empty println() is fine: it prints a line break."
+  },
+  {
+   "q": "How many lines does this print?",
+   "code": "System.out.println(\"Gym Log\");\nSystem.out.println();\nSystem.out.println(\"Week 46\");",
+   "options": [
+    "1",
+    "2",
+    "3, the middle one blank",
+    "It does not compile"
+   ],
+   "answer": 2,
+   "explain": "The empty println() prints only a line break, which shows up as a blank line between the two texts."
+  },
+  {
+   "q": "What is the difference between print and println?",
+   "code": "",
+   "options": [
+    "println is faster",
+    "println ends the line after the value; print does not",
+    "print only works with text",
+    "There is no difference"
+   ],
+   "answer": 1,
+   "explain": "Both print any value; only println adds a line break afterwards."
+  },
+  {
+   "q": "Does <code>IO.println()</code> without a value work on JDK 23?",
+   "code": "",
+   "options": [
+    "Yes, the same as on JDK 25",
+    "No: on JDK 23 IO is a preview and has no println() without a value",
+    "Only in jshell",
+    "Yes, but it prints null"
+   ],
+   "answer": 1,
+   "explain": "The JDK 23 preview IO class has only println(Object), print(Object) and readln(String). JDK 25 added println() and readln()."
+  },
+  {
+   "q": "Which statement prints Week 46?",
+   "code": "",
+   "options": [
+    "<code>System.out.println(\"Week \" 46);</code>",
+    "<code>System.out.println(\"Week \" + 46);</code>",
+    "<code>System.out.println(\"Week\" + 46);</code>",
+    "<code>System.out.print(\"Week \", 46);</code>"
+   ],
+   "answer": 1,
+   "explain": "A needs a + and does not compile, C prints Week46 without a space, D does not compile: print takes one value."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What does <code>System.out.println</code> do?",
+   "back": "Prints a value and then a line break."
+  },
+  {
+   "front": "What does <code>System.out.print</code> do?",
+   "back": "Prints a value and stays on the same line."
+  },
+  {
+   "front": "Does print add a space between outputs?",
+   "back": "No. Put the space inside the string yourself."
+  },
+  {
+   "front": "How do you print a blank line?",
+   "back": "<code>System.out.println();</code> with nothing between the brackets."
+  },
+  {
+   "front": "Does <code>System.out.print()</code> without a value compile?",
+   "back": "No: print always needs a value."
+  },
+  {
+   "front": "What does <code>println(3.50)</code> print?",
+   "back": "3.5: the value, without the trailing zero."
+  },
+  {
+   "front": "What does <code>1 + 2 + \" sets\"</code> give?",
+   "back": "3 sets: the numbers are added first."
+  },
+  {
+   "front": "What does <code>\"sets: \" + 1 + 2</code> give?",
+   "back": "sets: 12: after text, + glues."
+  },
+  {
+   "front": "How do you print sets: 3 from 1 and 2?",
+   "back": "<code>\"sets: \" + (1 + 2)</code>"
+  },
+  {
+   "front": "Which IO methods print in JDK 25?",
+   "back": "<code>IO.print(value)</code>, <code>IO.println(value)</code> and <code>IO.println()</code>."
+  },
+  {
+   "front": "<code>IO.println()</code> without a value: JDK 23 or JDK 25?",
+   "back": "Only JDK 25. The JDK 23 preview IO has no <code>println()</code>."
+  },
+  {
+   "front": "Is there an <code>IO.printf</code>?",
+   "back": "No. Formatted output uses <code>System.out.printf</code>."
+  }
+ ]
+}

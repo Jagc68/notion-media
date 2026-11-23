@@ -1,0 +1,172 @@
+{
+ "title": "Types and variables",
+ "chapter": 3,
+ "quiz": [
+  {
+   "q": "What does this print?",
+   "code": "int sets = 3;\nsets = 5;\nSystem.out.println(sets);",
+   "options": [
+    "3",
+    "5",
+    "8",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "The second line replaces the value. = stores; it does not add."
+  },
+  {
+   "q": "Does this compile?",
+   "code": "int sets = 3;\nint sets = 4;",
+   "options": [
+    "Yes, sets is now 4",
+    "Yes, sets stays 3",
+    "No: sets is already defined",
+    "Only with var"
+   ],
+   "answer": 2,
+   "explain": "With int in front it is a second declaration of the same name. To change the value write sets = 4;"
+  },
+  {
+   "q": "What happens here?",
+   "code": "int reps;\nSystem.out.println(reps);",
+   "options": [
+    "It prints 0",
+    "It prints null",
+    "It does not compile: reps might not have been initialized",
+    "It crashes at runtime"
+   ],
+   "answer": 2,
+   "explain": "Local variables get no default value in Java. javac refuses to read one before it is assigned. (jshell would show 0, which is misleading.)"
+  },
+  {
+   "q": "What type does weightKg get?",
+   "code": "var weightKg = 82.5;",
+   "options": [
+    "var",
+    "int",
+    "double",
+    "String"
+   ],
+   "answer": 2,
+   "explain": "var is not a type. The compiler looks at 82.5 and makes the variable a double."
+  },
+  {
+   "q": "Which line does NOT compile?",
+   "code": "",
+   "options": [
+    "<code>var day = \"Monday\";</code>",
+    "<code>var total;</code>",
+    "<code>int a = 1, b = 2;</code>",
+    "<code>double w = 80;</code>"
+   ],
+   "answer": 1,
+   "explain": "var needs a value on the same line to infer the type. D is fine: a whole number fits in a double."
+  },
+  {
+   "q": "What does this give?",
+   "code": "var weightKg = 80;\nweightKg = 82.5;",
+   "options": [
+    "weightKg becomes 82.5",
+    "weightKg becomes 82",
+    "Compile error: possible lossy conversion from double to int",
+    "weightKg becomes a double"
+   ],
+   "answer": 2,
+   "explain": "80 makes weightKg an int, and its type never changes. A double does not fit in an int."
+  },
+  {
+   "q": "What does this print?",
+   "code": "int warmUp = 2, workSets = 3;\nSystem.out.println(\"Sets: \" + warmUp + workSets);",
+   "options": [
+    "Sets: 5",
+    "Sets: 23",
+    "Sets: 2 3",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "After the text, + glues each value on. Use brackets to add first: (warmUp + workSets)."
+  },
+  {
+   "q": "Is there a difference between Java 23 and Java 25 in the rules for variables and var?",
+   "code": "",
+   "options": [
+    "Yes: var is new in Java 25",
+    "Yes: Java 25 lets a variable change type",
+    "No: the rules are the same; only the compact source file around them is final in 25",
+    "Yes: Java 23 has no var"
+   ],
+   "answer": 2,
+   "explain": "var exists since Java 10. Java 25 only makes the compact source file (void main()) final; in JDK 23 it is a preview."
+  },
+  {
+   "q": "Which statement about = is true?",
+   "code": "",
+   "options": [
+    "It checks whether two values are equal",
+    "It stores the value on the right in the variable on the left",
+    "It only works on numbers",
+    "It needs the type in front every time"
+   ],
+   "answer": 1,
+   "explain": "= is assignment. Comparing is a different operator (==), coming in a later lesson."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What two things does a variable declaration contain?",
+   "back": "A type and a name, for example <code>int reps;</code>"
+  },
+  {
+   "front": "What is initialization?",
+   "back": "Giving a variable its first value with =."
+  },
+  {
+   "front": "How do you change the value of an existing <code>int sets</code>?",
+   "back": "<code>sets = 4;</code> without the type in front."
+  },
+  {
+   "front": "What does javac say when you declare the same name twice in a block?",
+   "back": "variable ... is already defined"
+  },
+  {
+   "front": "Do local variables get a default value in Java?",
+   "back": "No. Reading one before assignment does not compile."
+  },
+  {
+   "front": "Can a variable change its type later?",
+   "back": "No. The type is fixed when you declare it."
+  },
+  {
+   "front": "What does <code>var</code> do?",
+   "back": "Lets the compiler pick the type from the value on the right."
+  },
+  {
+   "front": "Which type does <code>var x = 80;</code> give?",
+   "back": "int"
+  },
+  {
+   "front": "Why does <code>var total;</code> not compile?",
+   "back": "There is no value to infer the type from."
+  },
+  {
+   "front": "Since which Java version does <code>var</code> exist?",
+   "back": "Java 10."
+  },
+  {
+   "front": "Can you declare two variables with one <code>var</code>?",
+   "back": "No: 'var' is not allowed in a compound declaration."
+  },
+  {
+   "front": "Where can you NOT use <code>var</code>?",
+   "back": "Outside methods (fields) and without a value or with null."
+  },
+  {
+   "front": "How does jshell differ from javac for variables?",
+   "back": "jshell allows redeclaring and gives default values like 0."
+  },
+  {
+   "front": "Do the variable rules differ between Java 23 and Java 25?",
+   "back": "No. Only the compact source file is final in 25 (preview in 23)."
+  }
+ ]
+}

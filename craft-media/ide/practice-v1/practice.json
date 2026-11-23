@@ -1,0 +1,172 @@
+{
+ "title": "IDE",
+ "chapter": 2,
+ "quiz": [
+  {
+   "q": "What does an IDE combine in one program?",
+   "code": "",
+   "options": [
+    "Only a text editor with colours",
+    "Editor, compile and run, debugger and build tools",
+    "A new Java version",
+    "The JVM and the JRE"
+   ],
+   "answer": 1,
+   "explain": "An IDE integrates the tools you otherwise use separately; the Java version comes from the JDK you pick."
+  },
+  {
+   "q": "You open a new IntelliJ project without any JDK. What happens when you press Run?",
+   "code": "",
+   "options": [
+    "IntelliJ compiles with its own compiler",
+    "It runs on the newest Java automatically",
+    "It stops: Project JDK is not defined",
+    "It runs, but without output"
+   ],
+   "answer": 2,
+   "explain": "The IDE calls the JDK's javac and java. No project SDK means nothing to compile with."
+  },
+  {
+   "q": "No red underline anywhere. What does this print?",
+   "code": "System.out.println(\"Total sets today: \" + 3 + 4);",
+   "options": [
+    "Total sets today: 7",
+    "Total sets today: 34",
+    "A compile error",
+    "Total sets today: 3 + 4"
+   ],
+   "answer": 1,
+   "explain": "The string comes first, so + glues 3 and then 4 as text. The editor only catches errors, not logic."
+  },
+  {
+   "q": "Does this compile?",
+   "code": "System.out.printn(\"Gym Log\");",
+   "options": [
+    "Yes, printn is short for println",
+    "Yes, but it prints nothing",
+    "No: cannot find symbol, method printn",
+    "Only in JDK 25"
+   ],
+   "answer": 2,
+   "explain": "There is no printn method. In an IDE, completion would have suggested println."
+  },
+  {
+   "q": "Where does IntelliJ show the output of your program?",
+   "code": "",
+   "options": [
+    "In a pop-up",
+    "In the Run window at the bottom",
+    "In the editor, next to the code",
+    "Only in a separate terminal"
+   ],
+   "answer": 1,
+   "explain": "The Run window shows the command it used, then your output, then the exit code."
+  },
+  {
+   "q": "What does this print when the project SDK is JDK 25?",
+   "code": "System.out.println(Runtime.version().feature());",
+   "options": [
+    "23",
+    "25",
+    "25.0.5",
+    "69.0"
+   ],
+   "answer": 1,
+   "explain": "feature() gives only the main version number of the JDK that runs the code."
+  },
+  {
+   "q": "<code>IO.println(\"Hi\");</code> is red in IntelliJ, but you know it is valid Java 25. What do you check first?",
+   "code": "",
+   "options": [
+    "Reinstall IntelliJ",
+    "The language level and project SDK",
+    "The internet connection",
+    "Rename the file"
+   ],
+   "answer": 1,
+   "explain": "With language level 23, IO and void main() are not normal Java yet, so the editor marks them red."
+  },
+  {
+   "q": "Which project SDK do you use for a Hyperskill project?",
+   "code": "",
+   "options": [
+    "JDK 25, it is LTS",
+    "JDK 23, so the checks pass",
+    "Any JDK, it does not matter",
+    "No JDK, the plugin has its own"
+   ],
+   "answer": 1,
+   "explain": "Hyperskill checks your code on JDK 23; Java 25-only code such as IO.println would not compile there."
+  },
+  {
+   "q": "Which statement about compact source files in IntelliJ is true?",
+   "code": "",
+   "options": [
+    "They never work in an IDE",
+    "On JDK 25 they run like any program; on JDK 23 only with the preview language level",
+    "They need Maven",
+    "They only work in jshell"
+   ],
+   "answer": 1,
+   "explain": "Compact source files are final in Java 25 (JEP 512) and a preview feature in Java 23 (JEP 477)."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What does IDE stand for?",
+   "back": "Integrated Development Environment."
+  },
+  {
+   "front": "Name three Java IDEs.",
+   "back": "IntelliJ IDEA, Eclipse, VS Code with Java extensions."
+  },
+  {
+   "front": "Does IntelliJ have its own Java compiler for your code?",
+   "back": "No. It uses the javac of the project SDK (a JDK)."
+  },
+  {
+   "front": "What is the project SDK?",
+   "back": "The JDK one project compiles and runs with."
+  },
+  {
+   "front": "What does the green Run button do?",
+   "back": "Compiles with javac and starts the program with java."
+  },
+  {
+   "front": "Where do you find the full command IntelliJ used to run your program?",
+   "back": "On the first line of the Run window."
+  },
+  {
+   "front": "What does a red underline in the editor mean?",
+   "back": "The code will not compile here."
+  },
+  {
+   "front": "What does a yellow mark in the editor mean?",
+   "back": "A warning: it compiles, but something looks odd."
+  },
+  {
+   "front": "Can code without any red underline still be wrong?",
+   "back": "Yes. Logic bugs compile and run."
+  },
+  {
+   "front": "What is a breakpoint?",
+   "back": "A line where the debugger pauses the running program."
+  },
+  {
+   "front": "Which JDK for Hyperskill projects?",
+   "back": "JDK 23, with language level 23."
+  },
+  {
+   "front": "Which JDK for Gym Log?",
+   "back": "JDK 25."
+  },
+  {
+   "front": "Why is <code>IO.println</code> red with language level 23?",
+   "back": "IO is not part of normal Java 23; it was a preview feature then."
+  },
+  {
+   "front": "Where does IntelliJ put a JDK it downloads for you on a Mac?",
+   "back": "<code>~/Library/Java/JavaVirtualMachines</code>"
+  }
+ ]
+}

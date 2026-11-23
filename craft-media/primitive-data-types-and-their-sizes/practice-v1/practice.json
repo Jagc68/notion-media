@@ -1,0 +1,188 @@
+{
+ "title": "Primitive data types and their sizes",
+ "chapter": 3,
+ "quiz": [
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(Integer.MAX_VALUE + 1);",
+   "options": [
+    "2147483648",
+    "-2147483648",
+    "0",
+    "It throws an error"
+   ],
+   "answer": 1,
+   "explain": "int arithmetic overflows without an error and wraps to the smallest int."
+  },
+  {
+   "q": "Does this compile?",
+   "code": "long stepsLife = 48000000000;",
+   "options": [
+    "Yes",
+    "No: integer number too large",
+    "Yes, but it prints a negative number",
+    "Only in Java 25"
+   ],
+   "answer": 1,
+   "explain": "Without L the literal is an int, and 48 billion does not fit in an int. Write 48000000000L."
+  },
+  {
+   "q": "Which line does NOT compile?",
+   "code": "",
+   "options": [
+    "<code>double w = 82.5;</code>",
+    "<code>float h = 72.5f;</code>",
+    "<code>float h = 72.5;</code>",
+    "<code>double d = 80;</code>"
+   ],
+   "answer": 2,
+   "explain": "72.5 is a double, which does not fit in a float without the f. D is fine: an int fits in a double."
+  },
+  {
+   "q": "What does this print?",
+   "code": "long ms = 1000 * 60 * 60 * 24 * 365;\nSystem.out.println(ms);",
+   "options": [
+    "31536000000",
+    "1471228928",
+    "It does not compile",
+    "-31536000000"
+   ],
+   "answer": 1,
+   "explain": "The right side is calculated in int and overflows before it is stored in the long. 1000L * ... gives 31536000000."
+  },
+  {
+   "q": "How many bits does an <code>int</code> have?",
+   "code": "",
+   "options": [
+    "16",
+    "32",
+    "64",
+    "It depends on the computer"
+   ],
+   "answer": 1,
+   "explain": "Java fixes the sizes on every platform: int is always 32 bits, long always 64."
+  },
+  {
+   "q": "Which of these is NOT a primitive type?",
+   "code": "",
+   "options": [
+    "<code>char</code>",
+    "<code>boolean</code>",
+    "<code>String</code>",
+    "<code>short</code>"
+   ],
+   "answer": 2,
+   "explain": "String is a class (a reference type). The eight primitives are written in lower case."
+  },
+  {
+   "q": "Does this compile?",
+   "code": "byte sets = 200;",
+   "options": [
+    "Yes",
+    "Yes, sets becomes -56",
+    "No: possible lossy conversion from int to byte",
+    "No: byte does not exist"
+   ],
+   "answer": 2,
+   "explain": "A byte holds -128 to 127. The compiler sees that 200 does not fit."
+  },
+  {
+   "q": "Which type is a whole-number literal like <code>42</code> without a suffix?",
+   "code": "",
+   "options": [
+    "byte",
+    "int",
+    "long",
+    "double"
+   ],
+   "answer": 1,
+   "explain": "Whole-number literals are int by default; decimal literals are double."
+  },
+  {
+   "q": "What changed for primitive types between Java 23 and Java 25?",
+   "code": "",
+   "options": [
+    "int became 64 bits",
+    "Nothing in the sizes; primitive patterns are still a preview",
+    "float was removed",
+    "long no longer needs L"
+   ],
+   "answer": 1,
+   "explain": "Sizes and ranges are unchanged since Java 1.0. Primitive types in patterns (instanceof int) are preview in 23 (JEP 455) and still preview in 25 (JEP 507)."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(Long.BYTES + Byte.SIZE);",
+   "options": [
+    "16",
+    "72",
+    "9",
+    "64"
+   ],
+   "answer": 0,
+   "explain": "Long.BYTES is 8 (bytes) and Byte.SIZE is 8 (bits): 8 + 8 = 16."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "How many primitive types does Java have?",
+   "back": "Eight."
+  },
+  {
+   "front": "Which four primitive types hold whole numbers?",
+   "back": "<code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>."
+  },
+  {
+   "front": "Size of a <code>byte</code>?",
+   "back": "8 bits: -128 to 127."
+  },
+  {
+   "front": "Size of an <code>int</code>?",
+   "back": "32 bits: about plus or minus 2.1 billion."
+  },
+  {
+   "front": "Size of a <code>long</code>?",
+   "back": "64 bits."
+  },
+  {
+   "front": "Size of a <code>char</code>?",
+   "back": "16 bits."
+  },
+  {
+   "front": "Roughly how many exact digits does a <code>double</code> give?",
+   "back": "About 15 (a <code>float</code> about 7)."
+  },
+  {
+   "front": "Default type of the literal <code>82.5</code>?",
+   "back": "<code>double</code>."
+  },
+  {
+   "front": "Which suffix makes a literal a <code>long</code>?",
+   "back": "<code>L</code>, as in <code>48000000000L</code>."
+  },
+  {
+   "front": "Which suffix makes a literal a <code>float</code>?",
+   "back": "<code>f</code>, as in <code>72.5f</code>."
+  },
+  {
+   "front": "What happens when an <code>int</code> goes past its maximum?",
+   "back": "It wraps around to the minimum, without an error."
+  },
+  {
+   "front": "Constant for the biggest <code>int</code>?",
+   "back": "<code>Integer.MAX_VALUE</code> (2147483647)."
+  },
+  {
+   "front": "Does the size of <code>int</code> depend on the computer?",
+   "back": "No. It is 32 bits on every platform."
+  },
+  {
+   "front": "Is <code>String</code> a primitive type?",
+   "back": "No, it is a class."
+  },
+  {
+   "front": "Status of primitive types in patterns in JDK 25?",
+   "back": "Still preview (JEP 507); needs <code>--enable-preview</code>."
+  }
+ ]
+}

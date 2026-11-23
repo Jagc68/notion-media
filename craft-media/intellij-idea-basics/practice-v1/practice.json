@@ -1,0 +1,176 @@
+{
+ "title": "IntelliJ IDEA basics",
+ "chapter": 2,
+ "quiz": [
+  {
+   "q": "Which shortcut helps you find any action and shows its shortcut?",
+   "code": "",
+   "options": [
+    "Cmd+Shift+A (Find Action)",
+    "Cmd+D",
+    "Option+F12",
+    "Cmd+Q"
+   ],
+   "answer": 0,
+   "explain": "Find Action searches every IntelliJ action by name and shows its key next to it."
+  },
+  {
+   "q": "You press Cmd+D on the line <code>System.out.println(\"Squat\");</code> and run. What happens?",
+   "code": "",
+   "options": [
+    "The line is deleted",
+    "Squat is printed twice",
+    "A compile error",
+    "The line becomes a comment"
+   ],
+   "answer": 1,
+   "explain": "Cmd+D duplicates the line. Cmd+Backspace deletes it, Cmd+/ comments it."
+  },
+  {
+   "q": "Does this compile after Cmd+Option+L?",
+   "code": "public class Hello {\npublic static void main(String[] args) {\nSystem.out.println(\"Hi\")\n}\n}",
+   "options": [
+    "Yes, reformat adds the semicolon",
+    "No: ';' expected",
+    "Yes, it prints Hi",
+    "Only on JDK 25"
+   ],
+   "answer": 1,
+   "explain": "Reformat only fixes indentation and spaces. The missing semicolon stays a compile error."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(\"Gym Log\");\n// System.out.println(\"Rest day\");\nSystem.out.println(\"Squat: 3 x 5\");",
+   "options": [
+    "Three lines",
+    "Gym Log and Squat: 3 x 5",
+    "Only Rest day",
+    "A compile error"
+   ],
+   "answer": 1,
+   "explain": "The middle line is a comment (Cmd+/), so Java skips it."
+  },
+  {
+   "q": "Which result does this give?",
+   "code": "public class Hello {\n    public static void main(String[] args) {\n        System.out.println(\"Hi\");\n//    }\n}",
+   "options": [
+    "It prints Hi",
+    "reached end of file while parsing",
+    "';' expected",
+    "It prints nothing"
+   ],
+   "answer": 1,
+   "explain": "The closing brace of main is commented out, so the class is never closed."
+  },
+  {
+   "q": "How do you open IntelliJ's terminal on a Mac?",
+   "code": "",
+   "options": [
+    "Option+F12",
+    "Cmd+T",
+    "Shift twice",
+    "Control+R"
+   ],
+   "answer": 0,
+   "explain": "Option+F12 (Alt+F12 on Windows) opens the Terminal tool window in the project folder. Control+R runs the program."
+  },
+  {
+   "q": "Gym Log uses JDK 25. In IntelliJ's terminal on this Mac, <code>java -version</code> shows 23. Why?",
+   "code": "",
+   "options": [
+    "IntelliJ is broken",
+    "The terminal uses the java on the PATH, not the project SDK",
+    "Gym Log really runs on 23",
+    "Java 25 does not exist yet"
+   ],
+   "answer": 1,
+   "explain": "The green triangle uses the project SDK (25); the terminal uses the system java on your PATH."
+  },
+  {
+   "q": "You run <code>java Main.java</code> with JDK 23 on a file with only <code>void main() { IO.println(\"Hi\"); }</code>. What happens?",
+   "code": "",
+   "options": [
+    "It prints Hi",
+    "Error: implicitly declared classes are a preview feature",
+    "Error: cannot find symbol IO only",
+    "It asks which JDK to use"
+   ],
+   "answer": 1,
+   "explain": "Compact source files are a preview in Java 23 and final in Java 25. Use JDK 25 or --enable-preview on 23."
+  },
+  {
+   "q": "A Windows tutorial says Ctrl+D duplicates a line. What is it with the macOS keymap?",
+   "code": "",
+   "options": [
+    "Ctrl+D",
+    "Cmd+D",
+    "Option+D",
+    "Shift+D"
+   ],
+   "answer": 1,
+   "explain": "In the macOS keymap most Ctrl shortcuts become Cmd, and Alt becomes Option."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "Where do you see and change all IntelliJ shortcuts?",
+   "back": "Settings (Cmd+,), Keymap."
+  },
+  {
+   "front": "Which keymap do you keep on a Mac?",
+   "back": "macOS."
+  },
+  {
+   "front": "Shortcut: Find Action",
+   "back": "Cmd+Shift+A."
+  },
+  {
+   "front": "Shortcut: duplicate the current line",
+   "back": "Cmd+D."
+  },
+  {
+   "front": "Shortcut: delete the current line",
+   "back": "Cmd+Backspace."
+  },
+  {
+   "front": "Shortcut: comment or uncomment the current line",
+   "back": "Cmd+/."
+  },
+  {
+   "front": "Shortcut: reformat the file",
+   "back": "Cmd+Option+L."
+  },
+  {
+   "front": "What does reformat never fix?",
+   "back": "Compile errors, such as a missing semicolon."
+  },
+  {
+   "front": "Where do you pick IntelliJ's theme?",
+   "back": "Settings, Appearance &amp; Behavior, Appearance, Theme."
+  },
+  {
+   "front": "Which shortcut opens Quick Switch Scheme (theme, keymap)?",
+   "back": "Control+backtick."
+  },
+  {
+   "front": "Name the classic dark theme of IntelliJ.",
+   "back": "Darcula."
+  },
+  {
+   "front": "Shortcut: open the Terminal tool window on a Mac",
+   "back": "Option+F12."
+  },
+  {
+   "front": "Which java does IntelliJ's terminal run?",
+   "back": "The java on your PATH, not the project SDK."
+  },
+  {
+   "front": "Which java does the green Run triangle use?",
+   "back": "The project SDK (File, Project Structure)."
+  },
+  {
+   "front": "Where can you print a list of shortcuts?",
+   "back": "Help, Keyboard Shortcuts PDF."
+  }
+ ]
+}

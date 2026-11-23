@@ -1,0 +1,172 @@
+{
+ "title": "Introduction to Java",
+ "chapter": 1,
+ "quiz": [
+  {
+   "q": "What does this program print?",
+   "code": "// Every Java program lives inside a class.\npublic class HelloWorld {\n    // The JVM starts running the program here.\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");      // prints text and a line break\n        System.out.println(\"Java was released in \" + 1995);\n    }\n}",
+   "options": [
+    "Hello, World! Java was released in 1995 (one line)",
+    "Hello, World! and Java was released in 1995 on two lines",
+    "Java was released in 2020",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "Each println ends its line, so the output is two lines. \"Java was released in \" + 1995 glues the number onto the text."
+  },
+  {
+   "q": "Which line does NOT compile?",
+   "code": "system.out.println(\"Hi\");",
+   "options": [
+    "This line, because Java is case-sensitive",
+    "It compiles and prints Hi",
+    "It compiles, but fails when you run it",
+    "It compiles only in Java 25"
+   ],
+   "answer": 0,
+   "explain": "It must be System with a capital S. With a small s, javac looks for a package called system and stops."
+  },
+  {
+   "q": "Is this a valid Java 25 program (Hello.java)?",
+   "code": "void main() {\n    IO.println(\"Hello, World!\");\n}",
+   "options": [
+    "No, every program needs public class",
+    "Yes, it is a compact source file (JEP 512, final in Java 25)",
+    "Only with --enable-preview in Java 25",
+    "No, IO.println does not exist"
+   ],
+   "answer": 1,
+   "explain": "Since Java 25 a compact source file is a full program; the compiler adds an implicit class. In Java 23 this was a preview (JEP 477)."
+  },
+  {
+   "q": "What does javac produce from HelloWorld.java?",
+   "code": "",
+   "options": [
+    "Machine code for your processor",
+    "Bytecode in HelloWorld.class",
+    "An .exe file",
+    "JavaScript"
+   ],
+   "answer": 1,
+   "explain": "javac compiles to bytecode. The JVM then interprets that bytecode or JIT-compiles it to machine code when the program runs."
+  },
+  {
+   "q": "What does Write Once, Run Anywhere mean?",
+   "code": "",
+   "options": [
+    "Java needs no installation at all",
+    "The same bytecode runs on every system that has a JVM",
+    "You must recompile for every operating system",
+    "Java only runs in the browser"
+   ],
+   "answer": 1,
+   "explain": "The bytecode is the same on Windows, macOS and Linux; each computer still needs a JVM (from a JDK or JRE) to run it."
+  },
+  {
+   "q": "Who frees memory that a Java program no longer uses?",
+   "code": "",
+   "options": [
+    "You, with free()",
+    "The operating system after each line",
+    "The garbage collector",
+    "javac"
+   ],
+   "answer": 2,
+   "explain": "Java has automatic memory management: the garbage collector removes objects the program no longer uses."
+  },
+  {
+   "q": "Java and JavaScript are...",
+   "code": "",
+   "options": [
+    "The same language",
+    "Two different languages with similar names",
+    "Java is the old name of JavaScript",
+    "JavaScript is Java for phones"
+   ],
+   "answer": 1,
+   "explain": "They are different languages. JavaScript runs mainly in the browser; Java runs on the JVM."
+  },
+  {
+   "q": "Which statement about Java 23 and Java 25 is correct?",
+   "code": "",
+   "options": [
+    "Java 23 is long-term support, Java 25 is short-term",
+    "Java 25 is long-term support; Java 23 was a short-term release",
+    "Both are long-term support",
+    "Java 25 removed System.out.println"
+   ],
+   "answer": 1,
+   "explain": "Java 23 (September 2024) was replaced by Java 24 in March 2025. Java 25 (September 2025) is an LTS release. System.out.println works in both."
+  },
+  {
+   "q": "Who designed Java, and when was it released?",
+   "code": "",
+   "options": [
+    "Microsoft, 2001",
+    "James Gosling's team at Sun Microsystems, 1995",
+    "Oracle, 2010",
+    "Google, 2008"
+   ],
+   "answer": 1,
+   "explain": "James Gosling and his team at Sun Microsystems released Java in 1995. Oracle has owned it since 2010."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What kind of language is Java?",
+   "back": "A high-level, class-based, object-oriented language. All code lives inside a class."
+  },
+  {
+   "front": "Who designed Java and when?",
+   "back": "James Gosling's team at Sun Microsystems, released in 1995. Oracle has owned it since 2010."
+  },
+  {
+   "front": "What does javac do?",
+   "back": "It compiles a .java file into bytecode: a .class file."
+  },
+  {
+   "front": "What does the JVM do?",
+   "back": "It runs bytecode: it interprets it or JIT-compiles it to machine code."
+  },
+  {
+   "front": "What is Write Once, Run Anywhere?",
+   "back": "The same bytecode runs on any system with a JVM, without recompiling."
+  },
+  {
+   "front": "Does Write Once, Run Anywhere mean no installation?",
+   "back": "No. The computer still needs a JVM, from a JDK or JRE."
+  },
+  {
+   "front": "What does the garbage collector do?",
+   "back": "It removes objects the program no longer uses: automatic memory management."
+  },
+  {
+   "front": "What does Java leave out compared with C++?",
+   "back": "Pointers, manual memory management and multiple inheritance of classes."
+  },
+  {
+   "front": "Where does a Java program start running?",
+   "back": "In its main method."
+  },
+  {
+   "front": "Java vs JavaScript?",
+   "back": "Different languages. JavaScript runs mainly in the browser; Java runs on the JVM."
+  },
+  {
+   "front": "system.out.println vs Main instead of main?",
+   "back": "system.out does not compile. Main compiles, but java stops with Main method not found."
+  },
+  {
+   "front": "Java 23 vs Java 25 support?",
+   "back": "Java 23 was short-term (replaced in March 2025). Java 25 (September 2025) is LTS."
+  },
+  {
+   "front": "Compact source files in Java 23 and Java 25?",
+   "back": "Java 23: preview (JEP 477, --enable-preview). Java 25: final (JEP 512)."
+  },
+  {
+   "front": "Which JDK for Hyperskill projects?",
+   "back": "JDK 23 with the classic style, so the checks pass. JDK 25 for jshell and Gym Log."
+  }
+ ]
+}

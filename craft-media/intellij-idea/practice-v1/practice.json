@@ -1,0 +1,172 @@
+{
+ "title": "IntelliJ IDEA",
+ "chapter": 2,
+ "quiz": [
+  {
+   "q": "Which statement about IntelliJ IDEA 2025.3 and newer is true?",
+   "code": "",
+   "options": [
+    "You must pay before you can write Java",
+    "It is one download; core Java is free, Ultimate extras need a subscription",
+    "Community Edition is the newest version",
+    "It only supports Kotlin"
+   ],
+   "answer": 1,
+   "explain": "JetBrains merged Community and Ultimate into one product in 2025.3. The free part covers everything in this course."
+  },
+  {
+   "q": "What does <code>sout</code> + Tab produce in IntelliJ?",
+   "code": "",
+   "options": [
+    "<code>System.out.println();</code>",
+    "<code>IO.println();</code>",
+    "<code>sout();</code>",
+    "A new class"
+   ],
+   "answer": 0,
+   "explain": "sout is a live template that expands to <code>System.out.println();</code> with the cursor between the brackets."
+  },
+  {
+   "q": "Does this compile?",
+   "code": "public class Hello {\n    public static void main(String[] args) {\n        sout(\"Hi\");\n    }\n}",
+   "options": [
+    "Yes, it prints Hi",
+    "Yes, but only in IntelliJ",
+    "No: cannot find symbol, method sout",
+    "Only on JDK 25"
+   ],
+   "answer": 2,
+   "explain": "Templates only expand in the editor when you press Tab. javac has never heard of sout."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.print(\"Squat: 3 x 5\");\nSystem.out.print(\"Bench press: 3 x 8\");",
+   "options": [
+    "Two lines",
+    "Squat: 3 x 5Bench press: 3 x 8",
+    "A compile error",
+    "Nothing"
+   ],
+   "answer": 1,
+   "explain": "print does not end the line. Pick println from the completion list, or use sout."
+  },
+  {
+   "q": "Which template writes the main method?",
+   "code": "",
+   "options": [
+    "<code>sout</code>",
+    "<code>psvm</code> or <code>main</code>",
+    "<code>fori</code>",
+    "<code>new</code>"
+   ],
+   "answer": 1,
+   "explain": "psvm (public static void main) and main both expand to public static void main(String[] args) {}."
+  },
+  {
+   "q": "Where should your <code>.java</code> files go in an IntelliJ project?",
+   "code": "",
+   "options": [
+    "In the <code>.idea</code> folder",
+    "In <code>src</code>",
+    "In the project root",
+    "Anywhere, it does not matter"
+   ],
+   "answer": 1,
+   "explain": "src is the source folder. Outside it IntelliJ treats the file as plain text: no Run triangle, no completion."
+  },
+  {
+   "q": "You create Gym Log with JDK 23 by mistake. What happens to <code>void main() { IO.println(\"Hi\"); }</code>?",
+   "code": "",
+   "options": [
+    "It runs normally",
+    "It is red: compact source files are only a preview in Java 23",
+    "IntelliJ converts it automatically",
+    "It prints nothing"
+   ],
+   "answer": 1,
+   "explain": "With JDK 23 and language level 23, compact source files and IO are not normal Java. Switch the project to JDK 25."
+  },
+  {
+   "q": "Which JDK do you pick in the New Project wizard for Gym Log?",
+   "code": "",
+   "options": [
+    "JDK 23",
+    "JDK 25",
+    "No SDK",
+    "The newest preview, JDK 27"
+   ],
+   "answer": 1,
+   "explain": "Gym Log uses Java 25 (LTS). JDK 23 is only for Hyperskill projects."
+  },
+  {
+   "q": "You see a red mark under some code. Which key shows IntelliJ's quick fixes on a Mac?",
+   "code": "",
+   "options": [
+    "Option+Enter",
+    "Cmd+Q",
+    "Shift twice",
+    "Tab"
+   ],
+   "answer": 0,
+   "explain": "Option+Enter (Alt+Enter on Windows) opens the quick fixes. Shift twice is Search Everywhere."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "Who makes IntelliJ IDEA?",
+   "back": "JetBrains."
+  },
+  {
+   "front": "Since which version is IntelliJ IDEA one download instead of Community and Ultimate?",
+   "back": "2025.3."
+  },
+  {
+   "front": "Do you need a subscription for core Java in IntelliJ IDEA?",
+   "back": "No. Only the Ultimate extras need one."
+  },
+  {
+   "front": "Where do you start a new project?",
+   "back": "File, New, Project."
+  },
+  {
+   "front": "Which build system do you pick for a simple project now?",
+   "back": "IntelliJ (Maven and Gradle come later)."
+  },
+  {
+   "front": "In which folder do your .java files go?",
+   "back": "<code>src</code>"
+  },
+  {
+   "front": "What does <code>psvm</code> expand to?",
+   "back": "<code>public static void main(String[] args) {}</code>"
+  },
+  {
+   "front": "What does <code>sout</code> expand to?",
+   "back": "<code>System.out.println();</code>"
+  },
+  {
+   "front": "When does a live template expand?",
+   "back": "When you press Tab right after typing it in the editor."
+  },
+  {
+   "front": "Is <code>sout</code> valid Java?",
+   "back": "No. It is only an IntelliJ shortcut."
+  },
+  {
+   "front": "How do you run the program from the editor?",
+   "back": "Click the green triangle next to main."
+  },
+  {
+   "front": "Mac shortcut for quick fixes on a red or yellow mark?",
+   "back": "Option+Enter."
+  },
+  {
+   "front": "Mac shortcut to search everything in IntelliJ?",
+   "back": "Press Shift twice."
+  },
+  {
+   "front": "Where do you change a project's JDK later?",
+   "back": "File, Project Structure, SDK."
+  }
+ ]
+}
