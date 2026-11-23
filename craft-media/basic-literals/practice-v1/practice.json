@@ -168,5 +168,13 @@
    "front": "Do literals differ in Java 23 and Java 25?",
    "back": "No. Only printing in a small program differs: IO.println is final in Java 25."
   }
+ ],
+ "jshell": [
+  "int apples = 1_000_000",
+  "'A' + 1",
+  "(char) ('A' + 1)",
+  "\"123\" + 1",
+  "'1' + 1",
+  "char c = \"A\""
  ]
 }

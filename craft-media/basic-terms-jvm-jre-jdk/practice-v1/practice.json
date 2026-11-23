@@ -168,5 +168,13 @@
    "front": "Which of Java 23 and Java 25 is LTS?",
    "back": "Java 25."
   }
+ ],
+ "jshell": [
+  "Runtime.version()",
+  "Runtime.version().feature()",
+  "System.getProperty(\"java.vm.name\")",
+  "System.getProperty(\"java.class.version\")",
+  "IO.println(\"Running on Java \" + Runtime.version().feature())",
+  "Runtime.version().lts()"
  ]
 }

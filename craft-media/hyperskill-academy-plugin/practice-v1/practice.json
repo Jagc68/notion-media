@@ -172,5 +172,13 @@
    "front": "Old names for the plugin in older guides?",
    "back": "JetBrains Academy plugin or EduTools."
   }
+ ],
+ "jshell": [
+  "\"Today: legs\".equals(\"Today: legs\")",
+  "\"Today: legs\".equals(\"today: legs\")",
+  "\"Today: legs\".equals(\"Today: legs \")",
+  "Runtime.version().feature()",
+  "IO.println(\"Congratulations!\")",
+  "System.out.println(\"Today: legs)"
  ]
 }

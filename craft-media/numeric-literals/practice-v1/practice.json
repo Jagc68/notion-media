@@ -184,5 +184,13 @@
    "front": "Since which Java version do binary literals and underscores exist?",
    "back": "Java 7. Nothing changed in Java 23 or 25."
   }
+ ],
+ "jshell": [
+  "1_000_000",
+  "0xFF",
+  "0b1010",
+  "010",
+  "2.5e3",
+  "int bad = 1_000_;"
  ]
 }

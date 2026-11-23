@@ -168,5 +168,13 @@
    "front": "Do the variable rules differ between Java 23 and Java 25?",
    "back": "No. Only the compact source file is final in 25 (preview in 23)."
   }
+ ],
+ "jshell": [
+  "int sets = 3",
+  "sets = sets + 1",
+  "var weightKg = 82.5",
+  "String exercise = \"Bench press\"",
+  "IO.println(exercise + \": \" + sets + \" x \" + weightKg)",
+  "sets = \"five\""
  ]
 }

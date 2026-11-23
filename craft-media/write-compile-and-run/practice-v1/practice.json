@@ -160,5 +160,12 @@
    "front": "What is new in Java 25 for this lesson?",
    "back": "Compact source files are final (JEP 512): void main() with IO.println, no flag."
   }
+ ],
+ "jshell": [
+  "int x = 5 + 3",
+  "System.out.println(\"x = \" + x)",
+  "String s = \"Hello\"",
+  "IO.println(s)",
+  "System.out.printlen(s)"
  ]
 }

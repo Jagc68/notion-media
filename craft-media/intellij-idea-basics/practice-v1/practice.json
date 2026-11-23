@@ -172,5 +172,13 @@
    "front": "Where can you print a list of shortcuts?",
    "back": "Help, Keyboard Shortcuts PDF."
   }
+ ],
+ "jshell": [
+  "System.getProperty(\"java.version\")",
+  "Runtime.version().feature()",
+  "System.getProperty(\"user.dir\")",
+  "IO.println(\"Cmd+D duplicates, Cmd+/ comments\")",
+  "\"Option+F12\".length()",
+  "java -version"
  ]
 }

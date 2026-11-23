@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>jshell</title>
+<style>
+  :root { --paper:#F4EFE6; --ink:#2B2B2B; --muted:#4F5A66; --line:#CFC2AC; --card:#FBF8F2; --accent:#C8692B;
+    --ok:#1E7A3C; --bad:#B3261E; --term:#1F1F1F; --termtext:#F4EFE6; --val:#8FD19E; --err:#FF8A80; --info:#A9B4C0; --echo:#F0A868; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { height:100%; background:var(--paper); color:var(--ink);
+    font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size:16px;
+    -webkit-tap-highlight-color:transparent; }
+  #app { height:100%; max-width:820px; margin:0 auto; display:flex; flex-direction:column; gap:8px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom)); }
+  #top { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .seg { display:flex; border:2px solid var(--line); border-radius:10px; overflow:hidden; }
+  .seg button { font:inherit; font-weight:600; font-size:14px; height:34px; padding:0 12px; border:0; cursor:pointer;
+    background:var(--card); color:var(--ink); }
+  .seg button[aria-pressed="true"] { background:var(--accent); color:#fff; }
+  .tool { font:inherit; font-size:13px; height:34px; padding:0 10px; border-radius:10px; cursor:pointer;
+    background:var(--card); color:var(--ink); border:2px solid var(--line); }
+  #status { margin-left:auto; font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px; }
+  #status i { width:9px; height:9px; border-radius:50%; background:var(--line); display:inline-block; }
+  #status.ok i { background:var(--ok); } #status.bad i { background:var(--bad); }
+  #chips { display:flex; gap:6px; overflow-x:auto; padding-bottom:2px; scrollbar-width:thin; }
+  #chips:empty { display:none; }
+  .chip { flex:none; font-family:"JetBrains Mono", ui-monospace, Menlo, monospace; font-size:13px; padding:6px 10px;
+    border-radius:8px; border:2px solid var(--line); background:var(--card); color:var(--ink); cursor:pointer; white-space:nowrap; }
+  .chip:hover { border-color:var(--accent); }
+  #term { flex:1; min-height:160px; overflow-y:auto; background:var(--term); color:var(--termtext); border-radius:12px;
+    padding:12px 14px; font-family:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size:14px; line-height:1.5;
+    -webkit-overflow-scrolling:touch; }
+  .l { white-space:pre-wrap; word-break:break-word; }
+  .echo { color:var(--echo); } .echo b { color:var(--info); font-weight:400; }
+  .val { color:var(--val); } .err { color:var(--err); } .info { color:var(--info); } .out { color:var(--termtext); }
+  .sep { color:var(--info); opacity:.7; margin:6px 0; }
+  #inrow { display:flex; gap:8px; align-items:flex-end; background:var(--term); border-radius:12px; padding:8px 8px 8px 12px; }
+  #prompt { color:var(--echo); font-family:"JetBrains Mono", ui-monospace, Menlo, monospace; font-size:14px; padding:8px 0; white-space:nowrap; }
+  #input { flex:1; resize:none; border:0; outline:none; background:transparent; color:var(--termtext);
+    font-family:"JetBrains Mono", ui-monospace, Menlo, monospace; font-size:16px; line-height:1.4; padding:7px 0; max-height:40vh; }
+  #run { font:inherit; font-weight:700; height:38px; padding:0 16px; border-radius:9px; border:0; background:var(--accent); color:#fff; cursor:pointer; }
+  #run:disabled { opacity:.5; }
+  #hint { font-size:12px; color:var(--muted); }
+  @media (hover:none) { #hint .kb { display:none; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <div class="seg" role="group" aria-label="JDK version">
+      <button id="v23" aria-pressed="false">JDK 23</button>
+      <button id="v25" aria-pressed="true">JDK 25</button>
+    </div>
+    <button class="tool" data-cmd="/vars">/vars</button>
+    <button class="tool" data-cmd="/reset">/reset</button>
+    <button class="tool" id="clear">Clear</button>
+    <span id="status"><i></i><span id="stext">Connecting…</span></span>
+  </div>
+  <div id="chips"></div>
+  <div id="term" aria-live="polite"></div>
+  <div id="inrow">
+    <span id="prompt">jshell&gt;</span>
+    <textarea id="input" rows="1" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"
+      enterkeyhint="send" placeholder="Type Java…"></textarea>
+    <button id="run">Run</button>
+  </div>
+  <div id="hint">Real jshell on Greg's Mac, in a locked sandbox. <span class="kb">Enter runs · Shift+Enter new line · ↑/↓ history.</span> Tap a line above to fill it in.</div>
+</div>
+<script>
+(function () {
+  var params = new URLSearchParams(location.search), hash = new URLSearchParams(location.hash.slice(1));
+  var token = (hash.get('t') || params.get('t') || '').replace(/[^\w]/g, '');
+  var set = (params.get('set') || '').replace(/[^a-z0-9\-\/]/gi, '');
+  var term = document.getElementById('term'), input = document.getElementById('input'), runB = document.getElementById('run');
+  var promptEl = document.getElementById('prompt'), statusEl = document.getElementById('status'), stext = document.getElementById('stext');
+  var ver = '25', pending = '', busy = false, endpoint = null, hist = [], hpos = 0;
+  try { ver = localStorage.getItem('jshell:ver') || '25'; } catch (e) {}
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function line(cls, text) {
+    var d = document.createElement('div'); d.className = 'l ' + cls; d.innerHTML = text; term.appendChild(d);
+    term.scrollTop = term.scrollHeight;
+  }
+  function status(kind, t) { statusEl.className = kind; stext.textContent = t; }
+  function sid() {
+    var k = 'jshell:sess:' + ver, v;
+    try { v = localStorage.getItem(k); } catch (e) {}
+    if (!v) { v = Array.from(crypto.getRandomValues(new Uint8Array(12)), function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+      try { localStorage.setItem(k, v); } catch (e) {} }
+    return v;
+  }
+  function setVer(v, quiet) {
+    ver = v;
+    document.getElementById('v23').setAttribute('aria-pressed', v === '23');
+    document.getElementById('v25').setAttribute('aria-pressed', v === '25');
+    try { localStorage.setItem('jshell:ver', v); } catch (e) {}
+    pending = ''; setPrompt();
+    if (!quiet) line('sep', '── JDK ' + v + ' ── (each version keeps its own variables)');
+  }
+  function setPrompt() { promptEl.textContent = pending ? '   ...>' : 'jshell ' + ver + '>'; }
+
+  // ---------------------------------------------------------------- where is the Mac? (address lives in the private repo)
+  function b64dec(s) { return decodeURIComponent(escape(atob(s.replace(/\s/g, '')))); }
+  function findEndpoint(force) {
+    if (!force) { try { var c = JSON.parse(sessionStorage.getItem('jshell:ep')); if (c && c.url) return Promise.resolve(endpoint = c); } catch (e) {} }
+    if (!token) return Promise.reject('nokey');
+    return fetch('https://api.github.com/repos/Jagc68/practice-progress/contents/jshell-endpoint.json?ts=' + Date.now(),
+      { headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }, cache: 'no-store' })
+      .then(function (r) { if (r.status === 401) throw 'badtoken'; if (!r.ok) throw 'noendpoint'; return r.json(); })
+      .then(function (j) { endpoint = JSON.parse(b64dec(j.content)); try { sessionStorage.setItem('jshell:ep', JSON.stringify(endpoint)); } catch (e) {} return endpoint; });
+  }
+  function call(path, body, retried) {
+    return findEndpoint(retried).then(function (ep) {
+      return fetch(ep.url + path, { method: body ? 'POST' : 'GET', headers: { 'X-Key': ep.key, 'Content-Type': 'application/json' },
+        body: body ? JSON.stringify(body) : undefined });
+    }).then(function (r) {
+      if (r.status === 401 && !retried) throw 'retry';
+      if (!r.ok) throw 'http' + r.status;
+      return r.json();
+    }).catch(function (e) {
+      if (!retried && e !== 'nokey' && e !== 'badtoken') { sessionStorage.removeItem('jshell:ep'); return call(path, body, true); }  // tunnel address may have changed
+      throw e;
+    });
+  }
+  function offline(e) {
+    var msg = e === 'nokey' ? 'No access key in the link. Open this from your Notion lesson page.'
+      : e === 'badtoken' ? 'The access key has expired. Ask Claude to renew the practice-progress token.'
+      : "Can't reach your Mac. It has to be on and awake, with OrbStack and the jshell service running.";
+    status('bad', e === 'nokey' || e === 'badtoken' ? 'No access' : 'Mac offline');
+    line('err', '|  ' + esc(msg));
+  }
+
+  // ---------------------------------------------------------------- run
+  function run(code) {
+    if (busy) return;
+    var full = pending ? pending + '\n' + code : code;
+    line('echo', '<b>' + (pending ? '   ...&gt; ' : 'jshell ' + ver + '&gt; ') + '</b>' + esc(code));
+    if (code.trim() && code.trim() !== hist[hist.length - 1]) hist.push(code.trim());
+    hpos = hist.length;
+    if (!full.trim()) return;
+    busy = true; runB.disabled = true; status('', 'Running…');
+    call('/eval?v=' + ver, { session: sid(), code: full }).then(function (d) {
+      status('ok', 'JDK ' + d.version.split('+')[0]);
+      if (d.incomplete) { pending = full; setPrompt(); return; }
+      pending = ''; setPrompt();
+      d.lines.forEach(function (l) { line(l.t, esc(l.s)); });
+      if (full.trim() === '/reset') { try { localStorage.removeItem('jshell:sess:' + ver); } catch (e) {} }
+    }, function (e) { pending = ''; setPrompt(); offline(e); })
+      .then(function () { busy = false; runB.disabled = false; });
+  }
+
+  function grow() { input.style.height = 'auto'; input.style.height = input.scrollHeight + 'px'; }
+  input.addEventListener('input', grow);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); var c = input.value; input.value = ''; grow(); run(c); }
+    else if (e.key === 'ArrowUp' && input.selectionStart === 0 && hpos > 0) { e.preventDefault(); input.value = hist[--hpos]; grow(); }
+    else if (e.key === 'ArrowDown' && input.selectionEnd === input.value.length && hpos < hist.length) {
+      e.preventDefault(); hpos++; input.value = hist[hpos] || ''; grow(); }
+  });
+  runB.onclick = function () { var c = input.value; input.value = ''; grow(); run(c); input.focus(); };
+  document.querySelectorAll('[data-cmd]').forEach(function (b) { b.onclick = function () { run(b.dataset.cmd); }; });
+  document.getElementById('clear').onclick = function () { term.innerHTML = ''; };
+  document.getElementById('v23').onclick = function () { if (ver !== '23') setVer('23'); };
+  document.getElementById('v25').onclick = function () { if (ver !== '25') setVer('25'); };
+
+  // lesson lines as chips
+  if (set) fetch('../craft-media/' + set + '/practice.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.jshell || !d.jshell.length) return;
+      var box = document.getElementById('chips');
+      d.jshell.forEach(function (c) {
+        var b = document.createElement('button'); b.className = 'chip'; b.textContent = c;
+        b.onclick = function () { input.value = c; grow(); input.focus(); };
+        box.appendChild(b);
+      });
+    }).catch(function () {});
+
+  setVer(ver, true);
+  line('info', '|  Welcome to jshell. Type /help for commands.');
+  call('/health?v=' + ver).then(function (d) { status('ok', 'JDK ' + d.version.split('+')[0]); }, offline);
+})();
+</script>
+</body>
+</html>

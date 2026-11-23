@@ -168,5 +168,13 @@
    "front": "Where does IntelliJ put a JDK it downloads for you on a Mac?",
    "back": "<code>~/Library/Java/JavaVirtualMachines</code>"
   }
+ ],
+ "jshell": [
+  "System.getProperty(\"java.home\")",
+  "Runtime.version().feature()",
+  "System.getProperty(\"user.dir\")",
+  "\"Sets: \" + 3 + 4",
+  "IO.println(\"Hello from jshell\")",
+  "System.out.printn(\"Hello\")"
  ]
 }

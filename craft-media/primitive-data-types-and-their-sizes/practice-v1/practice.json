@@ -184,5 +184,13 @@
    "front": "Status of primitive types in patterns in JDK 25?",
    "back": "Still preview (JEP 507); needs <code>--enable-preview</code>."
   }
+ ],
+ "jshell": [
+  "byte sets = 4",
+  "Integer.MAX_VALUE",
+  "Integer.MAX_VALUE + 1",
+  "long stepsLife = 48000000000L",
+  "Long.BYTES",
+  "byte tooBig = 200"
  ]
 }

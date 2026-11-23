@@ -168,5 +168,12 @@
    "front": "Which JDK for Hyperskill projects?",
    "back": "JDK 23 with the classic style, so the checks pass. JDK 25 for jshell and Gym Log."
   }
+ ],
+ "jshell": [
+  "System.out.println(\"Hello, World!\")",
+  "System.out.println(\"Java was released in \" + 1995)",
+  "\"Java \" + 25",
+  "IO.println(\"Java 25 can do this too\")",
+  "system.out.println(\"oops\")"
  ]
 }

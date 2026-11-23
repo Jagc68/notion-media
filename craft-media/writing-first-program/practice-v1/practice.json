@@ -168,5 +168,13 @@
    "front": "Is System.out.println legacy in Java 25?",
    "back": "No. It is the standard in real projects."
   }
+ ],
+ "jshell": [
+  "System.out.println(\"Hello, World!\")",
+  "System.out.println()",
+  "IO.println(\"Hello from JDK 25\")",
+  "void main() { IO.println(\"I am main\"); }",
+  "main()",
+  "system.out.println(\"Hi\")"
  ]
 }

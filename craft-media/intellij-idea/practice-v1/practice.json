@@ -168,5 +168,13 @@
    "front": "Where do you change a project's JDK later?",
    "back": "File, Project Structure, SDK."
   }
+ ],
+ "jshell": [
+  "System.getProperty(\"java.version\")",
+  "System.getProperty(\"os.name\")",
+  "\"sout\".length()",
+  "System.out.println(\"typed in jshell, not in IntelliJ\")",
+  "IO.println(Runtime.version().feature() >= 25)",
+  "sout(\"Hi\")"
  ]
 }
