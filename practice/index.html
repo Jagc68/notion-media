@@ -60,6 +60,7 @@
   .card.back .txt { font-weight:500; }
   .hint { font-size:13px; color:var(--muted); margin-top:14px; }
   #msg { padding:24px; color:var(--muted); }
+  #sync { font-size:12px; color:var(--muted); text-align:right; margin:14px 2px 0; min-height:16px; }
   .kbd { display:none; } @media (hover:hover) { .kbd { display:inline; } }
 </style>
 </head>
@@ -70,6 +71,7 @@
     <button class="tab" role="tab" id="tCards" aria-selected="false">Flashcards</button>
   </div>
   <div id="head"><span id="count"></span><div id="progress"><i></i></div><span id="extra"></span></div>
+  <div id="sync" aria-live="polite"></div>
   <div id="view"><p id="msg">Loading…</p></div>
 </div>
 <script>
@@ -85,9 +87,83 @@
   function fail(t) { view.innerHTML = '<p id="msg">' + t + '</p>'; }
   if (!set) return fail('No set given. Use ?set=lesson-slug/practice-v1');
 
-  // storage: optional, never required
-  function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
-  function save(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
+  // ------------------------------------------------------------ progress store
+  // Shape: { quiz: {best, last, total, lastAt, runs}, cards: { "<k>": {box, t} }, updated }
+  // Saved per device in localStorage, and (with a sync token in the link) in the private
+  // repo Jagc68/practice-progress as <slug>.json, so every device shares the same progress.
+  function norm(s) {
+    s = s || {}; s.quiz = s.quiz || {}; s.cards = s.cards || {};
+    if (s.best != null) { s.quiz.best = Math.max(s.quiz.best || 0, s.best); delete s.best; }   // old local shape
+    if (s.box) { for (var k in s.box) if (!s.cards[k]) s.cards[k] = { box: s.box[k], t: 0 }; delete s.box; }
+    return s;
+  }
+  function load() { try { return norm(JSON.parse(localStorage.getItem(KEY))); } catch (e) { return norm(); } }
+  function save(s) { s.updated = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} sync.push(); }
+  function merge(a, b) {
+    a = norm(a); b = norm(b);
+    var q = (b.quiz.lastAt || '') > (a.quiz.lastAt || '') ? b.quiz : a.quiz;
+    var out = { quiz: { best: Math.max(a.quiz.best || 0, b.quiz.best || 0), last: q.last, total: q.total || a.quiz.total || b.quiz.total,
+      lastAt: q.lastAt, runs: Math.max(a.quiz.runs || 0, b.quiz.runs || 0) }, cards: {}, updated: Math.max(a.updated || 0, b.updated || 0) };
+    var keys = Object.keys(a.cards).concat(Object.keys(b.cards));
+    keys.forEach(function (k) { var x = a.cards[k], y = b.cards[k]; out.cards[k] = !x ? y : !y ? x : (y.t > x.t ? y : x); });
+    return out;
+  }
+
+  // ------------------------------------------------------------ sync (GitHub contents API)
+  var sync = (function () {
+    var h = new URLSearchParams(location.hash.slice(1));
+    var token = (h.get('t') || params.get('t') || '').replace(/[^\w]/g, '');
+    var slug = set.split('/')[0];
+    var url = 'https://api.github.com/repos/Jagc68/practice-progress/contents/' + slug + '.json';
+    var sha = null, timer = null, busy = false, again = false, dot;
+    function status(t, c) {
+      dot = dot || document.getElementById('sync');
+      if (dot) { dot.textContent = t; dot.style.color = c || ''; }
+    }
+    function hdr() { return { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' }; }
+    function b64(s) { return btoa(unescape(encodeURIComponent(s))); }
+    function unb64(s) { return decodeURIComponent(escape(atob(s.replace(/\s/g, '')))); }
+    function pull() {
+      if (!token) return Promise.resolve(null);
+      return fetch(url + '?ts=' + Date.now(), { headers: hdr(), cache: 'no-store' }).then(function (r) {
+        if (r.status === 404) { sha = null; return {}; }
+        if (!r.ok) throw r.status;
+        return r.json().then(function (j) { sha = j.sha; return JSON.parse(unb64(j.content)); });
+      });
+    }
+    function put(tries) {
+      var body = { message: 'progress: ' + slug, content: b64(JSON.stringify(store, null, 1)) };
+      if (sha) body.sha = sha;
+      return fetch(url, { method: 'PUT', headers: hdr(), body: JSON.stringify(body) }).then(function (r) {
+        if ((r.status === 409 || r.status === 422) && tries > 0) {        // someone else saved first: merge and retry
+          return pull().then(function (remote) { store = merge(store, remote); return put(tries - 1); });
+        }
+        if (!r.ok) throw r.status;
+        return r.json().then(function (j) { sha = j.content.sha; });
+      });
+    }
+    function flush() {
+      if (busy) { again = true; return; }
+      busy = true; status('Saving…');
+      put(2).then(function () { status('Synced ✓', 'var(--ok)'); }, function (e) { status(e === 401 ? 'Sync key invalid' : 'Not synced (offline?)', 'var(--bad)'); })
+        .then(function () { busy = false; if (again) { again = false; flush(); } });
+    }
+    return {
+      on: !!token,
+      start: function () {
+        if (!token) { status(''); return Promise.resolve(); }
+        status('Syncing…');
+        var t = new Promise(function (res) { setTimeout(res, 5000, 'timeout'); });
+        return Promise.race([pull(), t]).then(function (remote) {
+          if (remote === 'timeout') { status('Not synced (slow)', 'var(--bad)'); return; }
+          store = merge(store, remote);
+          try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {}
+          status('Synced ✓', 'var(--ok)');
+        }, function (e) { status(e === 401 ? 'Sync key invalid' : 'Not synced (offline?)', 'var(--bad)'); });
+      },
+      push: function () { if (!token) return; clearTimeout(timer); timer = setTimeout(flush, 1200); }
+    };
+  })();
   var store = load();
 
   // escape everything, then allow back only <code> and <b>
@@ -141,12 +217,16 @@
   }
   function quizEnd() {
     var total = qOrder.length, full = total === data.quiz.length;
-    if (full) { store.best = Math.max(store.best || 0, qScore); save(store); }
+    if (full) {
+      var sq = store.quiz;
+      sq.best = Math.max(sq.best || 0, qScore); sq.last = qScore; sq.total = total;
+      sq.lastAt = new Date().toISOString(); sq.runs = (sq.runs || 0) + 1; save(store);
+    }
     head(total, total, '');
     var pct = Math.round(qScore / total * 100);
     var msg = pct === 100 ? 'Perfect. Try the flashcards next.' : pct >= 70 ? 'Good work. Go over the ones you missed.' : 'Listen to the podcast again, then retry.';
     var h = '<div class="panel"><div class="score">' + qScore + ' / ' + total + '</div><div class="sub">' + msg +
-      (full && store.best ? ' Best so far: ' + store.best + ' / ' + total + '.' : '') + '</div><div class="row">';
+      (full && store.quiz.best ? ' Best so far: ' + store.quiz.best + ' / ' + total + '.' : '') + '</div><div class="row">';
     if (qWrong.length) h += '<button class="btn" id="retryW">Retry the ' + qWrong.length + ' you missed</button>';
     h += '<button class="btn sec" id="restart">Start over</button></div></div>';
     el(h);
@@ -159,11 +239,11 @@
   // Leitner-light: each card has a box 0..3 (saved per device). Session order = lowest box first.
   // "Again" puts the card back 3 places later and resets its box; "Know it" raises the box and ends it for this round.
   var cQueue, cFlipped, cDone;
-  function boxes() { store.box = store.box || {}; return store.box; }
+  function box(k) { var c = store.cards[k]; return c ? c.box : 0; }
+  function setBox(k, v) { store.cards[k] = { box: v, t: Date.now() }; }
   function cardsStart() {
-    var b = boxes();
     cQueue = data.flashcards.map(function (_, k) { return k; })
-      .sort(function (x, y) { return (b[x] || 0) - (b[y] || 0) || x - y; });
+      .sort(function (x, y) { return box(x) - box(y) || x - y; });
     cDone = 0; cardsShow();
   }
   function cardsShow() {
@@ -192,20 +272,23 @@
     }
   }
   function cardRate(known) {
-    var b = boxes(), k = cQueue.shift();
-    if (known) { b[k] = Math.min(3, (b[k] || 0) + 1); cDone++; }
-    else { b[k] = 0; cQueue.splice(Math.min(3, cQueue.length), 0, k); }
+    var k = cQueue.shift();
+    if (known) { setBox(k, Math.min(3, box(k) + 1)); cDone++; }
+    else { setBox(k, 0); cQueue.splice(Math.min(3, cQueue.length), 0, k); }
     save(store); cardsShow();
   }
   function cardsEnd() {
-    var b = boxes(), total = data.flashcards.length, solid = 0;
-    for (var k = 0; k < total; k++) if ((b[k] || 0) >= 2) solid++;
+    var total = data.flashcards.length, solid = 0;
+    for (var k = 0; k < total; k++) if (box(k) >= 2) solid++;
     head(total, total, '');
     el('<div class="panel"><div class="score">All ' + total + ' done</div><div class="sub">' + solid + ' of ' + total +
       ' cards known in at least two rounds. Come back tomorrow and again in a week.</div><div class="row">' +
       '<button class="btn" id="again2">Another round</button><button class="btn sec" id="reset">Reset progress</button></div></div>');
     document.getElementById('again2').onclick = cardsStart;
-    document.getElementById('reset').onclick = function () { store.box = {}; save(store); cardsStart(); };
+    document.getElementById('reset').onclick = function () {
+      for (var k = 0; k < total; k++) setBox(k, 0);   // timestamped, so the reset syncs too
+      save(store); cardsStart();
+    };
   }
 
   // ------------------------------------------------------------ tabs + keys
@@ -229,9 +312,12 @@
     }
   });
 
-  fetch('../craft-media/' + set + '/practice.json', { cache: 'no-cache' })
-    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-    .then(function (d) {
+  Promise.all([
+    fetch('../craft-media/' + set + '/practice.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); }),
+    sync.start()
+  ]).then(function (res) {
+      var d = res[0];
       data = d; document.title = 'Test yourself: ' + d.title;
       if (!d.quiz.length) document.getElementById('tQuiz').style.display = 'none', mode = 'cards';
       if (!d.flashcards.length) document.getElementById('tCards').style.display = 'none', mode = 'quiz';
