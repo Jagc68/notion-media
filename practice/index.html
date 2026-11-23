@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Test yourself</title>
+<style>
+  :root { --paper:#F4EFE6; --ink:#2B2B2B; --muted:#4F5A66; --line:#CFC2AC; --card:#FBF8F2; --accent:#C8692B;
+    --ok:#1E7A3C; --okbg:#D6F0DD; --bad:#B3261E; --badbg:#F8D7D4; --code:#EDE5D6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { min-height:100%; background:var(--paper); color:var(--ink);
+    font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size:16px; line-height:1.45;
+    -webkit-tap-highlight-color:transparent; }
+  #app { max-width:720px; margin:0 auto; padding:12px 16px calc(16px + env(safe-area-inset-bottom)); }
+  #tabs { display:flex; gap:6px; margin-bottom:12px; }
+  .tab { flex:1; font:inherit; font-weight:600; font-size:15px; height:40px; border-radius:10px; cursor:pointer;
+    background:var(--card); color:var(--ink); border:2px solid var(--line); }
+  .tab[aria-selected="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+  #head { display:flex; align-items:center; gap:10px; margin-bottom:10px; font-size:13px; color:var(--muted);
+    font-variant-numeric:tabular-nums; }
+  #progress { flex:1; height:6px; background:var(--line); border-radius:3px; overflow:hidden; }
+  #progress i { display:block; height:100%; width:0; background:var(--accent); transition:width .2s ease; }
+  .panel { background:var(--card); border:2px solid var(--line); border-radius:14px; padding:18px; }
+  .q { font-size:18px; font-weight:600; margin-bottom:12px; }
+  code { font-family:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size:.92em;
+    background:var(--code); padding:1px 5px; border-radius:4px; }
+  pre { font-family:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size:14px; line-height:1.5;
+    background:#2B2B2B; color:#F4EFE6; padding:12px 14px; border-radius:10px; overflow-x:auto; margin-bottom:14px;
+    white-space:pre; }
+  .opts { display:flex; flex-direction:column; gap:8px; }
+  .opt { font:inherit; text-align:left; display:flex; gap:10px; align-items:flex-start; padding:11px 12px;
+    background:#fff; color:var(--ink); border:2px solid var(--line); border-radius:10px; cursor:pointer; }
+  .opt:hover:not(:disabled) { border-color:var(--accent); }
+  .opt:disabled { cursor:default; }
+  .opt .l { flex:none; font-weight:700; width:24px; height:24px; border-radius:6px; display:inline-flex;
+    align-items:center; justify-content:center; background:var(--code); font-size:14px; }
+  .opt.ok { border-color:var(--ok); background:var(--okbg); }
+  .opt.ok .l { background:var(--ok); color:#fff; }
+  .opt.bad { border-color:var(--bad); background:var(--badbg); }
+  .opt.bad .l { background:var(--bad); color:#fff; }
+  .fb { margin-top:14px; padding:12px 14px; border-radius:10px; border-left:6px solid; }
+  .fb.ok { border-color:var(--ok); background:var(--okbg); }
+  .fb.bad { border-color:var(--bad); background:var(--badbg); }
+  .fb b.v { display:block; margin-bottom:4px; }
+  .fb.ok b.v { color:var(--ok); } .fb.bad b.v { color:var(--bad); }
+  .row { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  .btn { font:inherit; font-weight:600; height:44px; padding:0 18px; border-radius:10px; cursor:pointer;
+    border:2px solid var(--accent); background:var(--accent); color:#fff; flex:1; min-width:120px; }
+  .btn.sec { background:var(--card); color:var(--ink); border-color:var(--line); }
+  .btn.again { background:var(--bad); border-color:var(--bad); }
+  .btn.know { background:var(--ok); border-color:var(--ok); }
+  button:focus-visible { outline:3px solid var(--ink); outline-offset:2px; }
+  .score { font-size:44px; font-weight:800; color:var(--accent); line-height:1.1; }
+  .sub { color:var(--muted); margin-top:4px; }
+  .card { min-height:220px; display:flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align:center; cursor:pointer; user-select:none; -webkit-user-select:none; }
+  .card .side { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+  .card .txt { font-size:20px; font-weight:600; }
+  .card.back { border-color:var(--accent); }
+  .card.back .txt { font-weight:500; }
+  .hint { font-size:13px; color:var(--muted); margin-top:14px; }
+  #msg { padding:24px; color:var(--muted); }
+  .kbd { display:none; } @media (hover:hover) { .kbd { display:inline; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="tabs" role="tablist">
+    <button class="tab" role="tab" id="tQuiz" aria-selected="true">Quiz</button>
+    <button class="tab" role="tab" id="tCards" aria-selected="false">Flashcards</button>
+  </div>
+  <div id="head"><span id="count"></span><div id="progress"><i></i></div><span id="extra"></span></div>
+  <div id="view"><p id="msg">Loading…</p></div>
+</div>
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var set = (params.get('set') || '').replace(/[^a-z0-9\-\/]/gi, '');
+  var view = document.getElementById('view');
+  var countEl = document.getElementById('count'), extraEl = document.getElementById('extra');
+  var bar = document.querySelector('#progress i');
+  var data, mode = params.get('mode') === 'cards' ? 'cards' : 'quiz';
+  var KEY = 'practice:' + set;
+
+  function fail(t) { view.innerHTML = '<p id="msg">' + t + '</p>'; }
+  if (!set) return fail('No set given. Use ?set=lesson-slug/practice-v1');
+
+  // storage: optional, never required
+  function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+  function save(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
+  var store = load();
+
+  // escape everything, then allow back only <code> and <b>
+  function rich(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/&lt;(\/?)(code|b)&gt;/g, '<$1$2>');
+  }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function head(n, total, extra) {
+    countEl.textContent = n + ' / ' + total;
+    bar.style.width = (total ? n / total * 100 : 0) + '%';
+    extraEl.textContent = extra || '';
+  }
+  function el(html) { view.innerHTML = html; }
+
+  // ------------------------------------------------------------ QUIZ
+  var qOrder, qi, qScore, qWrong, qAnswered;
+  function quizStart(only) {
+    qOrder = only || data.quiz.map(function (_, k) { return k; });
+    qi = 0; qScore = 0; qWrong = []; quizShow();
+  }
+  function quizShow() {
+    if (qi >= qOrder.length) return quizEnd();
+    qAnswered = false;
+    var q = data.quiz[qOrder[qi]];
+    head(qi + 1, qOrder.length, 'Score ' + qScore);
+    var h = '<div class="panel"><div class="q">' + rich(q.q) + '</div>';
+    if (q.code) h += '<pre>' + esc(q.code) + '</pre>';
+    h += '<div class="opts">' + q.options.map(function (o, k) {
+      return '<button class="opt" data-k="' + k + '"><span class="l">' + 'ABCDEFGH'[k] + '</span><span>' + rich(o) + '</span></button>';
+    }).join('') + '</div><div id="after"></div></div>';
+    el(h);
+    view.querySelectorAll('.opt').forEach(function (b) { b.onclick = function () { quizPick(+b.dataset.k); }; });
+  }
+  function quizPick(k) {
+    if (qAnswered) return; qAnswered = true;
+    var q = data.quiz[qOrder[qi]], right = k === q.answer;
+    if (right) qScore++; else qWrong.push(qOrder[qi]);
+    var opts = view.querySelectorAll('.opt');
+    opts.forEach(function (b, j) {
+      b.disabled = true;
+      if (j === q.answer) b.classList.add('ok'); else if (j === k) b.classList.add('bad');
+    });
+    head(qi + 1, qOrder.length, 'Score ' + qScore);
+    var last = qi === qOrder.length - 1;
+    document.getElementById('after').innerHTML =
+      '<div class="fb ' + (right ? 'ok' : 'bad') + '"><b class="v">' + (right ? 'Correct!' : 'Not quite. The answer is ' + 'ABCDEFGH'[q.answer] + '.') +
+      '</b>' + rich(q.explain) + '</div><div class="row"><button class="btn" id="nextQ">' + (last ? 'See your score' : 'Next question') +
+      ' <span class="kbd">(Enter)</span></button></div>';
+    var nb = document.getElementById('nextQ'); nb.onclick = function () { qi++; quizShow(); }; nb.focus({ preventScroll: true });
+  }
+  function quizEnd() {
+    var total = qOrder.length, full = total === data.quiz.length;
+    if (full) { store.best = Math.max(store.best || 0, qScore); save(store); }
+    head(total, total, '');
+    var pct = Math.round(qScore / total * 100);
+    var msg = pct === 100 ? 'Perfect. Try the flashcards next.' : pct >= 70 ? 'Good work. Go over the ones you missed.' : 'Listen to the podcast again, then retry.';
+    var h = '<div class="panel"><div class="score">' + qScore + ' / ' + total + '</div><div class="sub">' + msg +
+      (full && store.best ? ' Best so far: ' + store.best + ' / ' + total + '.' : '') + '</div><div class="row">';
+    if (qWrong.length) h += '<button class="btn" id="retryW">Retry the ' + qWrong.length + ' you missed</button>';
+    h += '<button class="btn sec" id="restart">Start over</button></div></div>';
+    el(h);
+    var w = qWrong.slice();
+    if (qWrong.length) document.getElementById('retryW').onclick = function () { quizStart(w); };
+    document.getElementById('restart').onclick = function () { quizStart(); };
+  }
+
+  // ------------------------------------------------------------ FLASHCARDS
+  // Leitner-light: each card has a box 0..3 (saved per device). Session order = lowest box first.
+  // "Again" puts the card back 3 places later and resets its box; "Know it" raises the box and ends it for this round.
+  var cQueue, cFlipped, cDone;
+  function boxes() { store.box = store.box || {}; return store.box; }
+  function cardsStart() {
+    var b = boxes();
+    cQueue = data.flashcards.map(function (_, k) { return k; })
+      .sort(function (x, y) { return (b[x] || 0) - (b[y] || 0) || x - y; });
+    cDone = 0; cardsShow();
+  }
+  function cardsShow() {
+    var total = data.flashcards.length;
+    if (!cQueue.length) return cardsEnd();
+    cFlipped = false;
+    var c = data.flashcards[cQueue[0]];
+    head(cDone, total, cQueue.length + ' left');
+    el('<div class="panel card" id="card" role="button" tabindex="0" aria-label="Flip card"><div class="side">Question</div><div class="txt">' + rich(c.front) +
+      '</div><div class="hint">Tap the card to see the answer<span class="kbd"> (Space)</span></div></div><div class="row" id="rate"></div>');
+    var cardEl = document.getElementById('card');
+    cardEl.onclick = cardFlip; cardEl.focus({ preventScroll: true });
+  }
+  function cardFlip() {
+    var c = data.flashcards[cQueue[0]], cardEl = document.getElementById('card');
+    cFlipped = !cFlipped;
+    cardEl.classList.toggle('back', cFlipped);
+    cardEl.querySelector('.side').textContent = cFlipped ? 'Answer' : 'Question';
+    cardEl.querySelector('.txt').innerHTML = rich(cFlipped ? c.back : c.front);
+    cardEl.querySelector('.hint').innerHTML = cFlipped ? 'Did you know it?' : 'Tap the card to see the answer<span class="kbd"> (Space)</span>';
+    document.getElementById('rate').innerHTML = cFlipped
+      ? '<button class="btn again" id="again">Again <span class="kbd">(1)</span></button><button class="btn know" id="know">Know it <span class="kbd">(2)</span></button>' : '';
+    if (cFlipped) {
+      document.getElementById('again').onclick = function () { cardRate(false); };
+      document.getElementById('know').onclick = function () { cardRate(true); };
+    }
+  }
+  function cardRate(known) {
+    var b = boxes(), k = cQueue.shift();
+    if (known) { b[k] = Math.min(3, (b[k] || 0) + 1); cDone++; }
+    else { b[k] = 0; cQueue.splice(Math.min(3, cQueue.length), 0, k); }
+    save(store); cardsShow();
+  }
+  function cardsEnd() {
+    var b = boxes(), total = data.flashcards.length, solid = 0;
+    for (var k = 0; k < total; k++) if ((b[k] || 0) >= 2) solid++;
+    head(total, total, '');
+    el('<div class="panel"><div class="score">All ' + total + ' done</div><div class="sub">' + solid + ' of ' + total +
+      ' cards known in at least two rounds. Come back tomorrow and again in a week.</div><div class="row">' +
+      '<button class="btn" id="again2">Another round</button><button class="btn sec" id="reset">Reset progress</button></div></div>');
+    document.getElementById('again2').onclick = cardsStart;
+    document.getElementById('reset').onclick = function () { store.box = {}; save(store); cardsStart(); };
+  }
+
+  // ------------------------------------------------------------ tabs + keys
+  function setMode(m) {
+    mode = m;
+    document.getElementById('tQuiz').setAttribute('aria-selected', m === 'quiz');
+    document.getElementById('tCards').setAttribute('aria-selected', m === 'cards');
+    if (m === 'quiz') quizStart(); else cardsStart();
+  }
+  document.getElementById('tQuiz').onclick = function () { setMode('quiz'); };
+  document.getElementById('tCards').onclick = function () { setMode('cards'); };
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (mode === 'quiz' && !qAnswered && /^[1-8a-hA-H]$/.test(e.key)) {
+      var k = /\d/.test(e.key) ? +e.key - 1 : e.key.toUpperCase().charCodeAt(0) - 65;
+      if (data && qi < qOrder.length && k < data.quiz[qOrder[qi]].options.length) { quizPick(k); e.preventDefault(); }
+    } else if (mode === 'cards' && cQueue && cQueue.length) {
+      if (e.key === ' ' || e.key === 'Enter') { if (!cFlipped) { cardFlip(); e.preventDefault(); } }
+      else if (cFlipped && e.key === '1') cardRate(false);
+      else if (cFlipped && e.key === '2') cardRate(true);
+    }
+  });
+
+  fetch('../craft-media/' + set + '/practice.json', { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (d) {
+      data = d; document.title = 'Test yourself: ' + d.title;
+      if (!d.quiz.length) document.getElementById('tQuiz').style.display = 'none', mode = 'cards';
+      if (!d.flashcards.length) document.getElementById('tCards').style.display = 'none', mode = 'quiz';
+      setMode(mode);
+    })
+    .catch(function () { fail('The quiz could not be loaded.'); });
+})();
+</script>
+</body>
+</html>

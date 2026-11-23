@@ -1,0 +1,188 @@
+{
+ "title": "Numeric literals",
+ "chapter": 3,
+ "quiz": [
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(017);",
+   "options": [
+    "17",
+    "15",
+    "23",
+    "It does not compile"
+   ],
+   "answer": 1,
+   "explain": "A leading zero makes it octal: 1 times 8 plus 7 = 15."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(0x1F);",
+   "options": [
+    "0x1F",
+    "1F",
+    "31",
+    "16"
+   ],
+   "answer": 2,
+   "explain": "Hex 1F is 1 times 16 plus 15 = 31. println always shows the decimal value."
+  },
+  {
+   "q": "Which line does NOT compile?",
+   "code": "",
+   "options": [
+    "<code>int a = 1_000_000;</code>",
+    "<code>long b = 48_000L;</code>",
+    "<code>long c = 48_000_L;</code>",
+    "<code>int d = 0xFF_00;</code>"
+   ],
+   "answer": 2,
+   "explain": "An underscore may not stand right before the suffix: illegal underscore."
+  },
+  {
+   "q": "Does this compile?",
+   "code": "float runKm = 1.5e2;",
+   "options": [
+    "Yes, runKm is 150.0",
+    "No: possible lossy conversion from double to float",
+    "No: illegal character e",
+    "Yes, but only in Java 25"
+   ],
+   "answer": 1,
+   "explain": "A literal with e is a double. Write 1.5e2f for a float."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(5 + '5');",
+   "options": [
+    "55",
+    "10",
+    "58",
+    "It does not compile"
+   ],
+   "answer": 2,
+   "explain": "The char '5' has the character code 53, so 5 + 53 = 58."
+  },
+  {
+   "q": "Which error does <code>int hour = 09;</code> give?",
+   "code": "",
+   "options": [
+    "None, hour is 9",
+    "illegal digit in an octal literal",
+    "integer number too large",
+    "illegal underscore"
+   ],
+   "answer": 1,
+   "explain": "The leading zero makes it octal, and 9 is not an octal digit."
+  },
+  {
+   "q": "What is the type of the literal <code>1e3</code>?",
+   "code": "",
+   "options": [
+    "int",
+    "long",
+    "float",
+    "double"
+   ],
+   "answer": 3,
+   "explain": "Every literal with e is a double, even without a decimal point: 1000.0."
+  },
+  {
+   "q": "What does this print?",
+   "code": "System.out.println(0b111 + 0b1);",
+   "options": [
+    "1000",
+    "8",
+    "112",
+    "0b1000"
+   ],
+   "answer": 1,
+   "explain": "Binary 111 is 7 and 0b1 is 1, so the sum is the int 8."
+  },
+  {
+   "q": "What changed for numeric literals between Java 23 and Java 25?",
+   "code": "",
+   "options": [
+    "Underscores became allowed",
+    "Binary literals were added",
+    "Nothing: the syntax is identical",
+    "long no longer needs L"
+   ],
+   "answer": 2,
+   "explain": "Binary literals and underscores came in Java 7. Java 23 and 25 read every literal the same way."
+  },
+  {
+   "q": "Why should you write <code>100L</code> and not <code>100l</code>?",
+   "code": "",
+   "options": [
+    "100l does not compile",
+    "100l is an int",
+    "A small l looks like the digit 1",
+    "100l is octal"
+   ],
+   "answer": 2,
+   "explain": "Both are the same long, but 100l reads like 1001."
+  }
+ ],
+ "flashcards": [
+  {
+   "front": "What is a numeric literal?",
+   "back": "A number written directly in the source code."
+  },
+  {
+   "front": "Type of a whole-number literal without a suffix?",
+   "back": "<code>int</code>."
+  },
+  {
+   "front": "Which suffix makes a whole number a <code>long</code>?",
+   "back": "<code>L</code> (a capital, not a small l)."
+  },
+  {
+   "front": "Type of a decimal literal without a suffix?",
+   "back": "<code>double</code>."
+  },
+  {
+   "front": "Which suffix makes a decimal a <code>float</code>?",
+   "back": "<code>f</code> or <code>F</code>."
+  },
+  {
+   "front": "Prefix for a hexadecimal literal?",
+   "back": "<code>0x</code>, as in <code>0xFF</code> (255)."
+  },
+  {
+   "front": "Prefix for a binary literal?",
+   "back": "<code>0b</code>, as in <code>0b1010</code> (10)."
+  },
+  {
+   "front": "What does a leading zero mean in <code>010</code>?",
+   "back": "Octal: the value is 8."
+  },
+  {
+   "front": "Does <code>09</code> compile?",
+   "back": "No: illegal digit in an octal literal."
+  },
+  {
+   "front": "What does <code>e</code> mean in <code>4.2e3</code>?",
+   "back": "Times ten to the power of 3: 4200.0."
+  },
+  {
+   "front": "Type of a literal with <code>e</code>, like <code>1e3</code>?",
+   "back": "Always <code>double</code>."
+  },
+  {
+   "front": "What does Java do with the underscores in <code>1_000_000</code>?",
+   "back": "Ignores them; the value is 1000000."
+  },
+  {
+   "front": "Name two places an underscore is not allowed.",
+   "back": "At the start or end, next to the decimal point, after <code>0x</code>/<code>0b</code>, or before a suffix."
+  },
+  {
+   "front": "Is the minus in <code>-5</code> part of the literal?",
+   "back": "No, it is the minus operator applied to 5."
+  },
+  {
+   "front": "Since which Java version do binary literals and underscores exist?",
+   "back": "Java 7. Nothing changed in Java 23 or 25."
+  }
+ ]
+}
