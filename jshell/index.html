@@ -55,6 +55,7 @@
     <button class="tool" data-cmd="/vars">/vars</button>
     <button class="tool" data-cmd="/reset">/reset</button>
     <button class="tool" id="clear">Clear</button>
+    <button class="tool" id="restart" title="Restart the Java server on the Mac">⟳ Restart</button>
     <span id="status"><i></i><span id="stext">Connecting…</span></span>
   </div>
   <div id="chips"></div>
@@ -126,6 +127,7 @@
   function offline(e) {
     var msg = e === 'nokey' ? 'No access key in the link. Open this from your Notion lesson page.'
       : e === 'badtoken' ? 'The access key has expired. Ask Claude to renew the practice-progress token.'
+      : e === 'restartfail' ? 'Could not send the restart request. Check your internet connection and try again.'
       : "Can't reach your Mac. It has to be on and awake, with OrbStack and the jshell service running.";
     status('bad', e === 'nokey' || e === 'badtoken' ? 'No access' : 'Mac offline');
     line('err', '|  ' + esc(msg));
@@ -161,6 +163,54 @@
   runB.onclick = function () { var c = input.value; input.value = ''; grow(); run(c); input.focus(); };
   document.querySelectorAll('[data-cmd]').forEach(function (b) { b.onclick = function () { run(b.dataset.cmd); }; });
   document.getElementById('clear').onclick = function () { term.innerHTML = ''; };
+
+  // ---------------------------------------------------------------- restart the server on the Mac
+  // Writes a restart note to the private repo; the Mac checks it every minute, restarts the Java
+  // containers + tunnel and publishes a new address. Works even when the server itself is stuck.
+  var restartB = document.getElementById('restart'), armed = false, restarting = false;
+  restartB.onclick = function () {
+    if (restarting) return;
+    if (!armed) {                                   // two taps, so it is never pressed by accident
+      armed = true; restartB.textContent = 'Tap again to restart';
+      setTimeout(function () { if (armed) { armed = false; restartB.textContent = '⟳ Restart'; } }, 4000);
+      return;
+    }
+    armed = false; restarting = true; restartB.textContent = 'Restarting…'; restartB.disabled = true;
+    var api = 'https://api.github.com/repos/Jagc68/practice-progress/contents/jshell-restart.json';
+    var H = { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' };
+    var since = Date.now(), id = since.toString(36) + Math.random().toString(36).slice(2, 6);
+    fetch(api + '?ts=' + since, { headers: H, cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        var body = { message: 'jshell restart request', content: btoa(JSON.stringify({ id: id, requested: new Date().toISOString() })) };
+        if (j && j.sha) body.sha = j.sha;
+        return fetch(api, { method: 'PUT', headers: H, body: JSON.stringify(body) });
+      })
+      .then(function (r) {
+        if (!r.ok) throw r.status;
+        status('', 'Restarting…');
+        line('info', '|  Restart requested. Your Mac picks it up within a minute; the restart itself takes about 30 seconds more.');
+        waitForRestart(since, 0);
+      })
+      .catch(function (e) { doneRestart(); offline(e === 401 ? 'badtoken' : 'restartfail'); });
+  };
+  function doneRestart() { restarting = false; restartB.disabled = false; restartB.textContent = '⟳ Restart'; }
+  function waitForRestart(since, n) {
+    if (n >= 24) {                                   // 4 minutes
+      doneRestart(); status('bad', 'No answer');
+      line('err', "|  The Mac did not respond to the restart. It is probably asleep or off.");
+      return;
+    }
+    setTimeout(function () {
+      findEndpoint(true).then(function (ep) {
+        if (!ep.updated || Date.parse(ep.updated) < since) return waitForRestart(since, n + 1);
+        return call('/health?v=' + ver).then(function (d) {
+          doneRestart(); pending = ''; setPrompt(); status('ok', 'JDK ' + d.version.split('+')[0]);
+          line('val', '|  Server restarted. Your variables are gone, so start fresh.');
+        });
+      }).catch(function () { waitForRestart(since, n + 1); });
+    }, 10000);
+  }
   document.getElementById('v23').onclick = function () { if (ver !== '23') setVer('23'); };
   document.getElementById('v25').onclick = function () { if (ver !== '25') setVer('25'); };
 
